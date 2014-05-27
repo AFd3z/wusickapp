@@ -1,0 +1,40 @@
+	<div ng-include="'partials/navbar'"></div>
+
+	<div id="registropage">
+		<div id="logo"></div>
+        <div class="col-xs-12 col">
+        	<form id="registro" role="form" name="registro">
+		            	<div ng-class="{'has-error': registro.nombreU.$invalid}">
+				            <label id="labname"></label>
+				            <input type="text" name="nombreU" class="form-control"  placeholder="Usuario" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Usuario'" ng-model="userData.nombre" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="12" ng-required="!registro.$pristine"/>
+				           	<p><small class="text-danger" ng-show="registro.nombreU.$invalid">Entre 6 y 12 caracteres alfanuméricos.</small></p>
+			            </div>			            
+			            <div class="clearfix"></div>
+
+			            <div ng-class="{'has-error': registro.emailU.$invalid}">	
+				            <label id="labmail"></label>
+				            <input type="email" name="emailU" class="form-control"  placeholder="Em@il" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Em@il'" ng-model="userData.email" ng-required="!registro.$pristine"/>
+				            <small class="text-danger" ng-show="registro.emailU.$invalid">Email inválido.</small>
+			            </div>
+			            <div class="clearfix"></div>
+
+			            <div ng-class="{'has-error': registro.passU.$invalid}">
+				            <label id="labpass"></label>
+				            <input type="text" name="passU" id="passU" class="form-control" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contraseña'" ng-model="userData.pass" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="12" ng-required="!registro.$pristine"/>
+				            <small class="text-danger" ng-show="registro.passU.$invalid">Entre 6 y 12 caracteres alfanuméricos.</small>
+			            </div>
+			            <div class="clearfix"></div>
+
+			            <div ng-class="{'has-error': registro.cpassU.$invalid}">
+				            <label id="labconf"></label>
+				            <input type="text" name="cpassU" class="form-control" placeholder="Confirme contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirme contraseña'" ng-model="userData.cpass" pw-check="passU" ng-required="!registro.$pristine"/>
+				            <small></small>
+			            </div>
+			            <div class="clearfix"></div>
+
+			            <button class="btn" value="Log in" ng-click="createUsuario()" ng-disabled="registro.$pristine || registro.$invalid">Crear Cuenta</button>
+		    </form>
+		    <a id="atras" href="/login"></a>
+		    <p id="volver">Volver</p>
+        </div>
+    </div>

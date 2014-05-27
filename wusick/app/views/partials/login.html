@@ -1,0 +1,29 @@
+  <div ng-include="'partials/navbar'"></div>
+
+  <div id="loginpage">
+        <div class="col-xs-12">
+                <div class="clearfix"></div>
+                <form id="login" role="form" name ="login">
+                  <div class="form-group">
+                      <label id="labname" for="nombre">Nombre</label>
+                      <input type="text" placeholder="Usuario" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Usuario'" ng-model="userData.nombre" id="nombre" name="nombre" class="form-control"/>
+                  </div>
+                  <div class="clearfix"></div>
+
+                  <div class="form-group">
+                      <label id="labpass" for="pass">Contraseña</label>
+                      <input type="password" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contraseña'" ng-model="userData.pass" id="pass" name ="pass" class="form-control"/>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group text-center">
+                    <small><p><a href="">Olvidaste tu contraseña?</a><p></small>
+                    <small><a href="/registro">Crear una cuenta</a></small>
+                     <div class="clearfix"></div>
+                     <button type="submit" class="btn btn-info" value="Log in" ng-click="obtenerUsuario()" ng-disabled="login.$pristine || login.$invalid">Log in</button>
+                  </div>
+                    
+                 
+                </form>
+             
+        </div>
+  </div>
