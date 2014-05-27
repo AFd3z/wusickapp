@@ -47,7 +47,7 @@ var json ="";
 };
 
 //register function
-exports.registro = function (req,res,callback) {
+exports.registro = function (req,res) {
 
 var mail = req.body.mail;
 if(verificaMail(mail)){

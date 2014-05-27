@@ -4,37 +4,66 @@
 		<div id="logo"></div>
         <div class="col-xs-12 col">
         	<form id="registro" role="form" name="registro">
-		            	<div ng-class="{'has-error': registro.nombreU.$invalid}">
-				            <label id="labname"></label>
-				            <input type="text" name="nombreU" class="form-control"  placeholder="Usuario" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Usuario'" ng-model="userData.nombre" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="12" ng-required="!registro.$pristine"/>
+		            	<div ng-class="{'has-error': registro.nombreU.$invalid, 'has-success': registro.nombreU.$valid}" class="form-group">
+				            <label id="labname">Nombre</label>
+				            <input type="text" name="nombreU" class="form-control"  placeholder="Usuario" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Usuario'" ng-model="userData.nombre" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="12" required/>
 				           	<p><small class="text-danger" ng-show="registro.nombreU.$invalid">Entre 6 y 12 caracteres alfanuméricos.</small></p>
 			            </div>			            
 			            <div class="clearfix"></div>
 
-			            <div ng-class="{'has-error': registro.emailU.$invalid}">	
-				            <label id="labmail"></label>
-				            <input type="email" name="emailU" class="form-control"  placeholder="Em@il" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Em@il'" ng-model="userData.email" ng-required="!registro.$pristine"/>
+			            <div ng-class="{'has-error': registro.emailU.$invalid, 'has-success': registro.emailU.$valid}" class="form-group">	
+				            <label id="labmail">Email</label>
+				            <input type="email" name="emailU" class="form-control"  placeholder="Em@il" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Em@il'" ng-model="userData.email" required/>
 				            <small class="text-danger" ng-show="registro.emailU.$invalid">Email inválido.</small>
 			            </div>
 			            <div class="clearfix"></div>
 
-			            <div ng-class="{'has-error': registro.passU.$invalid}">
-				            <label id="labpass"></label>
-				            <input type="text" name="passU" id="passU" class="form-control" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contraseña'" ng-model="userData.pass" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="12" ng-required="!registro.$pristine"/>
+			            <div ng-class="{'has-error': registro.passU.$invalid, 'has-success': registro.passU.$valid}" class="form-group">
+				            <label id="labpass">Contraseña</label>
+				            <input type="text" name="passU" id="passU" class="form-control" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contraseña'" ng-model="userData.pass" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="12" required/>
 				            <small class="text-danger" ng-show="registro.passU.$invalid">Entre 6 y 12 caracteres alfanuméricos.</small>
 			            </div>
 			            <div class="clearfix"></div>
 
-			            <div ng-class="{'has-error': registro.cpassU.$invalid}">
-				            <label id="labconf"></label>
-				            <input type="text" name="cpassU" class="form-control" placeholder="Confirme contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirme contraseña'" ng-model="userData.cpass" pw-check="passU" ng-required="!registro.$pristine"/>
-				            <small></small>
+			            <div ng-class="{'has-error': registro.tipoU.$invalid,'has-success': registro.tipoU.$valid}" class="form-group">
+				            <label id="labtipo" for="tipoU">Tipo de Usuario</label>
+				            <select id="tipoU"  name="tipoU" class="form-control" ng-model="userData.tipo" required>
+				            	<option value="1">Básico</option>
+				            	<option value="2">Artista</option>
+				            	<option value="3">Sala</option>
+				            </select>
+				            <small class="text-danger" ng-show="registro.tipoU.$invalid">Debes seleccionar un tipo de usuario obligatoriamente.</small>
 			            </div>
 			            <div class="clearfix"></div>
+						<!--USUARIO BASICO-->
+						 <div ng-class="{'has-error': registro.fechaU.$invalid, 'has-success': registro.fechaU.$valid}" class="form-group" ng-show="registro.tipoU.$valid && userData.tipo=='1'">
+				            <label id="labfec" for="fechaU">Fecha de Nacimiento</label>
+				            <input type="date" name="fechaU" id="fechaU" class="form-control"  ng-model="userData.fecha" required/>
+				            <small class="text-danger" ng-show="registro.fechaU.$invalid">Selecciona tu fecha de nacimiento.</small>
+			            </div>
+			            <div ng-class="{'has-error': registro.sexoU.$invalid, 'has-success': registro.sexoU.$valid}" class="form-group" ng-show="registro.tipoU.$valid && userData.tipo=='1'">
+				            <label id="labsexo" for="sexoU">Sexo</label>
+				            	<select id="sexoU" ng-model="userData.sexo" name="sexoU" class="form-control" required>
+				            		<option>Mujer</option>
+				            		<option>Hombre</option>
+				            	</select>
+				            <small class="text-danger" ng-show="registro.sexoU.$invalid">¿Eres hombre o mujer?</small>
+			            </div>
+							
+						<!--USUARIO ARTISTA-->
 
-			            <button class="btn" value="Log in" ng-click="createUsuario()" ng-disabled="registro.$pristine || registro.$invalid">Crear Cuenta</button>
+
+
+
+
+
+
+
+
+
+						<div class="form-group text-center">
+			            <button class="btn btn-info" value="Log in" ng-click="createUsuario()" ng-disabled="registro.$pristine || registro.$invalid">Crear Cuenta</button>
+			            </div>
 		    </form>
-		    <a id="atras" href="/login"></a>
-		    <p id="volver">Volver</p>
         </div>
     </div>
