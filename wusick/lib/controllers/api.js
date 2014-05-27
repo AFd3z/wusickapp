@@ -30,13 +30,10 @@ var json ="";
                         }else{
                           res.redirect('/panel');
                         }
-             });
-
+              });
        }else{
-
         console.log("login correcto del usuario: "+user);
         json = JSON.stringify(results);
-        console.log(json);
         //returning jsonized result
         //res.json(json);
         //returning json object
