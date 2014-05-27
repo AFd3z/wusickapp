@@ -14,18 +14,29 @@ var json ="";
 
     //sending query through our connection object
     sqlconnection.query(query, function(err, results) {
-        if (err)
+       if (err)
             return callback(err, "query error");
 
        if (results.length<=0){
+              var query = 'SELECT * FROM administradores WHERE nombre="'+user+'" AND password="'+pass+'"';
+              sqlconnection.query(query, function(err, results) {
+             
+                         if (err)
+                              return callback(err, "query error");
 
-        console.log("login incorrecto"+results);
-        res.send('null');
+                         if (results.length<=0){
+                          console.log("login incorrecto"+results);
+                          res.send('null');
+                        }else{
+                          res.redirect('/panel');
+                        }
+             });
 
        }else{
 
         console.log("login correcto del usuario: "+user);
         json = JSON.stringify(results);
+        console.log(json);
         //returning jsonized result
         //res.json(json);
         //returning json object
