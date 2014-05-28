@@ -74,7 +74,7 @@
 				            </div>
 				            <div ng-class="{'has-error': registro.direccionU.$invalid, 'has-success': registro.direccionU.$valid}" class="form-group" ng-show="registro.tipoU.$valid && userData.tipo=='3'">
 					            <label id="labafo" for="direccionU">Dirección</label>
-					            <input type="text" id="direccionU" ng-model="userData.poblacion" name="direccionU" class="form-control" ng-pattern="/\w/g" ng-Maxlength="45" ng-required="userData.tipo=='3'" />
+					            <input type="text" id="direccionU" ng-model="userData.direccion" name="direccionU" class="form-control" ng-pattern="/\w/g" ng-Maxlength="45" ng-required="userData.tipo=='3'" />
 					            <small class="text-danger" ng-show="registro.direccionU.$invalid">¿En que dirección exacta?.</small>
 				            </div>
 
