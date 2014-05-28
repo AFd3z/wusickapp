@@ -49,25 +49,27 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http', function ($scop
     };
 
     $scope.tiposUsuario= function (){
-         $scope.tipos;
+        $scope.tipos;
         $http.get('/api/tiposUsuario')
             .success(function(data){
                    console.log(data);
                 $scope.tipos = data;
-             
-
             })
            .error(function(data) {
                     console.log('Error:' + data);
             });
     };
 
-     /*$scope.tiposUsuario= function (){
-         $scope.tipos;
-        
-                $scope.tipos = [{nombre:'Basico', idTipo_Usuario:'1'},{nombre:'Artista', idTipo_Usuario:'2' }];
-                console.log($scope.tipos);
-
-    };*/
+     $scope.generos= function (){
+        $scope.generos;
+        $http.get('/api/generos')
+            .success(function(data){
+                   console.log(data);
+                $scope.generos = data;
+            })
+           .error(function(data) {
+                    console.log('Error:' + data);
+            });
+    };
 
 }]);

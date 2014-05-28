@@ -56,6 +56,31 @@ exports.tiposUsuario= function (req,res){
     });
 };
 
+exports.generos= function (req,res){
+  
+  var json="";
+  var sqlconnection = connection.createConnection();
+    var query = 'SELECT * FROM generos';
+  
+    sqlconnection.query(query, function(err, results) {
+        if (err)
+            res.send(err, "query error");
+
+        if (results.length<=0){
+              res.send(false);
+        
+           }else{
+             //json = JSON.stringify(results);
+               //returning jsonized result
+               //res.json(json);
+               //returning json object
+               res.json(results);
+           }
+
+        sqlconnection.end();
+    });
+};
+
 //Funcion Login
 exports.login = function (req,res,callback) {
 

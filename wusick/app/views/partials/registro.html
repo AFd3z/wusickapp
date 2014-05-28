@@ -54,9 +54,8 @@
 						<!--USUARIO ARTISTA-->
 							 <div ng-class="{'has-error': registro.generoU.$invalid, 'has-success': registro.generoU.$valid}" class="form-group" ng-show="registro.tipoU.$valid && userData.tipo=='2'">
 					            <label id="labsexo" for="sexoU">Género Musical</label>
-					            	<select id="generoU" ng-model="userData.genero" name="generoU" class="form-control" ng-required="userData.tipo=='2'">
-					            		<option>Rock</option>
-					            		<option>Pop</option>
+					            	<select id="generoU" ng-model="userData.genero" name="generoU" class="form-control" ng-required="userData.tipo=='2'" ng-init="generos()">
+					            		<option ng-repeat="genero in generos" ng-value="{{genero.idGeneros}}">{{genero.nombre}}</option>
 					            	</select>
 					            <small class="text-danger" ng-show="registro.generoU.$invalid">¿Qué tipo de música toca tu grupo?</small>
 				            </div>
