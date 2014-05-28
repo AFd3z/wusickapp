@@ -31,11 +31,11 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http', function ($scop
     $scope.createUsuario = function(){
             $http.post('/api/existeMail', $scope.userData)
                 .success(function(data){
-                    if(data==='null'){
+                    if(data==false){
                         $http.post('/api/registro', $scope.userData)
                             .success(function(data){
                             $scope.formData = {};
-                             smoke.alert('Gracias por registrarse en LiveStats. Sus datos son los siguientes: \n <strong>Usuario:</strong> '+$scope.userData.nombre+'\n <strong>Contraseña:</strong> ' +$scope.userData.pass+'\n<strong>Email: </strong>' +$scope.userData.email);
+                             smoke.alert('Gracias por registrarse en Wusick. Sus datos son los siguientes: \n <strong>Usuario:</strong> '+$scope.userData.nombre+'\n <strong>Contraseña:</strong> ' +$scope.userData.pass+'\n<strong>Email: </strong>' +$scope.userData.email);
                             })
                             .error(function(data) {
                                 console.log('Error:' + data);
