@@ -16,7 +16,6 @@ module.exports = function(app) {
 
  //RUTAS USUARIO
   app.route('/api/login').post(api.login);
-  
   app.route('/api/registro').post(api.registro);
 
   

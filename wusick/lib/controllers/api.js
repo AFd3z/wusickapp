@@ -48,62 +48,6 @@ var json ="";
     });
 };
 
-//function to generate user type select
-exports.obtieneTipoUsuario= function (req,res,callback){
-	
-	var json="";
-	var sqlconnection = connection.createConnection();
-    var query = 'SELECT nombre FROM tipo_usuarios';
-	
-    sqlconnection.query(query, function(err, results) {
-        if (err)
-            return callback(err, "query error");
-
-       if (results.length<=0){
-
-        //return callback(bool, false);
-        res.send(false);
-       }else{
-    	   json = JSON.stringify(results);
-           //returning jsonized result
-           //res.json(json);
-           //returning json object
-           res.json(json);
-       }
-
-        sqlconnection.end();
-
-    });
-    
-	
-};
-
-//check if mail exists
-exports.existeMail = function (req,res) {
-
-	var mail = req.body.email;
-	var json ="";
-	
-    //creating connection object
-    var sqlconnection = connection.createConnection();
-    var query = 'SELECT * FROM usuarios WHERE email="'+mail+'"';
-
-    //sending query through our connection object
-    sqlconnection.query(query, function(err, results) {
-        if (err)
-            res.send(err, "query error");
-
-       if (results==null){
-    	json = JSON.stringify(results);
-        res.send(results);
-       }else{
-    	 res.json(results);
-       }
-
-        sqlconnection.end();
-
-    });
-};
 
 exports.registro = function (req,res) {
 	
@@ -180,4 +124,62 @@ exports.registro = function (req,res) {
 		        
 
 		    };
+
+//function to generate user type select
+exports.obtieneTipoUsuario= function (req,res,callback){
+	
+	var json="";
+	var sqlconnection = connection.createConnection();
+    var query = 'SELECT nombre FROM tipo_usuarios';
+	
+    sqlconnection.query(query, function(err, results) {
+        if (err)
+            return callback(err, "query error");
+
+       if (results.length<=0){
+
+        //return callback(bool, false);
+        res.send(false);
+       }else{
+    	   json = JSON.stringify(results);
+           //returning jsonized result
+           //res.json(json);
+           //returning json object
+           res.json(json);
+       }
+
+        sqlconnection.end();
+
+    });
+    
+	
+};
+
+//check if mail exists
+exports.existeMail = function (req,res) {
+
+	var mail = req.body.email;
+	var json ="";
+	
+    //creating connection object
+    var sqlconnection = connection.createConnection();
+    var query = 'SELECT * FROM usuarios WHERE email="'+mail+'"';
+
+    //sending query through our connection object
+    sqlconnection.query(query, function(err, results) {
+        if (err)
+            res.send(err, "query error");
+
+       if (results==null){
+    	json = JSON.stringify(results);
+        res.send(results);
+       }else{
+    	 res.json(results);
+       }
+
+        sqlconnection.end();
+
+    });
+};
+
 		
