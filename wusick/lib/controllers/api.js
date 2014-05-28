@@ -2,6 +2,8 @@
 
 
 var connection = require('dbfunct/MySQLconnection');
+
+
 exports.login = function (req,res,callback) {
 
 var user = req.body.nombre;
@@ -117,27 +119,56 @@ exports.registro = function (req,res) {
 		    var query = 'INSERT INTO USUARIOS (nombre, password,email,fecha_alta,Tipo_usuarios_idTipo_usuarios) VALUES ("'+user+'","'+pass+'","'+email+'",curdate(),'+tipo+') ';
 
 		    //sending query through our connection object
-		    sqlconnection.query(query, function(err, results,fields) {
+		    sqlconnection.query(query, function(err, results) {
 		        if (err)
 		            res.send(err, "query error");
 		        
 		        var insertedID=results.insertId;
-		        console.log("registro correcto del usuario: "+user+" con ID: "+results.insertId);
-		        
+		        console.log(insertedID);
+		        console.log(tipo);
+		     
+
 		        //inserting specific data into specific user type table
 		        switch (tipo){
-		        case 1:
-		        	var query = 'INSERT INTO basicos (fecha_nac,sexo, Usuarios_idUsuario) VALUES ("'+req.body.fecha+'","'+req.body.sexo+'","'+insertedID+'") ';
+		        case '1':
+		        	console.log("case1");
+		        	var query2 = 'INSERT INTO basicos (fecha_nac, sexo, Usuarios_idUsuario) VALUES ("'+req.body.fecha+'","'+req.body.sexo+'",'+insertedID+') ';
+		        	sqlconnection.query(query2, function(err, results) {
+				        if (err)
+				            res.send(err, "query error");
+				       
+		        	console.log("registro correcto del usuario"+tipo+": "+user+" con ID: "+results.insertId);
+				        
+				    	sqlconnection.end();
+		        	});
 		        	break;
-		        case 2:
-		        	var query = 'INSERT INTO artistas (Genero, Usuarios_idUsuario) VALUES ("'+req.body.genero+'","'+req.body.sexo+'","'+insertedID+'") ';
+		        case '2':
+		        	console.log("case2");
+		           	var query3 = 'INSERT INTO artistas (Genero, Usuarios_idUsuario) VALUES ("'+req.body.genero+'",'+insertedID+') ';
+		        	sqlconnection.query(query3, function(err, results) {
+				        if (err)
+				            res.send(err, "query error");
+				        
+		        	
+		        	console.log("registro correcto del usuario"+tipo+": "+user+" con ID: "+results.insertId);
+				        
+				    	sqlconnection.end();
+		        	});
+		        
 		        	break;
-		        case 3:
-		        	var query = 'INSERT INTO salas (aforo,poblacion,direccion, Usuarios_idUsuario) VALUES ("'+req.body.fecha+'","'+req.body.sexo+'","'+insertedID+'") ';
+		        case '3':
+		        	console.log("case3");
+		        	var query4 = 'INSERT INTO salas (aforo,poblacion,direccion, Usuarios_idUsuario) VALUES ("'+req.body.aforo+'","'+req.body.poblacion+'","'+req.body.direccion+'",'+insertedID+') ';
+		        	sqlconnection.query(query4, function(err, results) {
+				        if (err)
+				            res.send(err, "query error");
+				        
+		        	console.log("registro correcto del usuario "+tipo+": "+user+" con ID: "+results.insertId);
+				       
+				    	sqlconnection.end();
+		        	});
 		        	break;	
-		        
-		        
-		        
+    
 		        
 		        
 		        }
@@ -147,8 +178,8 @@ exports.registro = function (req,res) {
 		        //returning json object
 		        res.json(results);
 
-		       
-		        sqlconnection.end();
-
 		    });
-		};
+		        
+
+		    };
+		
