@@ -12,7 +12,7 @@ module.exports = function(app) {
 
  //FUNCIONALIDADES
  app.route('/api/existeMail').post(api.existeMail);
-
+ app.route('/api/tiposUsuario').get(api.tiposUsuario);
 
  //RUTAS USUARIO
   app.route('/api/login').post(api.login);
