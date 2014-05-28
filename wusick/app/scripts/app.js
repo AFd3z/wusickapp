@@ -21,6 +21,10 @@ angular.module('wusickAppApp', [
         templateUrl: 'partials/registro',
         controller: 'registroCtrl'
       })
+       .when('/main', {
+        templateUrl: 'partials/main',
+        controller: 'mainCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
