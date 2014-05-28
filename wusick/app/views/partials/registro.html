@@ -27,10 +27,9 @@
 
 			            <div ng-class="{'has-error': registro.tipoU.$invalid,'has-success': registro.tipoU.$valid}" class="form-group">
 				            <label id="labtipo" for="tipoU">Tipo de Usuario</label>
-				            <select id="tipoU"  name="tipoU" class="form-control" ng-model="userData.tipo" required>
-				            	<option value="1">Básico</option>
-				            	<option value="2">Artista</option>
-				            	<option value="3">Sala</option>
+				            <select id="tipoU"  name="tipoU" class="form-control" ng-model="userData.tipo" ng-init="tiposUsuario()" required>
+				            	<option ng-repeat="tipo in tipos" ng-value="{{tipo.idTipo_usuarios}}">{{tipo.nombre}}</option>
+				            
 				            </select>
 				            <small class="text-danger" ng-show="registro.tipoU.$invalid">Debes seleccionar un tipo de usuario obligatoriamente.</small>
 			            </div>

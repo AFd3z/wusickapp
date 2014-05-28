@@ -27,7 +27,6 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', function ($scope, 
 
 WusickControllers.controller('registroCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.userData = {};
-
     $scope.createUsuario = function(){
             $http.post('/api/existeMail', $scope.userData)
                 .success(function(data){
@@ -47,5 +46,28 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http', function ($scop
                 .error(function(data) {
                     console.log('Error:' + data);
                 });
-            };
+    };
+
+    $scope.tiposUsuario= function (){
+         $scope.tipos;
+        $http.get('/api/tiposUsuario')
+            .success(function(data){
+                   console.log(data);
+                $scope.tipos = data;
+             
+
+            })
+           .error(function(data) {
+                    console.log('Error:' + data);
+            });
+    };
+
+     /*$scope.tiposUsuario= function (){
+         $scope.tipos;
+        
+                $scope.tipos = [{nombre:'Basico', idTipo_Usuario:'1'},{nombre:'Artista', idTipo_Usuario:'2' }];
+                console.log($scope.tipos);
+
+    };*/
+
 }]);
