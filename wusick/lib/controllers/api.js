@@ -3,7 +3,7 @@
 
 var connection = require('dbfunct/MySQLconnection');
 
-//check if mail exists
+//Funcion para comprobar si existe mail registrado
 exports.existeMail = function (req,res) {
 
 	var mail = req.body.email;
@@ -30,7 +30,7 @@ exports.existeMail = function (req,res) {
     });
 };
 
-//function to generate user type select
+//Funcion para obtener dinamicamente los tipos de usuario de la base de datos
 exports.tiposUsuario= function (req,res){
   
   var json="";
