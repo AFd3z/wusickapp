@@ -59,6 +59,20 @@ body {
   margin-top: 28px;
 }
 
+.slide-hide, .slide-show {
+    -webkit-transition:all ease .7s;
+    -moz-transition:all ease .7s;
+    -o-transition:all ease .7s;
+    transition:all ease .7s;
+}
+
+.slide-show {
+    opacity:0;
+}
+.slide-show.slide-show-active {
+opacity:1;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   /* Remove the padding we set earlier */
