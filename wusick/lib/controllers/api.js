@@ -56,7 +56,7 @@ exports.tiposUsuario= function (req,res){
     });
 };
 
-//Funcion para obtener dinamicamente los géneros musicales de la base de datos
+//Funcion para obtener dinamicamente los gÃ©neros musicales de la base de datos
 exports.generos= function (req,res){
   
   var json="";
@@ -85,13 +85,13 @@ exports.generos= function (req,res){
 //Funcion Login
 exports.login = function (req,res,callback) {
 
-var user = req.body.nombre;
+var user = req.body.email;
 var pass = req.body.pass;
 var json ="";
 
     //creating connection object
     var sqlconnection = connection.createConnection();
-    var query = 'SELECT * FROM usuarios WHERE nombre="'+user+'" AND password="'+pass+'"';
+    var query = 'SELECT * FROM usuarios WHERE email="'+user+'" AND password="'+pass+'"';
 
     //sending query through our connection object
     sqlconnection.query(query, function(err, results) {
@@ -99,7 +99,7 @@ var json ="";
             return callback(err, "query error");
 
        if (results.length<=0){
-              var query = 'SELECT * FROM administradores WHERE nombre="'+user+'" AND password="'+pass+'"';
+              var query = 'SELECT * FROM administradores WHERE email="'+user+'" AND password="'+pass+'"';
               sqlconnection.query(query, function(err, results) {
              
                          if (err)
@@ -139,7 +139,7 @@ exports.registro = function (req,res) {
 		var json ="";
 
 		    //creating connection object
-		    var sqlconnection = connection.createConnection();
+		  var sqlconnection = connection.createConnection();
 		    var query = 'INSERT INTO USUARIOS (nombre, password,email,fecha_alta,Tipo_usuarios_idTipo_usuarios) VALUES ("'+user+'","'+pass+'","'+email+'",curdate(),'+tipo+') ';
 
 		    //sending query through our connection object
@@ -177,7 +177,6 @@ exports.registro = function (req,res) {
     				    	sqlconnection.end();
     		        	});
     		        
-    		        	break;
     		        case '3':
 
     		        	var query4 = 'INSERT INTO salas (aforo,poblacion,direccion, Usuarios_idUsuario) VALUES ("'+req.body.aforo+'","'+req.body.poblacion+'","'+req.body.direccion+'",'+insertedID+') ';
@@ -201,54 +200,52 @@ exports.registro = function (req,res) {
 		        //returning json object
 		        res.json(results);
 
-		    });
+		  });
 		        
-
-		    };
-
-//Funcion que crea sesión		    
+	};
+		    
 exports.crearSesion = function (req,res) {
 	
 	var email = req.body.email;
 	var sqlconnection = connection.createConnection();
-	var query = 'SELECT Tipo_usuarios_idTipo_usuarios from usuarios email="'+email+'"';
+	var query = 'SELECT Tipo_usuarios_idTipo_usuarios from usuarios where email="'+email+'";';
 	sqlconnection.query(query, function(err, results) {
         if (err)
-            res.send(err, "query error");
+           return res.send(err, "query error");
         
 	var tipo = results;
 	switch(results){
-	case 1:
-		var query = 'SELECT a.*, b.fecha_nac, b.sexo from usuarios a, basicos b where a.idusuario = b.Usuarios_idUsuario and email="'+email+'"';
-    	sqlconnection.query(query, function(err, results) {
+	case '1':
+		var query2 = 'SELECT a.*, b.fecha_nac, b.sexo from usuarios a, basicos b where a.idusuario = b.Usuarios_idUsuario and email="'+email+'";';
+    	sqlconnection.query(query2, function(err, results) {
 	        if (err)
 	            res.send(err, "query error");
 	       
-    	console.log("sesión creada para el usuario: "+email+"");
+    	console.log("sesión creada para el usuario: "+email);
     	req.session.var=results;
     	res.send(req.session.var);
     	sqlconnection.end();
     	});
 		break;
-	case 2:
-		var query = 'SELECT a.*, b.Genero from usuarios a, artistas b where a.idusuario = b.Usuarios_idUsuario and email="'+email+'"';
+	case '2':
+		var query = 'SELECT a.*, b.Genero from usuarios a, artistas b where a.idusuario = b.Usuarios_idUsuario and email="'+email+'";';
     	sqlconnection.query(query, function(err, results) {
 	        if (err)
 	            res.send(err, "query error");
 	       
-    	console.log("sesión creada para el usuario: "+email+"");
+    	console.log("sesión creada para el usuario: "+email);
     	req.session.var=results;
     	res.send(req.session.var);
     	sqlconnection.end();
     	});
 		break;
-	case 3:
-		var query = 'SELECT a.*, b.aforo,b.direccion,b.poblacion from usuarios a, salas b where a.idusuario = b.Usuarios_idUsuario and email="'+email+'"';
+	case '3':
+		var query = 'SELECT a.*, b.aforo,b.direccion,b.poblacion from usuarios a, salas b where a.idusuario = b.Usuarios_idUsuario and email="'+email+'";';
     	sqlconnection.query(query, function(err, results) {
 	        if (err)
 	            res.send(err, "query error");
 	       
-    	console.log("sesión creada para el usuario: "+email+"");
+    	console.log("sesión creada para el usuario: "+email);
     	req.session.var=results;
     	res.send(req.session.var);
     	sqlconnection.end();
@@ -264,7 +261,7 @@ exports.crearSesion = function (req,res) {
 
 };
 
-//Funcion que destruye sesión	    
+//Funcion que destruye sesiÃ³n	    
 exports.logout = function (req,res) {
 	
 	delete req.session.var;

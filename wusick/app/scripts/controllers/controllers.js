@@ -16,7 +16,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', function ($scope, 
                             .success(function(data){
                                 idUser=data;
                                 console.log(idUser);
-                                window.location.href = '/main';
+                               // window.location.href = '/main';
                             })
                             .error(function(data) {
                                 console.log('Error: ' + data);
@@ -81,5 +81,6 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http', function ($scop
 
 WusickControllers.controller('mainCtrl', ['$scope', '$http', function ($scope, $http) {
 
+    
     
 }]);
