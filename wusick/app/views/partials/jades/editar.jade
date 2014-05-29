@@ -1,0 +1,15 @@
+extends layout
+    
+block content
+	section
+		form(action='/actualizar', method='post')
+			input(type='hidden', name='idUsuario', value=usuario.idUsuario)
+			label Nombre:
+			input(name='nombre', value=usuario.nombre)
+			label Password:
+			input(name='password', value=usuario.password)
+			label Email:
+			input(name='email', value=usuario.email)
+			label Tipo de Usuario:
+			input(name='tipoDeUsuario', value=usuario.Tipo_usuarios_idTipo_usuarios)
+			input(type='submit', value='Actualizar')
