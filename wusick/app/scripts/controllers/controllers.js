@@ -82,4 +82,5 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http', function ($scop
 WusickControllers.controller('mainCtrl', ['$scope', '$http', function ($scope, $http) {
 
     
+    
 }]);

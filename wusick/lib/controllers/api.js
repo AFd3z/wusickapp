@@ -56,7 +56,7 @@ exports.tiposUsuario= function (req,res){
     });
 };
 
-//Funcion para obtener dinamicamente los géneros musicales de la base de datos
+//Funcion para obtener dinamicamente los gÃ©neros musicales de la base de datos
 exports.generos= function (req,res){
   
   var json="";
@@ -177,7 +177,6 @@ exports.registro = function (req,res) {
     				    	sqlconnection.end();
     		        	});
     		        
-    		        	break;
     		        case '3':
 
     		        	var query4 = 'INSERT INTO salas (aforo,poblacion,direccion, Usuarios_idUsuario) VALUES ("'+req.body.aforo+'","'+req.body.poblacion+'","'+req.body.direccion+'",'+insertedID+') ';
@@ -203,10 +202,9 @@ exports.registro = function (req,res) {
 
 		    });
 		        
-
 		    };
 
-//Funcion que crea sesión		    
+//Funcion que crea sesiÃ³n		    
 exports.crearSesion = function (req,res) {
 	
 	req.session.var=req.body.nombre;
@@ -214,7 +212,7 @@ exports.crearSesion = function (req,res) {
 
 };
 
-//Funcion que destruye sesión	    
+//Funcion que destruye sesiÃ³n	    
 exports.logout = function (req,res) {
 	
 	delete req.session.var;
