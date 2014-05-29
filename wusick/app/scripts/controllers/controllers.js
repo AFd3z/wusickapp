@@ -1,7 +1,7 @@
 var WusickControllers = angular.module('WusickControllers', []);
 
 
-WusickControllers.controller('loginCtrl', ['$scope', '$http', function ($scope, $http) {
+WusickControllers.controller('loginCtrl', ['$scope', '$http', '$window', function ($scope, $http) {
           $scope.userData = {};
             //Las peticiones desde el controlador indican la ruta a la base de datos.
         $scope.obtenerUsuario = function(){
@@ -12,11 +12,14 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', function ($scope, 
                          smoke.alert('Usuario o contraseña incorrectos');
                     }
                     else{
-                       /*  $http.post('/api/createSession', data)
-                         .success(function(session){
-                            console.log(session);
-                         });*/
-                    }
+                        function (){
+                            $http.post('/api/crearSesion', $scope.userData, $window)
+                            .success(function(){
+                                $window.location('/main/:id');
+                            })
+
+                            
+                        }
                 })
                 .error(function(data) {
                     console.log('Error: ' + data);
