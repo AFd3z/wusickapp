@@ -224,7 +224,7 @@ exports.crearSesion = function (req,res) {
 	        if (err)
 	            res.send(err, "query error");
 	       
-    	console.log("registro correcto del usuario"+tipo+": "+user+" con ID: ");
+    	console.log("sesión creada para el usuario: "+email+"");
     	req.session.var=results;
     	res.send(req.session.var);
     	sqlconnection.end();
@@ -236,10 +236,11 @@ exports.crearSesion = function (req,res) {
 	        if (err)
 	            res.send(err, "query error");
 	       
-    	console.log("registro correcto del usuario"+tipo+": "+user+" con ID: ");
+    	console.log("sesión creada para el usuario: "+email+"");
     	req.session.var=results;
     	res.send(req.session.var);
     	sqlconnection.end();
+    	});
 		break;
 	case 3:
 		var query = 'SELECT a.*, b.aforo,b.direccion,b.poblacion from usuarios a, salas b where a.idusuario = b.Usuarios_idUsuario and email="'+email+'"';
@@ -247,13 +248,15 @@ exports.crearSesion = function (req,res) {
 	        if (err)
 	            res.send(err, "query error");
 	       
-    	console.log("sesión creada para el usuario"+tipo+": "+user+" con ID: ");
+    	console.log("sesión creada para el usuario: "+email+"");
     	req.session.var=results;
     	res.send(req.session.var);
     	sqlconnection.end();
-		break;
-	
-	
+
+    	});
+    	break;
+    	default:
+    		res.send(err, "error de tipo de usuario");
 	}
 		
     	sqlconnection.end();
