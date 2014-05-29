@@ -35,7 +35,7 @@ module.exports = function(app) {
     app.use(express.static(path.join(config.root, 'app')));
     app.set('views', config.root + '/app/views');
     app.use(cookieParser());
-    app.use(session({secret:'mi secreto'}))
+    app.use(session({secret:'mi secreto'}));
   }
 
   if ('production' === env) {
@@ -44,7 +44,7 @@ module.exports = function(app) {
     app.use(express.static(path.join(config.root, 'public')));
     app.set('views', config.root + '/views');
     app.use(cookieParser());
-    app.use(session({secret:'mi secreto'}))
+    app.use(session({secret:'mi secreto'}));
   }
 
   app.engine('html', require('ejs').renderFile);
@@ -53,7 +53,7 @@ module.exports = function(app) {
   app.use(bodyParser());
   app.use(methodOverride());
   app.use(cookieParser());
-  app.use(session({secret:'mi secreto'}))
+  app.use(session({secret:'mi secreto'}));
 
   // Error handler - has to be last
   if ('development' === app.get('env')) {
