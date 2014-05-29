@@ -17,8 +17,9 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', '$window', functio
                             .success(function(){
                                 $window.location('/main/:id');
                             })
-
-                            
+                            .error(function(data) {
+                                console.log('Error: ' + data);
+                            });
                         }
                 })
                 .error(function(data) {
