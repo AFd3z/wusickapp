@@ -213,6 +213,7 @@ exports.crearSesion = function (req,res) {
         if (err)
            return res.send(err, "query error");
         
+    
 	var tipo = results;
 	switch(results){
 	case '1':
@@ -222,8 +223,8 @@ exports.crearSesion = function (req,res) {
 	            res.send(err, "query error");
 	       
     	console.log("sesión creada para el usuario: "+email);
-    	req.session.var=results;
-    	res.send(req.session.var);
+    	req.session.sess=results;
+    	res.send(req.session.sess);
     	sqlconnection.end();
     	});
 		break;
@@ -234,8 +235,8 @@ exports.crearSesion = function (req,res) {
 	            res.send(err, "query error");
 	       
     	console.log("sesión creada para el usuario: "+email);
-    	req.session.var=results;
-    	res.send(req.session.var);
+    	req.session.sess=results;
+    	res.send(req.session.sess);
     	sqlconnection.end();
     	});
 		break;
@@ -246,14 +247,13 @@ exports.crearSesion = function (req,res) {
 	            res.send(err, "query error");
 	       
     	console.log("sesión creada para el usuario: "+email);
-    	req.session.var=results;
-    	res.send(req.session.var);
+    	req.session.sess=results;
+    	res.send(req.session.sess);
     	sqlconnection.end();
 
     	});
     	break;
-    	default:
-    		res.send(err, "error de tipo de usuario");
+
 	}
 		
     	sqlconnection.end();
@@ -264,7 +264,7 @@ exports.crearSesion = function (req,res) {
 //Funcion que destruye sesiÃ³n	    
 exports.logout = function (req,res) {
 	
-	delete req.session.var;
+	delete req.session.sess;
 	window.location("/login");
 
 };		
