@@ -56,6 +56,7 @@ exports.tiposUsuario= function (req,res){
     });
 };
 
+//Funcion para obtener dinamicamente los géneros musicales de la base de datos
 exports.generos= function (req,res){
   
   var json="";
@@ -204,4 +205,20 @@ exports.registro = function (req,res) {
 		        
 
 		    };
+
+//Funcion que crea sesión		    
+exports.crearSesion = function (req,res) {
+	
+	req.session.var=req.body.nombre;
+	res.send(req.session.var);
+
+};
+
+//Funcion que destruye sesión	    
+exports.logout = function (req,res) {
+	
+	delete req.session.var;
+	window.location("/login");
+
+};		
 		
