@@ -99,7 +99,8 @@ var json ="";
             return callback(err, "query error");
 
        if (results.length<=0){
-              var query = 'SELECT * FROM administradores WHERE email="'+user+'" AND password="'+pass+'"';
+    	   //los admin también tienen que logearse con email, porque al haber cambiado el campo de logeo, no podemos dejar de usar @
+              var query = 'SELECT * FROM administradores WHERE nombre="'+user+'" AND password="'+pass+'"';
               sqlconnection.query(query, function(err, results) {
              
                          if (err)
@@ -205,13 +206,14 @@ exports.registro = function (req,res) {
 	};
 		    
 exports.crearSesion = function (req,res) {
-	
+	req.session.name=req.body.email;
+	res.send(req.session.name);
 };
 
-//Funcion que destruye sesiÃ³n	    
+//Funcion que destruye sesión	    
 exports.logout = function (req,res) {
 	
-	delete req.session.sess;
+	req.session.destroy();
 	window.location("/login");
 
 };		
