@@ -206,7 +206,7 @@ exports.registro = function (req,res) {
 		    
 exports.crearSesion = function (req,res) {
 	
-	
+};
 
 //Funcion que destruye sesión	    
 exports.logout = function (req,res) {

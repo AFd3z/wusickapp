@@ -1,3 +1,5 @@
+"use strict";
+
 var WusickControllers = angular.module('WusickControllers', []);
 
 
