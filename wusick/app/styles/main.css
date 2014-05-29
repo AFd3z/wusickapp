@@ -67,7 +67,12 @@ body {
 
 /* Responsive: Portrait tablets and up */
 @media screen and (max-width: 768px) {
-  /* Remove the padding we set earlier */
+  #izq{
+    margin-left:-100%;
+  }
+  #dcha{
+    margin-left: 100%;
+  }
   
 }
 
