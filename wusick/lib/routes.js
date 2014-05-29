@@ -13,10 +13,11 @@ module.exports = function(app) {
  //FUNCIONALIDADES
  app.route('/api/existeMail').post(api.existeMail);
  app.route('/api/tiposUsuario').get(api.tiposUsuario);
-  app.route('/api/generos').get(api.generos);
+ app.route('/api/generos').get(api.generos);
 
  //RUTAS USUARIO
   app.route('/api/login').post(api.login);
+ // app.route('/api/crearSesion').post(api.crearSesion);
   app.route('/api/registro').post(api.registro);
 
   

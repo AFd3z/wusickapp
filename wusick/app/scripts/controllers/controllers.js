@@ -12,11 +12,16 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', function ($scope, 
                          smoke.alert('Usuario o contraseña incorrectos');
                     }
                     else{
-                       /*  $http.post('/api/createSession', data)
-                         .success(function(session){
-                            console.log(session);
-                         });*/
-                    }
+                       /* $http.post('/api/crearSesion', $scope.userData)
+                            .success(function(data){
+                                idUser=data;
+                                console.log(idUser);
+                               // window.location.href = '/main';
+                            })
+                            .error(function(data) {
+                                console.log('Error: ' + data);
+                            });*/
+                        }  
                 })
                 .error(function(data) {
                     console.log('Error: ' + data);
@@ -76,5 +81,6 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http', function ($scop
 
 WusickControllers.controller('mainCtrl', ['$scope', '$http', function ($scope, $http) {
 
+    
     
 }]);
