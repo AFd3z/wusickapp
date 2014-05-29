@@ -12,8 +12,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', '$window', functio
                          smoke.alert('Usuario o contraseña incorrectos');
                     }
                     else{
-                        function (){
-                            $http.post('/api/crearSesion', $scope.userData, $window)
+                        $http.post('/api/crearSesion', $scope.userData, $window)
                             .success(function(){
                                 $window.location('/main/:id');
                             })
@@ -21,6 +20,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', '$window', functio
                                 console.log('Error: ' + data);
                             });
                         }
+                        
                 })
                 .error(function(data) {
                     console.log('Error: ' + data);

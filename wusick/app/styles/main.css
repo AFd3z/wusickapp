@@ -66,11 +66,8 @@ body {
     transition:all ease .7s;
 }
 
-.slide-show {
-    opacity:0;
-}
-.slide-show.slide-show-active {
-opacity:1;
+.glyphicon{
+  float: right;
 }
 
 /* Responsive: Portrait tablets and up */
