@@ -207,8 +207,55 @@ exports.registro = function (req,res) {
 //Funcion que crea sesiÃ³n		    
 exports.crearSesion = function (req,res) {
 	
-	req.session.var=req.body.nombre;
-	res.send(req.session.var);
+	var email = req.body.email;
+	var sqlconnection = connection.createConnection();
+	var query = 'SELECT Tipo_usuarios_idTipo_usuarios from usuarios email="'+email+'"';
+	sqlconnection.query(query, function(err, results) {
+        if (err)
+            res.send(err, "query error");
+        
+	var tipo = results;
+	switch(results){
+	case 1:
+		var query = 'SELECT a.*, b.fecha_nac, b.sexo from usuarios a, basicos b where a.idusuario = b.Usuarios_idUsuario and email="'+email+'"';
+    	sqlconnection.query(query, function(err, results) {
+	        if (err)
+	            res.send(err, "query error");
+	       
+    	console.log("registro correcto del usuario"+tipo+": "+user+" con ID: ");
+    	req.session.var=results;
+    	res.send(req.session.var);
+    	sqlconnection.end();
+    	});
+		break;
+	case 2:
+		var query = 'SELECT a.*, b.Genero from usuarios a, artistas b where a.idusuario = b.Usuarios_idUsuario and email="'+email+'"';
+    	sqlconnection.query(query, function(err, results) {
+	        if (err)
+	            res.send(err, "query error");
+	       
+    	console.log("registro correcto del usuario"+tipo+": "+user+" con ID: ");
+    	req.session.var=results;
+    	res.send(req.session.var);
+    	sqlconnection.end();
+		break;
+	case 3:
+		var query = 'SELECT a.*, b.aforo,b.direccion,b.poblacion from usuarios a, salas b where a.idusuario = b.Usuarios_idUsuario and email="'+email+'"';
+    	sqlconnection.query(query, function(err, results) {
+	        if (err)
+	            res.send(err, "query error");
+	       
+    	console.log("sesión creada para el usuario"+tipo+": "+user+" con ID: ");
+    	req.session.var=results;
+    	res.send(req.session.var);
+    	sqlconnection.end();
+		break;
+	
+	
+	}
+		
+    	sqlconnection.end();
+	});
 
 };
 
