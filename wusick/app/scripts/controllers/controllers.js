@@ -31,7 +31,10 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', function ($scope, 
                     	 $http.post('/api/crearSesion', $scope.userData)
                          .success(function(data){
                          	console.log(data);
-                         	//window.location.href = '/main';
+                         	window.location.href = '/main';
+
+                         	
+
                              
                          })
                          .error(function(data) {
@@ -99,15 +102,17 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http', function ($scop
 
 WusickControllers.controller('mainCtrl', ['$scope', '$http', function ($scope, $http) {
 
-    $scope.userSesion = function(){
+    $scope.getSesion = function(){
         $scope.userSesion;
         $http.get('/api/getSesion')
             .success(function(data){
                 $scope.userSesion = data;
+                console.log($scope.userSesion);
             })
             .error(function(data) {
                     console.log('Error:' + data);
             });
     }
+    
     
 }]);

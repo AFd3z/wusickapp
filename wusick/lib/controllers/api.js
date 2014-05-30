@@ -202,10 +202,18 @@ exports.registro = function (req,res) {
 
 		  });
 	};
-		    
+
+//Función que crea la sesión	
 exports.crearSesion = function (req,res) {
 	
 	req.session.name=req.body.email;
+	res.send(req.session.name);
+	
+};
+
+//Función que devuelve la sesión
+exports.getSesion = function (req,res) {
+  
 	res.send(req.session.name);
 	
 };
