@@ -1,3 +1,5 @@
+"use strict";
+
 var WusickControllers = angular.module('WusickControllers', []);
 
 
@@ -9,14 +11,17 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', function ($scope, 
                 .success(function(data) {  
                     if(data==='null'){
                          console.log(data);
-                         smoke.alert('Usuario o contraseÃ±a incorrectos');
+                         smoke.alert('Usuario o contraseña incorrectos');
                     }
                     else{
-                        $http.post('/api/crearSesion', $scope.userData)
+                       $http.post('/api/crearSesion', $scope.userData)
                             .success(function(data){
-                                idUser=data;
-                                console.log(idUser);
-                               // window.location.href = '/main';
+                            	console.log(data);
+                                if(data=='admin'){
+                                	//window.location.href = '/jades/editar.jade'
+                                }else{
+                              //window.location.href = '/main';
+                                }
                             })
                             .error(function(data) {
                                 console.log('Error: ' + data);

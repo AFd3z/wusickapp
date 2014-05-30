@@ -97,8 +97,8 @@ var json ="";
     sqlconnection.query(query, function(err, results) {
        if (err)
             return callback(err, "query error");
-
-       if (results.length<=0){
+       
+       if (results.length=='0'){
               var query = 'SELECT * FROM administradores WHERE email="'+user+'" AND password="'+pass+'"';
               sqlconnection.query(query, function(err, results) {
              
@@ -109,7 +109,7 @@ var json ="";
                           console.log("login incorrecto"+results);
                           res.send('null');
                         }else{
-                          res.redirect('/panel');
+                          res.send('admin');
                         }
               });
        }else{
@@ -204,8 +204,7 @@ exports.registro = function (req,res) {
 		    
 exports.crearSesion = function (req,res) {
 	
-<<<<<<< HEAD
-=======
+
 	var email = req.body.email;
 	var sqlconnection = connection.createConnection();
 	var query = 'SELECT Tipo_usuarios_idTipo_usuarios from usuarios where email="'+email+'";';
@@ -258,14 +257,13 @@ exports.crearSesion = function (req,res) {
 		
     	sqlconnection.end();
 	});
->>>>>>> e1bcb17a68a6dda378e6249a183b13bcfc535d6a
 
 };
 
-//Funcion que destruye sesiÃ³n	    
+//Funcion que destruye sesión	    
 exports.logout = function (req,res) {
 	
-	delete req.session.sess;
+	req.session.destroy();
 	window.location("/login");
 
 };		
