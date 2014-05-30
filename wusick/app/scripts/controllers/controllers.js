@@ -12,8 +12,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', function ($scope, 
                     if(data==='null'){
                          console.log(data);
                          smoke.alert('Usuario o contraseña incorrectos');
-                    }
-                    else if(data=='admin'){
+                    }else if(data=='admin'){
                     	console.log('vamos a panel');
                     	
                     	 $http.post('/api/crearSesion', $scope.userData)
