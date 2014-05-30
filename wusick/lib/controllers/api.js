@@ -99,8 +99,7 @@ var json ="";
             return callback(err, "query error");
 
        if (results.length<=0){
-    	   //los admin también tienen que logearse con email, porque al haber cambiado el campo de logeo, no podemos dejar de usar @
-              var query = 'SELECT * FROM administradores WHERE nombre="'+user+'" AND password="'+pass+'"';
+              var query = 'SELECT * FROM administradores WHERE email="'+user+'" AND password="'+pass+'"';
               sqlconnection.query(query, function(err, results) {
              
                          if (err)
@@ -110,7 +109,7 @@ var json ="";
                           console.log("login incorrecto"+results);
                           res.send('null');
                         }else{
-                          res.redirect('/panel');
+                          res.send('admin');
                         }
               });
        }else{
