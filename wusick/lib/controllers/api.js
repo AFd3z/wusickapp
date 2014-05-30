@@ -213,8 +213,8 @@ exports.getIdByEmail = function(req, res){
 	               res.send(err, "query error");
 	                  
 	               }else{
-	               //req.session.id=results;	   
-	               res.send(results);
+	               req.session.idUsuario=results;	   
+	               res.send(req.session.idUsuario);
 	             }
 	            });
 };
@@ -231,7 +231,7 @@ exports.getUserById = function(req, res){
 	                  
 	               }else{
 	               req.session.user=results;	   
-	               res.send(results);
+	               res.send(req.session.user);
 	             }
 	            });
 };
