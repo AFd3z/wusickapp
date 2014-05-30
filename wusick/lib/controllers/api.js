@@ -203,6 +203,20 @@ exports.registro = function (req,res) {
 		  });
 	};
 
+exports.getIdByEmail = function(req, res){
+	var sqlconnection = connection.createConnection();
+	var query = 'SELECT idUsuario FROM usuario WHERE email="'+req.session.name+'";';
+	           
+	    sqlconnection.query(query, function(err, results) {
+	            if (err){
+	               res.send(err, "query error");
+	                  
+	               }else{
+	               res.send(results);
+	             }
+	            });
+};	
+	
 //Función que crea la sesión	
 exports.crearSesion = function (req,res) {
 	
