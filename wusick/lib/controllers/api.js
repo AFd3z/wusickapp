@@ -213,7 +213,7 @@ exports.getIdByEmail = function(req, res){
 	               res.send(err, "query error");
 	                  
 	               }else{
-	               req.session.id=results;	   
+	               //req.session.id=results;	   
 	               res.send(results);
 	             }
 	            });
