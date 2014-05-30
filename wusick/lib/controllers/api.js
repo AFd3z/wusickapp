@@ -205,7 +205,9 @@ exports.registro = function (req,res) {
 		    
 exports.crearSesion = function (req,res) {
 	
-
+	req.session.name=req.body.email;
+	res.send(req.session.name);
+	
 };
 
 //Funcion que destruye sesión	    
