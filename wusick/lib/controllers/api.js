@@ -203,32 +203,68 @@ exports.registro = function (req,res) {
 		  });
 	};
 
+//Función para obtener el id de usuarios a través del email (primera variable de sesión)
 exports.getIdByEmail = function(req, res){
 	var sqlconnection = connection.createConnection();
-	var query = 'SELECT idUsuario FROM usuarios WHERE email="'+req.session.name+'";';
+	var query = 'SELECT idUsuario FROM usuarios WHERE email="'+req.session.mail+'";';
 	           
 	    sqlconnection.query(query, function(err, results) {
 	            if (err){
 	               res.send(err, "query error");
 	                  
 	               }else{
+	               req.session.id=results;	   
+	               res.send(results);
+	             }
+	            });
+};
+
+//Función para obtener el nombre de usuario a través del id
+exports.getUserById = function(req, res){
+	var id=req.body.id;
+	var sqlconnection = connection.createConnection();
+	var query = 'SELECT nombre FROM usuarios WHERE idUsuario="'+id+'";';
+	           
+	    sqlconnection.query(query, function(err, results) {
+	            if (err){
+	               res.send(err, "query error");
+	                  
+	               }else{
+	               req.session.user=results;	   
+	               res.send(results);
+	             }
+	            });
+};
+
+//Función para obtener los amigos
+exports.getFriendsById = function(req, res){
+	var sqlconnection = connection.createConnection();
+	var query = 'SELECT Usuarios_idUsuario1 FROM usuarios_has_usuarios WHERE Usuarios_idUsuario="'+req.session.id+'";';
+	           
+	    sqlconnection.query(query, function(err, results) {
+	            if (err){
+	               res.send(err, "query error");
+	                  
+	               }else{
+	               req.session.friends=results;	   
 	               res.send(results);
 	             }
 	            });
 };	
 	
+	
 //Función que crea la sesión	
 exports.crearSesion = function (req,res) {
 	
-	req.session.name=req.body.email;
-	res.send(req.session.name);
+	req.session.mail=req.body.email;
+	res.send(req.session.mail);
 	
 };
 
 //Función que devuelve la sesión
 exports.getSesion = function (req,res) {
   
-	res.send(req.session.name);
+	res.send(req.session.mail);
 	
 };
 
