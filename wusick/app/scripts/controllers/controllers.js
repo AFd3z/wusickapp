@@ -13,20 +13,33 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', function ($scope, 
                          console.log(data);
                          smoke.alert('Usuario o contraseña incorrectos');
                     }
-                    else{
-                       $http.post('/api/crearSesion', $scope.userData)
-                            .success(function(data){
-                            	console.log(data);
-                                if(data=='admin'){
-                                	//window.location.href = '/jades/editar.jade'
-                                }else{
-                              //window.location.href = '/main';
-                                }
-                            })
-                            .error(function(data) {
-                                console.log('Error: ' + data);
-                            });
-                        }  
+                    else if(data=='admin'){
+                    	console.log('vamos a panel');
+                    	
+                    	 $http.post('/api/crearSesion', $scope.userData)
+                         .success(function(data){
+                         	console.log(data);
+                         	//window.location.href = '/jades/editar.jade';
+                             
+                         })
+                         .error(function(data) {
+                             console.log('Error: ' + data);
+                         });
+                    }else{
+                    	console.log('vamos a main');
+                  
+                    	 $http.post('/api/crearSesion', $scope.userData)
+                         .success(function(data){
+                         	console.log(data);
+                         	//window.location.href = '/main';
+                             
+                         })
+                         .error(function(data) {
+                             console.log('Error: ' + data);
+                         });
+                    }
+                      
+                          
                 })
                 .error(function(data) {
                     console.log('Error: ' + data);

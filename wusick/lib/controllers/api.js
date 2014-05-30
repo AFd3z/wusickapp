@@ -104,8 +104,9 @@ var json ="";
              
                          if (err)
                               return callback(err, "query error");
-
-                         if (results.length<=0){
+                         
+                         console.log('vamos por admin');
+                         if (results.length=='0'){
                           console.log("login incorrecto"+results);
                           res.send('null');
                         }else{
