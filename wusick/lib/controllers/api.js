@@ -97,8 +97,8 @@ var json ="";
     sqlconnection.query(query, function(err, results) {
        if (err)
             return callback(err, "query error");
-
-       if (results.length<=0){
+       
+       if (results.length=='0'){
               var query = 'SELECT * FROM administradores WHERE email="'+user+'" AND password="'+pass+'"';
               sqlconnection.query(query, function(err, results) {
              
