@@ -101,7 +101,7 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http', function ($scop
 }]);
 
 WusickControllers.controller('mainCtrl', ['$scope', '$http', function ($scope, $http) {
-    $scope.userSesion;
+    $scope.userSesion='';
     $scope.getSesion = function(){
         $http.get('/api/getSesion')
             .success(function(data){
@@ -120,8 +120,16 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http', function ($scope, $
         });
     }
 
-    $scope.prueba = function(){
-        conlose.console.log($scope.userSesion);
+    $scope.getUserById = function(){
+         id = $scope.getSesion(); 
+            $http.get('/api/getUserById', id)
+            .success(function(data){
+                $scope.nombre = data;
+            })
+             .error(function(data) {
+                    console.log('Error:' + data);
+        });
+
     }
     
 
