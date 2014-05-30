@@ -8,7 +8,8 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', function ($scope, 
             //Las peticiones desde el controlador indican la ruta a la base de datos.
         $scope.obtenerUsuario = function(){
             $http.post('/api/login', $scope.userData)
-                .success(function(data) {  
+                .success(function(data) {
+                	console.log(data);
                     if(data==='null'){
                          console.log(data);
                          smoke.alert('Usuario o contraseña incorrectos');
@@ -18,7 +19,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', function ($scope, 
                     	 $http.post('/api/crearSesion', $scope.userData)
                          .success(function(data){
                          	console.log(data);
-                         	//window.location.href = '/jades/editar.jade';
+                         	window.location.href = '/jades/index.jade';
                              
                          })
                          .error(function(data) {
@@ -30,7 +31,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', function ($scope, 
                     	 $http.post('/api/crearSesion', $scope.userData)
                          .success(function(data){
                          	console.log(data);
-                         	//window.location.href = '/main';
+                         	window.location.href = '/main';
                              
                          })
                          .error(function(data) {
