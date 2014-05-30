@@ -121,7 +121,7 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http', function ($scope, $
     }
 
     $scope.getUserById = function(){
-         id = $scope.getSesion(); 
+         var id = $scope.getSesion(); 
             $http.get('/api/getUserById', id)
             .success(function(data){
                 $scope.nombre = data;
