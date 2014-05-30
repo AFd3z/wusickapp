@@ -16,9 +16,10 @@ module.exports = function(app) {
  app.route('/api/generos').get(api.generos);
  app.route('/api/getSesion').get(api.getSesion);
  app.route('/api/crearSesion').post(api.crearSesion);
+ app.route('/api/getIdByEmail').get(api.getIdByEmail);
  //RUTAS USUARIO
-  app.route('/api/login').post(api.login);
-  app.route('/api/registro').post(api.registro);
+ app.route('/api/login').post(api.login);
+ app.route('/api/registro').post(api.registro);
 
   
 
