@@ -210,6 +210,12 @@ exports.crearSesion = function (req,res) {
 	
 };
 
+exports.getSesion = function (req,res) {
+	
+	res.send(req.session.name);
+	
+};
+
 //Funcion que destruye sesión	    
 exports.logout = function (req,res) {
 	

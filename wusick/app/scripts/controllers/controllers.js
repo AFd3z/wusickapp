@@ -31,7 +31,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', function ($scope, 
                     	 $http.post('/api/crearSesion', $scope.userData)
                          .success(function(data){
                          	console.log(data);
-                         	window.location.href = '/main';
+                         	window.location.href = '/main/:data';
                              
                          })
                          .error(function(data) {
