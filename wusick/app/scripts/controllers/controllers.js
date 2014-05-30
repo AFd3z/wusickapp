@@ -11,12 +11,14 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', function ($scope, 
                 .success(function(data) {
                 	console.log(data);
                     if(data==='null'){
+                         console.log(data);
                          smoke.alert('Usuario o contraseña incorrectos');
                     }else if(data=='admin'){
                     	console.log('vamos a panel');
+                    	
                     	 $http.post('/api/crearSesion', $scope.userData)
                          .success(function(data){
-                    
+                         	console.log(data);
                          	//window.location.href = '/jades/editar.jade';
                              
                          })
@@ -25,10 +27,15 @@ WusickControllers.controller('loginCtrl', ['$scope', '$http', function ($scope, 
                          });
                     }else{
                     	console.log('vamos a main');
+                  
                     	 $http.post('/api/crearSesion', $scope.userData)
                          .success(function(data){
                          	console.log(data);
                          	window.location.href = '/main';
+
+                         	
+
+                             
                          })
                          .error(function(data) {
                              console.log('Error: ' + data);
@@ -95,7 +102,23 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http', function ($scop
 
 WusickControllers.controller('mainCtrl', ['$scope', '$http', function ($scope, $http) {
 
+    $scope.getSesion = function(){
+        $scope.userSesion;
+        $http.get('/api/getSesion')
+            .success(function(data){
+                $http.get('/api/getIdByEmail')
+                .success(function(data){
+                    console.log(data);
+                })
+                .error(function(data) {
+                    console.log('Error:' + data);
+                });
 
+            })
+            .error(function(data) {
+                    console.log('Error:' + data);
+        });
+    }
     
 
 }]);
