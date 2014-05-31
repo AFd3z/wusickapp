@@ -99,8 +99,8 @@ var json ="";
             return callback(err, "query error");
        
        //comprobación de bloqueo de usuario
-       if(results[0].bloqueado==1){   	   
-    	   res.send('bloqu');    	   
+       if(results.bloqueado==1){   	   
+    	   res.send('bloqu');
        }
        
        //comprobación de usuario inexistente y comprobación de si usuario admin
