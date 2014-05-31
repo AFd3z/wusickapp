@@ -208,6 +208,8 @@ CREATE TABLE `posts` (
   `idPosts` int(11) NOT NULL,
   `contenido` varchar(500) DEFAULT NULL,
   `fec ha` date NOT NULL,
+  `post_img` varchar(500) DEFAULT NULL,
+  `destinatario` varchar(45) DEFAULT NULL,
   `Usuarios_idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idPosts`),
   KEY `fk_Posts_Usuarios1_idx` (`Usuarios_idUsuario`),
@@ -315,6 +317,8 @@ CREATE TABLE `usuarios` (
   `email` varchar(45) NOT NULL,
   `fecha_alta` date NOT NULL,
   `bloqueado` bit(1) NOT NULL DEFAULT b'0',
+  `profile_img` varchar(500) NOT NULL,
+  `header_img` varchar(500) NOT NULL,
   `Tipo_usuarios_idTipo_usuarios` int(11) NOT NULL,
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`),
@@ -330,7 +334,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31','\0',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31','\0',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31','\0',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31','\0',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31','\0',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31','\0',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31','\0',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31','\0',3);
+INSERT INTO `usuarios` VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31','\0','','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31','\0','','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31','\0','','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31','\0','','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31','\0','','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31','\0','','',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31','\0','','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31','\0','','',3);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -370,4 +374,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-31 15:59:31
+-- Dump completed on 2014-05-31 18:03:00
