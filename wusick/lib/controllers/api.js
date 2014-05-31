@@ -89,15 +89,21 @@ var user = req.body.email;
 var pass = req.body.pass;
 var json ="";
 
-    //creating connection object
+    //creamos objeto de conexion
     var sqlconnection = connection.createConnection();
     var query = 'SELECT * FROM usuarios WHERE email="'+user+'" AND password="'+pass+'"';
 
-    //sending query through our connection object
+    //lanzamos query
     sqlconnection.query(query, function(err, results) {
        if (err)
             return callback(err, "query error");
        
+       //comprobación de bloqueo de usuario
+       if(results[0].bloqueado==1){   	   
+    	   res.send('bloqu');    	   
+       }
+       
+       //comprobación de usuario inexistente y comprobación de si usuario admin
        if (results.length=='0'){
               var query = 'SELECT * FROM administradores WHERE email="'+user+'" AND password="'+pass+'"';
               sqlconnection.query(query, function(err, results) {
@@ -107,7 +113,7 @@ var json ="";
                          
 						 if (results.length > '0'){
 							console.log('vamos por admin');
-							console.log("login correcto de administrador: "+results[0].nombre+", "+results[0].email);
+							console.log("login correcto de administrador: "+results[0].email+", "+results[0].email);
 							res.send('admin');
                          } else if (results.length=='0'){
 							console.log("login incorrecto"+results);
@@ -140,11 +146,11 @@ exports.registro = function (req,res) {
 		
 		var json ="";
 
-		    //creating connection object
+		  //creamos objeto conexión
 		  var sqlconnection = connection.createConnection();
 		    var query = 'INSERT INTO USUARIOS (nombre, password,email,fecha_alta,Tipo_usuarios_idTipo_usuarios) VALUES ("'+user+'","'+pass+'","'+email+'",curdate(),'+tipo+') ';
 
-		    //sending query through our connection object
+		    //lanzamos query
 		    sqlconnection.query(query, function(err, results) {
 		        if (err)
 		            res.send(err, "query error");
@@ -154,7 +160,7 @@ exports.registro = function (req,res) {
 		        console.log(tipo);
 		     
 
-		        //inserting specific data into specific user type table
+		        //insertamos los datos propios d cada tipo de usuario en la tabla que corresponda
 		        switch (tipo){
     		        case '1':
     		        	var query2 = 'INSERT INTO basicos (fecha_nac, sexo, Usuarios_idUsuario) VALUES ("'+req.body.fecha+'","'+req.body.sexo+'",'+insertedID+') ';
@@ -196,9 +202,9 @@ exports.registro = function (req,res) {
 
 		        }
 		        
-		        //returning jsonized result
+		        //devolvemos el objeto jsonizado (si necesario)
 		        //res.json(json);
-		        //returning json object
+		        //devolvemos el objeto json tal cual
 		        res.json(results);
 
 		  });
