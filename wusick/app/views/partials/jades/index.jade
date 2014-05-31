@@ -1,0 +1,67 @@
+extends layout
+
+block content
+	section
+		form(action='/alta', method='post')
+			label Nombre:
+			input(name='nombre', placeholder='Nombre') 
+			label Password:
+			input(name='password', placeholder='Password') 
+			label Email:
+			input(name='email', placeholder='Email') 
+			label Tipo de Usuario:
+			input(name='tipoDeUsuario', placeholder='Tipo de usuario') 
+			input(type='submit', value='Guardar')
+		
+	section
+		if usuarios.length == 0
+			p No existen usuarios en la base de datos.....
+		else
+			label Mostrar:
+			select(class="selectpicker", data-style="btn-inverse")
+				option(value='10', selected) 10
+				option(value='25') 25
+				option(value='50') 50
+				option(value='10000') Todos
+				
+			table(class='text-center table table-bordered table-hover table-condensed')
+				tr
+					th ID
+					th NOMBRE
+					th PASSWORD
+					th EMAIL
+					th FECHA DE ALTA
+					th TIPO
+					th EDITAR
+					th ELIMINAR
+					th ESTADO
+				tbody(id="myTable")
+					for usuario in usuarios
+						tr
+							td=usuario.idUsuario
+							td=usuario.nombre
+							td=usuario.password
+							td=usuario.email
+							td=usuario.fecha_alta
+							td=usuario.Tipo_usuarios_idTipo_usuarios
+							td
+								a(href='/editar/#{usuario.idUsuario}')
+									img(src='/images/edit.png', alt='Editar')
+							td
+								a(href='/borrar/#{usuario.idUsuario}')
+									img(src='/images/delete.png', alt='Borrar')
+							td
+								div(class='btn-group btn-toggle')
+									if usuario.estado == 'activado'
+										a(href='/activar/#{usuario.idUsuario}')
+											button(class='btn btn-sm btn-primary active') ACTIVO
+										a(href='/bloquear/#{usuario.idUsuario}')
+											button(class='btn btn-sm btn-default') BLOQUEADO
+									else
+										a(href='/activar/#{usuario.idUsuario}')
+											button(class='btn btn-sm btn-default') ACTIVO
+										a(href='/bloquear/#{usuario.idUsuario}')
+											button(class='btn btn-sm btn-primary active') BLOQUEADO
+			div(class="col-md-12 text-center")
+				ul(class="pagination", id="myPager")
+

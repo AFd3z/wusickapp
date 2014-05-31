@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	section
+		form(action='/login', method='post')
+			label Nombre:
+			input(name='nombre', placeholder='Nombre')
+			label Password:
+			input(name='password', placeholder='Password')
+			input(type='submit', value='Aceptar')

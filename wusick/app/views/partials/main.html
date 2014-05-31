@@ -1,7 +1,15 @@
-<div ng-include="'partials/navbar'"></div><!--Incluir un menu de navegación en función del tipo de usuario-->
+<div ng-include="'partials/navbarMain'"></div>
 
-	<div id="mainpage">
-        <div class="col-xs-12 col">
-        	
+	<div id="mainpage" class="row" ng-init='getSesion()'>
+        <div class="col-xs-12 col-md-3" id="izq">
+		
         </div>
+        <div class="col-xs-12 col-md-3" id="central" ng-init='getUserById()'>
+			<div id="comment" class="col-xs-12">
+			</div>
+        </div>
+        <div class="col-xs-12 col-md-3" id="dcha">
+
+        </div>
+        <div class="clearfix"></div>
     </div>
