@@ -105,22 +105,24 @@ var json ="";
                          if (err)
                               return callback(err, "query error");
                          
-                         console.log('vamos por admin');
-                         if (results.length=='0'){
-                          console.log("login incorrecto"+results);
-                          res.send('null');
+						 if (results.length > '0'){
+							console.log('vamos por admin');
+							console.log("login correcto de administrador: "+results[0].nombre+", "+results[0].email);
+							res.send('admin');
+                         } else if (results.length=='0'){
+							console.log("login incorrecto"+results);
+							res.send('null');
                         }else{
-                          res.send('admin');
+							res.send('admin');
                         }
               });
        }else{
-        console.log("login correcto del usuario: "+user);
+        console.log("login correcto del usuario: "+results[0].nombre+", "+results[0].email);
         json = JSON.stringify(results);
         //returning jsonized result
         //res.json(json);
         //returning json object
         res.json(results);
-
        }
 
         sqlconnection.end();
@@ -129,7 +131,6 @@ var json ="";
 };
 
 //Funcion Registro
-
 exports.registro = function (req,res) {
 	
 		var user = req.body.nombre;
@@ -251,7 +252,6 @@ exports.getFriendsById = function(req, res){
 	             }
 	            });
 };	
-	
 	
 //Función que crea la sesión	
 exports.crearSesion = function (req,res) {
