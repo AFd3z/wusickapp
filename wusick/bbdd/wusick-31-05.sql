@@ -205,9 +205,9 @@ DROP TABLE IF EXISTS `posts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `posts` (
-  `idPosts` int(11) NOT NULL,
-  `contenido` varchar(500) DEFAULT NULL,
-  `fec ha` date NOT NULL,
+  `idPosts` int(11) NOT NULL AUTO_INCREMENT,
+  `contenido` varchar(500) NOT NULL,
+  `fecha` date NOT NULL,
   `post_img` varchar(500) DEFAULT NULL,
   `destinatario` varchar(45) DEFAULT NULL,
   `Usuarios_idUsuario` int(11) NOT NULL,
@@ -374,4 +374,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-31 18:03:00
+-- Dump completed on 2014-06-01 14:08:59
