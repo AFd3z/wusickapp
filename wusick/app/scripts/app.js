@@ -5,7 +5,9 @@ angular.module('wusickAppApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+  'WusickServices',
   'WusickControllers'
+  
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
@@ -24,6 +26,10 @@ angular.module('wusickAppApp', [
        .when('/main', {
         templateUrl: 'partials/main',
         controller: 'mainCtrl'
+      })
+        .when('/administrator', {
+        templateUrl: 'partials/jades/admin-index',
+        controller: 'adminCtrl'
       })
       .otherwise({
         redirectTo: '/'

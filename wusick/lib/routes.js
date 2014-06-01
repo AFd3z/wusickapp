@@ -1,6 +1,8 @@
 'use strict';
 
 var api = require('./controllers/api'),
+    user = require('./controllers/user'),
+    post = require('./controllers/post'),
     index = require('./controllers');
 
 /**
@@ -16,14 +18,24 @@ module.exports = function(app) {
  app.route('/api/generos').get(api.generos);
  app.route('/api/getSesion').get(api.getSesion);
  app.route('/api/crearSesion').post(api.crearSesion);
- app.route('/api/getIdByEmail').get(api.getIdByEmail);
+ app.route('/api/getIdByEmail').post(api.getIdByEmail);
  app.route('/api/getUserById').get(api.getUserById);
  app.route('/api/getFriendsById').get(api.getFriendsById);
  
  
  //RUTAS USUARIO
- app.route('/api/login').post(api.login);
- app.route('/api/registro').post(api.registro);
+ app.route('/user/login').post(user.login);
+ app.route('/user/registro').post(user.registro);
+ 
+ //ADMINISTRACION
+ app.route('/user/bloquear/:id').post(user.bloquear);
+ app.route('/user/desbloquear/:id').post(user.desbloquear);
+ app.route('/user/borrarUsuario/:id').post(user.borrarUsuario);
+ app.route('/user/listadoUsuarios').get(user.listadoUsuarios);
+
+ //POST
+ app.route('/post/postear').post(post.postear);
+ app.route('/post/borrarPost/:id').post(post.borrarPost);
 
   
 
