@@ -5,7 +5,9 @@ angular.module('wusickAppApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+  'WusickServices',
   'WusickControllers'
+  
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider

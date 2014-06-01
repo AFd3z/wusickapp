@@ -16,7 +16,7 @@ module.exports = function(app) {
  app.route('/api/generos').get(api.generos);
  app.route('/api/getSesion').get(api.getSesion);
  app.route('/api/crearSesion').post(api.crearSesion);
- app.route('/api/getIdByEmail').get(api.getIdByEmail);
+ app.route('/api/getIdByEmail').post(api.getIdByEmail);
  app.route('/api/getUserById').get(api.getUserById);
  app.route('/api/getFriendsById').get(api.getFriendsById);
  

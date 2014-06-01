@@ -212,16 +212,17 @@ exports.registro = function (req,res) {
 
 //Función para obtener el id de usuarios a través del email (primera variable de sesión)
 exports.getIdByEmail = function(req, res){
+	var email = req.body.email;
 	var sqlconnection = connection.createConnection();
-	var query = 'SELECT idUsuario FROM usuarios WHERE email="'+req.session.mail+'";';
-	           
+	var query = 'SELECT idUsuario FROM usuarios WHERE email="'+email+'";';
+	var id;           
 	    sqlconnection.query(query, function(err, results) {
 	            if (err){
 	               res.send(err, "query error");
 	                  
 	               }else{
-	               req.session.idUsuario=results;	   
-	               res.send(req.session.idUsuario);
+	                id=results[0].idUsuario.toString();	   
+	               	res.send(id);
 	             }
 	            });
 };
