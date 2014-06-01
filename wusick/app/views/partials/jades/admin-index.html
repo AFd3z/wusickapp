@@ -1,4 +1,4 @@
-<div ng-include="'partials/navbarAdmin'"></div>
+﻿<div ng-include="'partials/navbarAdmin'"></div>
 <div class="container">
     <div ng-init="obtenerListado()">
 		<table class='table table-bordered table-hover table-condensed'>
@@ -24,7 +24,7 @@
 					<td>{{item.email}}</td>
 					<td>{{item.fecha_alta}}</td>
 					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 1">
-    					B�sico
+    					Básico
 					</td>
 					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 2">
     					Artista
