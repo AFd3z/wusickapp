@@ -98,7 +98,7 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http', function ($scop
 
 WusickControllers.controller('mainCtrl', ['$scope', '$http','IdUsuario', function ($scope, $http, IdUsuario) {
    
-     $scope.message = 'Hola usuario numero 'IdUsuario.id;
+     $scope.message = 'Hola usuario numero '+IdUsuario.id;
 
 
 }]);
