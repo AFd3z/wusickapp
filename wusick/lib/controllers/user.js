@@ -79,8 +79,8 @@ exports.registro = function (req,res) {
 		            res.send(err, "query error");
 		        
 		        var insertedID=results.insertId;
-		        console.log(insertedID);
-		        console.log(tipo);
+		        //console.log(insertedID);
+		        //console.log(tipo);
 		     
 
 		        //insertamos los datos propios d cada tipo de usuario en la tabla que corresponda
@@ -103,7 +103,7 @@ exports.registro = function (req,res) {
         				        if (err)
         				            res.send(err, "query error");
         				  
-        		        	console.log("registro correcto del usuario"+tipo+": "+user+" con ID: ");
+        		        	console.log("registro correcto del usuario"+tipo+": "+user+" con ID: "+insertedID);
         				    	sqlconnection.end();
     		        	});
                 break;
@@ -114,7 +114,7 @@ exports.registro = function (req,res) {
             				        if (err)
             				            res.send(err, "query error");
             				        
-            		        	console.log("registro correcto del usuario "+tipo+": "+user+" con ID: ");
+            		        	console.log("registro correcto del usuario "+tipo+": "+user+" con ID: "+insertedID);
             				    	sqlconnection.end();
         		        	});
     		        break;	
@@ -129,7 +129,6 @@ exports.registro = function (req,res) {
 		        //res.json(json);
 		        //devolvemos el objeto json tal cual
 		        res.json(results);
-		        sqlconnection.end();
 
 		  });
 	};
