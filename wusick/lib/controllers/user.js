@@ -129,6 +129,7 @@ exports.registro = function (req,res) {
 		        //res.json(json);
 		        //devolvemos el objeto json tal cual
 		        res.json(results);
+		        sqlconnection.end();
 
 		  });
 	};
@@ -174,6 +175,7 @@ exports.bloquear = function (req,res) {
 	               //devolvemos numero de filas afectadas
 	               res.send(results.affectedRows);
 	             }
+	            sqlconnection.end();
 	            });	
 };
 
@@ -192,6 +194,7 @@ exports.desbloquear = function (req,res) {
 	               //devolvemos numero de filas afectadas
 	               res.send(results.affectedRows);
 	             }
+	            sqlconnection.end();
 	            });	
 };
 
@@ -210,6 +213,7 @@ exports.borrarUsuario = function (req,res) {
 	               //devolvemos numero de filas afectadas
 	               res.send(results.affectedRows);
 	             }
+	            sqlconnection.end();
 	            });	
 };
 
