@@ -28,6 +28,10 @@ module.exports = function(app) {
  //ADMINISTRACION
  app.route('/api/bloquear/:id').post(api.bloquear);
  app.route('/api/desbloquear/:id').post(api.desbloquear);
+ 
+ //POST
+ app.route('/api/postear').post(api.postear);
+ app.route('/api/borrarPost/:id').post(api.borrarPost);
 
   
 
