@@ -1,9 +1,9 @@
-﻿<div ng-include="'partials/navbarAdmin'"></div>
+<div ng-include="'partials/navbarAdmin'"></div>
 <div class="container">
     <div ng-init="obtenerListado()">
-		<table class="table table-striped table-condensed table-hover">
+		<table class='table table-bordered table-hover table-condensed'>
 			<thead>
-				<tr>
+				<tr class='text-center'>
 					<th class="id">Id&nbsp;<a ng-click="sort_by('id')"><i class="icon-sort"></i></a></th>
 					<th class="nombre">Nombre&nbsp;<a ng-click="sort_by('nombre')"><i class="icon-sort"></i></a></th>
 					<th class="email">email&nbsp;<a ng-click="sort_by('email')"><i class="icon-sort"></i></a></th>
@@ -24,7 +24,7 @@
 					<td>{{item.email}}</td>
 					<td>{{item.fecha_alta}}</td>
 					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 1">
-    					Básico
+    					B�sico
 					</td>
 					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 2">
     					Artista
@@ -32,12 +32,38 @@
 					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 3">
     					Sala
 					</td>
-					<td ng-if="item.bloqueado == 0">
+					
+					<!-- td ng-if="item.bloqueado == 0">
     					Desbloqueado
 					</td>
 					<td ng-if="item.bloqueado == 1">
     					Bloqueado
+					</td -->
+					
+					<td>
+						<div class='btn-group btn-toggle'>
+							<div ng-if="item.bloqueado == 0">
+								<a href='#' >
+									<button class='btn btn-sm btn-primary active'> ACTIVO </button>
+								</a>
+								<a href='#' >
+									<button class='btn btn-sm btn-default'> BLOQUEADO </button>
+								</a>
+							</div>
+							<div ng-if="item.bloqueado == 1">
+								<a href='#' >
+									<button class='btn btn-sm btn-default'> ACTIVO </button>
+								</a>
+								<a href='#' >
+									<button class='btn btn-sm btn-primary active'> BLOQUEADO </button>
+								</a>
+							</div>
+						</div>
 					</td>
+
+					
+					
+					
 					<td><img src='../../../images/edit.png', alt='Editar') /></td>
 					<td><img src='../../../images/delete.png', alt='Eliminar') /></td>
 				</tr>
