@@ -4,7 +4,7 @@ USE `mydb`;
 --
 -- Host: 127.0.0.1    Database: mydb
 -- ------------------------------------------------------
--- Server version	5.5.31
+-- Server version	5.6.16
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -38,7 +38,7 @@ CREATE TABLE `administradores` (
 
 LOCK TABLES `administradores` WRITE;
 /*!40000 ALTER TABLE `administradores` DISABLE KEYS */;
-INSERT INTO `administradores` VALUES (1,'admin@admin','admin');
+INSERT INTO `administradores` (`idAdministrador`, `email`, `password`) VALUES (1,'admin@admin','admin');
 /*!40000 ALTER TABLE `administradores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,7 +91,7 @@ CREATE TABLE `artistas` (
 
 LOCK TABLES `artistas` WRITE;
 /*!40000 ALTER TABLE `artistas` DISABLE KEYS */;
-INSERT INTO `artistas` VALUES ('1',4),('3',5);
+INSERT INTO `artistas` (`Genero`, `Usuarios_idUsuario`) VALUES ('1',4),('3',5);
 /*!40000 ALTER TABLE `artistas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +145,7 @@ CREATE TABLE `basicos` (
 
 LOCK TABLES `basicos` WRITE;
 /*!40000 ALTER TABLE `basicos` DISABLE KEYS */;
-INSERT INTO `basicos` VALUES ('1989-02-15','H',6),('1984-05-07','H',7),('1989-01-02','M',8);
+INSERT INTO `basicos` (`fecha_nac`, `sexo`, `Usuarios_idUsuario`) VALUES ('1989-02-15','H',6),('1984-05-07','H',7),('1989-01-02','M',8);
 /*!40000 ALTER TABLE `basicos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,7 +170,7 @@ CREATE TABLE `generos` (
 
 LOCK TABLES `generos` WRITE;
 /*!40000 ALTER TABLE `generos` DISABLE KEYS */;
-INSERT INTO `generos` VALUES (1,'Clásica'),(9,'Electrónica'),(6,'Fusión'),(3,'Heavy-Metal'),(4,'Hip-Hop'),(5,'Latina'),(8,'New age'),(2,'Pop'),(7,'Rock');
+INSERT INTO `generos` (`idGeneros`, `nombre`) VALUES (1,'Clásica'),(9,'Electrónica'),(6,'Fusión'),(3,'Heavy-Metal'),(4,'Hip-Hop'),(5,'Latina'),(8,'New age'),(2,'Pop'),(7,'Rock');
 /*!40000 ALTER TABLE `generos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,6 +225,60 @@ LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger `trata_posts_eliminados` before DELETE ON `posts`
+for each row 
+BEGIN
+	INSERT INTO `posts_eliminados` SET
+	`idPosts` 		  = OLD.idPosts,
+	`contenido` 	  = OLD.contenido,
+	`fecha` 		  = OLD.fecha,
+	`post_img` 		  = OLD.post_img,
+	`destinatario` 	  = OLD.destinatario,
+	`idUsuario` 	  = OLD.Usuarios_idUsuario;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `posts_eliminados`
+--
+
+DROP TABLE IF EXISTS `posts_eliminados`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `posts_eliminados` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idPosts` int(11) NOT NULL,
+  `contenido` varchar(500) DEFAULT NULL,
+  `fecha` datetime DEFAULT NULL,
+  `post_img` varchar(500) DEFAULT NULL,
+  `destinatario` varchar(45) DEFAULT NULL,
+  `idUsuario` int(11) NOT NULL,
+  `fecha_eliminado` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `posts_eliminados`
+--
+
+LOCK TABLES `posts_eliminados` WRITE;
+/*!40000 ALTER TABLE `posts_eliminados` DISABLE KEYS */;
+/*!40000 ALTER TABLE `posts_eliminados` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `salas`
@@ -250,7 +304,7 @@ CREATE TABLE `salas` (
 
 LOCK TABLES `salas` WRITE;
 /*!40000 ALTER TABLE `salas` DISABLE KEYS */;
-INSERT INTO `salas` VALUES (1000,'Madrid','C/ Princesa 1',9),(1800,'Madrid','C/ Virgen del Puerto, s/n',10),(600,'Madrid','C/ de Bernardino Obregón, 18',11);
+INSERT INTO `salas` (`aforo`, `poblacion`, `direccion`, `Usuarios_idUsuario`) VALUES (1000,'Madrid','C/ Princesa 1',9),(1800,'Madrid','C/ Virgen del Puerto, s/n',10),(600,'Madrid','C/ de Bernardino Obregón, 18',11);
 /*!40000 ALTER TABLE `salas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -299,7 +353,7 @@ CREATE TABLE `tipo_usuarios` (
 
 LOCK TABLES `tipo_usuarios` WRITE;
 /*!40000 ALTER TABLE `tipo_usuarios` DISABLE KEYS */;
-INSERT INTO `tipo_usuarios` VALUES (2,'Artista'),(1,'Básico'),(3,'Sala');
+INSERT INTO `tipo_usuarios` (`idTipo_usuarios`, `nombre`) VALUES (2,'Artista'),(1,'Básico'),(3,'Sala');
 /*!40000 ALTER TABLE `tipo_usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -334,8 +388,111 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31','\0','','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31','\0','','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31','\0','','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31','\0','','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31','\0','','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31','\0','','',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31','\0','','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31','\0','','',3);
+INSERT INTO `usuarios` (`idUsuario`, `nombre`, `password`, `email`, `fecha_alta`, `bloqueado`, `profile_img`, `header_img`, `Tipo_usuarios_idTipo_usuarios`) VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31','\0','','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31','\0','','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31','\0','','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31','\0','','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31','\0','','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31','\0','','',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31','\0','','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31','\0','','',3);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger `trata_usuarios_eliminados` before DELETE ON `usuarios`
+for each row 
+BEGIN
+
+	DECLARE fn date;
+	DECLARE sx char(1);
+	DECLARE gn varchar(45);
+	DECLARE af integer;
+	DECLARE pb varchar(45);
+	DECLARE dr varchar(45);
+	DECLARE id_nuevo integer;
+
+	INSERT INTO `usuarios_eliminados` SET
+	`idUsuario`		= OLD.`idUsuario`,
+	`nombre`		= OLD.`nombre`,
+	`password`		= OLD.`password`,
+	`email`			= OLD.`email`,
+	`fecha_alta`	= OLD.`fecha_alta`,
+	`bloqueado`		= OLD.`bloqueado`,
+	`profile_img`	= OLD.`profile_img`,
+	`header_img`	= OLD.`header_img`,
+	`Tipo_usuarios_idTipo_usuarios`	= OLD.`Tipo_usuarios_idTipo_usuarios`,
+	/* datos de tabla basicos por  defecto son null*/
+	`fecha_nac`		= null,
+	`sexo`			= null,
+	/* datos de tabla artistas  defecto son null*/
+	`genero`		= null,
+	/* datos de tabla salas  defecto son null*/
+	`aforo`			= null,
+	`poblacion`		= null,
+	`direccion`		= null;
+
+	select max(id) into id_nuevo from usuarios_eliminados;
+
+	CASE tipo
+		WHEN 1 THEN
+			select `fecha_nac`, `sexo` into fn, sx FROM `basicos` WHERE `Usuarios_idUsuario` = OLD.`idUsuario`;
+			update `usuarios_eliminados` set `fecha_nac` = fn, `sexo` = sx 
+			WHERE `idUsuario` = OLD.`idUsuario` and `id` = id_nuevo;
+		WHEN 2 THEN
+			select `genero` into gn FROM `artistas` WHERE `Usuarios_idUsuario` = OLD.`idUsuario`;
+			update `usuarios_eliminados` set `genero` = gn
+			WHERE `idUsuario` = OLD.`idUsuario` and `id` = id_nuevo;
+		WHEN 3 THEN
+			select `aforo`, `poblacion`,`direccion` into af, pb, dr FROM `salas` WHERE `Usuarios_idUsuario` = OLD.`idUsuario`;
+			update `usuarios_eliminados` set `aforo` = af, `poblacion` = pb, `direccion` = dr
+			WHERE `idUsuario` = OLD.`idUsuario` and `id` = id_nuevo;
+	END CASE;
+
+    /* eliminamos los posts que contengan el id del usuario eliminado */
+	DELETE FROM `posts` where `Usuarios_idUsuario` = OLD.`idUsuario`;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `usuarios_eliminados`
+--
+
+DROP TABLE IF EXISTS `usuarios_eliminados`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuarios_eliminados` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idUsuario` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `fecha_alta` date DEFAULT NULL,
+  `bloqueado` bit(1) DEFAULT NULL,
+  `profile_img` varchar(500) DEFAULT NULL,
+  `header_img` varchar(500) DEFAULT NULL,
+  `Tipo_usuarios_idTipo_usuarios` varchar(500) DEFAULT NULL,
+  `fecha_nac` date DEFAULT NULL,
+  `sexo` char(1) DEFAULT NULL,
+  `genero` varchar(45) DEFAULT NULL,
+  `aforo` int(11) DEFAULT NULL,
+  `poblacion` varchar(45) DEFAULT NULL,
+  `direccion` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuarios_eliminados`
+--
+
+LOCK TABLES `usuarios_eliminados` WRITE;
+/*!40000 ALTER TABLE `usuarios_eliminados` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usuarios_eliminados` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -374,4 +531,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-01 14:08:59
+-- Dump completed on 2014-06-01 20:31:20
