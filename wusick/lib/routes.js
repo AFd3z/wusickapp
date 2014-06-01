@@ -24,6 +24,10 @@ module.exports = function(app) {
  //RUTAS USUARIO
  app.route('/api/login').post(api.login);
  app.route('/api/registro').post(api.registro);
+ 
+ //ADMINISTRACION
+ app.route('/bloquear/:id').post(api.bloquear);
+ app.route('/desbloquear/:id').post(api.desbloquear);
 
   
 

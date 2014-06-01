@@ -259,6 +259,42 @@ exports.getFriendsById = function(req, res){
 	            });
 };	
 	
+//Función de bloqueo de usuarios, la llamada a este método debe ser de este tipo /api/bloquear/:id
+exports.bloquear = function (req,res) {
+	
+	var id =req.params.id;
+	var sqlconnection = connection.createConnection();
+	var query = 'UPDATE usuarios SET bloqueado=0 where idUsuario='+id;
+	           
+	    sqlconnection.query(query, function(err, results) {
+	            if (err){
+	               res.send(err, "query error");
+	                  
+	               }else{
+	               //devolvemos numero de filas afectadas
+	               res.send(results.affectedRows);
+	             }
+	            });	
+};
+
+//Función de desbloqueo de usuarios, la llamada a este método debe ser de este tipo /api/desbloquear/:id
+exports.bloquear = function (req,res) {
+	
+	var id =req.params.id;
+	var sqlconnection = connection.createConnection();
+	var query = 'UPDATE usuarios SET bloqueado=1 where idUsuario='+id;
+	           
+	    sqlconnection.query(query, function(err, results) {
+	            if (err){
+	               res.send(err, "query error");
+	                  
+	               }else{
+	               //devolvemos numero de filas afectadas
+	               res.send(results.affectedRows);
+	             }
+	            });	
+};
+
 //Función que crea la sesión	
 exports.crearSesion = function (req,res) {
 	
