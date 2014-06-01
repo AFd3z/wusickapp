@@ -278,11 +278,29 @@ exports.bloquear = function (req,res) {
 };
 
 //Función de desbloqueo de usuarios, la llamada a este método debe ser de este tipo /api/desbloquear/:id
-exports.bloquear = function (req,res) {
+exports.desbloquear = function (req,res) {
 	
 	var id =req.params.id;
 	var sqlconnection = connection.createConnection();
 	var query = 'UPDATE usuarios SET bloqueado=1 where idUsuario='+id;
+	           
+	    sqlconnection.query(query, function(err, results) {
+	            if (err){
+	               res.send(err, "query error");
+	                  
+	               }else{
+	               //devolvemos numero de filas afectadas
+	               res.send(results.affectedRows);
+	             }
+	            });	
+};
+
+//Función de borrado de usuarios, la llamada a este método debe ser de este tipo /api/borrarUsuario/:id
+exports.borrarUsuario = function (req,res) {
+	
+	var id =req.params.id;
+	var sqlconnection = connection.createConnection();
+	var query = 'DELETE FROM usuarios WHERE idUsuario='+id;
 	           
 	    sqlconnection.query(query, function(err, results) {
 	            if (err){

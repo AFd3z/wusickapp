@@ -28,7 +28,8 @@ module.exports = function(app) {
  //ADMINISTRACION
  app.route('/api/bloquear/:id').post(api.bloquear);
  app.route('/api/desbloquear/:id').post(api.desbloquear);
- 
+ app.route('/api/borrarUsuario/:id').post(api.borrarUsuario);
+
  //POST
  app.route('/api/postear').post(api.postear);
  app.route('/api/borrarPost/:id').post(api.borrarPost);
