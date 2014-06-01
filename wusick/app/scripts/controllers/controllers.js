@@ -53,7 +53,7 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http', function ($scop
 		$http.post('/api/existeMail', $scope.userData)
 			.success(function(data){
 				if(data==false){
-					$http.post('/api/registro', $scope.userData)
+					$http.post('/user/registro', $scope.userData)
 						.success(function(data){
 						$scope.formData = {};
 						 smoke.alert('Gracias por registrarse en Wusick. Sus datos son los siguientes: \n <strong>Usuario:</strong> '+$scope.userData.nombre+'\n <strong>ContraseÃ±a:</strong> ' +$scope.userData.pass+'\n<strong>Email: </strong>' +$scope.userData.email);

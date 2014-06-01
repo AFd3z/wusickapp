@@ -79,8 +79,8 @@ exports.registro = function (req,res) {
 		            res.send(err, "query error");
 		        
 		        var insertedID=results.insertId;
-		        console.log(insertedID);
-		        console.log(tipo);
+		        //console.log(insertedID);
+		        //console.log(tipo);
 		     
 
 		        //insertamos los datos propios d cada tipo de usuario en la tabla que corresponda
@@ -103,7 +103,7 @@ exports.registro = function (req,res) {
         				        if (err)
         				            res.send(err, "query error");
         				  
-        		        	console.log("registro correcto del usuario"+tipo+": "+user+" con ID: ");
+        		        	console.log("registro correcto del usuario"+tipo+": "+user+" con ID: "+insertedID);
         				    	sqlconnection.end();
     		        	});
                 break;
@@ -114,7 +114,7 @@ exports.registro = function (req,res) {
             				        if (err)
             				            res.send(err, "query error");
             				        
-            		        	console.log("registro correcto del usuario "+tipo+": "+user+" con ID: ");
+            		        	console.log("registro correcto del usuario "+tipo+": "+user+" con ID: "+insertedID);
             				    	sqlconnection.end();
         		        	});
     		        break;	
@@ -129,7 +129,6 @@ exports.registro = function (req,res) {
 		        //res.json(json);
 		        //devolvemos el objeto json tal cual
 		        res.json(results);
-		        sqlconnection.end();
 
 		  });
 	};
@@ -142,7 +141,7 @@ exports.listadoUsuarios= function (req,res){
   
   var json="";
   var sqlconnection = connection.createConnection();
-    var query = 'SELECT * FROM usuarios';
+  var query = 'SELECT * FROM usuarios';
   
     sqlconnection.query(query, function(err, results) {
         if (err)
@@ -160,45 +159,50 @@ exports.listadoUsuarios= function (req,res){
 };
 
 
-//Función de bloqueo de usuarios, la llamada a este método debe ser de este tipo /api/bloquear/:id
+//Función de bloqueo y desbloqueo de usuarios, la llamada a este método debe ser de este tipo /user/bloquear/:id
 exports.bloquear = function (req,res) {
 	
 	var id =req.params.id;
 	var sqlconnection = connection.createConnection();
-	var query = 'UPDATE usuarios SET bloqueado=0 where idUsuario='+id;
+	var query = 'SELECT bloqueado FROM usuarios WHERE idUsuario='+id;
 	           
 	    sqlconnection.query(query, function(err, results) {
 	            if (err){
 	               res.send(err, "query error");
 	                  
 	               }else{
-	               //devolvemos numero de filas afectadas
-	               res.send(results.affectedRows);
-	             }
-	            sqlconnection.end();
+	            	   //si est� bloqueado lo desbloqueamos
+	            	   if (results==1){
+	            	   var query2 = 'UPDATE usuarios SET bloqueado=0 where idUsuario='+id;
+	            	   sqlconnection.query(query2, function(err, results) {
+   				        if (err)
+   				            res.send(err, "query error");
+   				        
+   				        console.log("Usuario desbloqueado con ID: "+id);
+   				        res.send('desb');
+   				    	sqlconnection.end();
+		        	});
+	            	   
+	            	   
+	            	   }else{
+	            		 //si est� desbloqueado lo bloqueamos
+	            		   var query3 = 'UPDATE usuarios SET bloqueado=1 where idUsuario='+id;
+		            	   sqlconnection.query(query3, function(err, results) {
+	   				        if (err)
+	   				            res.send(err, "query error");
+	   				        
+	   				        console.log("Usuario bloqueado con ID: "+id);
+	   				        res.send('bloq');
+	   				    	sqlconnection.end();
+		            	   });
+	            	   }
+	               }
+	             
 	            });	
 };
 
-//Función de desbloqueo de usuarios, la llamada a este método debe ser de este tipo /api/desbloquear/:id
-exports.desbloquear = function (req,res) {
-	
-	var id =req.params.id;
-	var sqlconnection = connection.createConnection();
-	var query = 'UPDATE usuarios SET bloqueado=1 where idUsuario='+id;
-	           
-	    sqlconnection.query(query, function(err, results) {
-	            if (err){
-	               res.send(err, "query error");
-	                  
-	               }else{
-	               //devolvemos numero de filas afectadas
-	               res.send(results.affectedRows);
-	             }
-	            sqlconnection.end();
-	            });	
-};
 
-//Función de borrado de usuarios, la llamada a este método debe ser de este tipo /api/borrarUsuario/:id
+//Función de borrado de usuarios, la llamada a este método debe ser de este tipo /user/borrarUsuario/:id
 exports.borrarUsuario = function (req,res) {
 	
 	var id =req.params.id;

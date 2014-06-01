@@ -4,7 +4,7 @@ USE `mydb`;
 --
 -- Host: 127.0.0.1    Database: mydb
 -- ------------------------------------------------------
--- Server version	5.6.16
+-- Server version	5.5.31
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -38,7 +38,7 @@ CREATE TABLE `administradores` (
 
 LOCK TABLES `administradores` WRITE;
 /*!40000 ALTER TABLE `administradores` DISABLE KEYS */;
-INSERT INTO `administradores` (`idAdministrador`, `email`, `password`) VALUES (1,'admin@admin','admin');
+INSERT INTO `administradores` VALUES (1,'admin@admin','admin');
 /*!40000 ALTER TABLE `administradores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,7 +91,7 @@ CREATE TABLE `artistas` (
 
 LOCK TABLES `artistas` WRITE;
 /*!40000 ALTER TABLE `artistas` DISABLE KEYS */;
-INSERT INTO `artistas` (`Genero`, `Usuarios_idUsuario`) VALUES ('1',4),('3',5);
+INSERT INTO `artistas` VALUES ('1',4),('3',5),('2',13),('9',14),('2',15);
 /*!40000 ALTER TABLE `artistas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +145,7 @@ CREATE TABLE `basicos` (
 
 LOCK TABLES `basicos` WRITE;
 /*!40000 ALTER TABLE `basicos` DISABLE KEYS */;
-INSERT INTO `basicos` (`fecha_nac`, `sexo`, `Usuarios_idUsuario`) VALUES ('1989-02-15','H',6),('1984-05-07','H',7),('1989-01-02','M',8);
+INSERT INTO `basicos` VALUES ('1989-02-15','H',6),('1984-05-07','H',7),('1989-01-02','M',8),('2014-06-12','H',12);
 /*!40000 ALTER TABLE `basicos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,7 +170,7 @@ CREATE TABLE `generos` (
 
 LOCK TABLES `generos` WRITE;
 /*!40000 ALTER TABLE `generos` DISABLE KEYS */;
-INSERT INTO `generos` (`idGeneros`, `nombre`) VALUES (1,'Clásica'),(9,'Electrónica'),(6,'Fusión'),(3,'Heavy-Metal'),(4,'Hip-Hop'),(5,'Latina'),(8,'New age'),(2,'Pop'),(7,'Rock');
+INSERT INTO `generos` VALUES (1,'Clásica'),(9,'Electrónica'),(6,'Fusión'),(3,'Heavy-Metal'),(4,'Hip-Hop'),(5,'Latina'),(8,'New age'),(2,'Pop'),(7,'Rock');
 /*!40000 ALTER TABLE `generos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -266,7 +266,7 @@ CREATE TABLE `posts_eliminados` (
   `post_img` varchar(500) DEFAULT NULL,
   `destinatario` varchar(45) DEFAULT NULL,
   `idUsuario` int(11) NOT NULL,
-  `fecha_eliminado` datetime DEFAULT CURRENT_TIMESTAMP,
+  `fecha_eliminado` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -304,7 +304,7 @@ CREATE TABLE `salas` (
 
 LOCK TABLES `salas` WRITE;
 /*!40000 ALTER TABLE `salas` DISABLE KEYS */;
-INSERT INTO `salas` (`aforo`, `poblacion`, `direccion`, `Usuarios_idUsuario`) VALUES (1000,'Madrid','C/ Princesa 1',9),(1800,'Madrid','C/ Virgen del Puerto, s/n',10),(600,'Madrid','C/ de Bernardino Obregón, 18',11);
+INSERT INTO `salas` VALUES (1000,'Madrid','C/ Princesa 1',9),(1800,'Madrid','C/ Virgen del Puerto, s/n',10),(600,'Madrid','C/ de Bernardino Obregón, 18',11);
 /*!40000 ALTER TABLE `salas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,7 +353,7 @@ CREATE TABLE `tipo_usuarios` (
 
 LOCK TABLES `tipo_usuarios` WRITE;
 /*!40000 ALTER TABLE `tipo_usuarios` DISABLE KEYS */;
-INSERT INTO `tipo_usuarios` (`idTipo_usuarios`, `nombre`) VALUES (2,'Artista'),(1,'Básico'),(3,'Sala');
+INSERT INTO `tipo_usuarios` VALUES (2,'Artista'),(1,'Básico'),(3,'Sala');
 /*!40000 ALTER TABLE `tipo_usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,15 +371,15 @@ CREATE TABLE `usuarios` (
   `email` varchar(45) NOT NULL,
   `fecha_alta` date NOT NULL,
   `bloqueado` bit(1) NOT NULL DEFAULT b'0',
-  `profile_img` varchar(500) NOT NULL,
-  `header_img` varchar(500) NOT NULL,
+  `profile_img` varchar(500) NOT NULL DEFAULT 'https://dogvacay.com/img/default_profile.jpg',
+  `header_img` varchar(500) NOT NULL DEFAULT 'http://www.bea-pedestrian.be/uploads/images/header/header_default.jpg',
   `Tipo_usuarios_idTipo_usuarios` int(11) NOT NULL,
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_Usuarios_Tipo_usuarios1_idx` (`Tipo_usuarios_idTipo_usuarios`),
   CONSTRAINT `fk_Usuarios_Tipo_usuarios1` FOREIGN KEY (`Tipo_usuarios_idTipo_usuarios`) REFERENCES `tipo_usuarios` (`idTipo_usuarios`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -388,7 +388,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` (`idUsuario`, `nombre`, `password`, `email`, `fecha_alta`, `bloqueado`, `profile_img`, `header_img`, `Tipo_usuarios_idTipo_usuarios`) VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31','\0','','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31','\0','','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31','\0','','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31','\0','','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31','\0','','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31','\0','','',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31','\0','','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31','\0','','',3);
+INSERT INTO `usuarios` VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31','\0','','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31','\0','','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31','\0','','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31','\0','','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31','\0','','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31','\0','','',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31','\0','','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31','\0','','',3),(12,'pepito','pepito','pepito@pepito','2014-06-01','\0','https://dogvacay.com/img/default_profile.jpg','http://www.bea-pedestrian.be/uploads/images/header/header_default.jpg',1),(13,'joseluis','joseluismoreno','joseluismoreno@joseluismoreno','2014-06-01','\0','https://dogvacay.com/img/default_profile.jpg','http://www.bea-pedestrian.be/uploads/images/header/header_default.jpg',2),(14,'alaska','alaska','alaska@alaska','2014-06-01','\0','https://dogvacay.com/img/default_profile.jpg','http://www.bea-pedestrian.be/uploads/images/header/header_default.jpg',2),(15,'shakira','shakira','shakira@shakira','2014-06-01','\0','https://dogvacay.com/img/default_profile.jpg','http://www.bea-pedestrian.be/uploads/images/header/header_default.jpg',2);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -531,4 +531,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-01 20:31:20
+-- Dump completed on 2014-06-01 21:50:42
