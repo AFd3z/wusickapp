@@ -31,6 +31,7 @@ module.exports = function(app) {
  app.route('/user/bloquear/:id').post(user.bloquear);
  app.route('/user/desbloquear/:id').post(user.desbloquear);
  app.route('/user/borrarUsuario/:id').post(user.borrarUsuario);
+ app.route('/user/listadoUsuarios').get(user.listadoUsuarios);
 
  //POST
  app.route('/post/postear').post(post.postear);

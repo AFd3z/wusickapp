@@ -133,6 +133,32 @@ exports.registro = function (req,res) {
 		  });
 	};
 
+
+//---------- ADMINISTRACION -----------------
+
+//Función de listado de usuarios
+exports.listadoUsuarios= function (req,res){
+  
+  var json="";
+  var sqlconnection = connection.createConnection();
+    var query = 'SELECT * FROM usuarios';
+  
+    sqlconnection.query(query, function(err, results) {
+        if (err)
+            res.send(err, "query error");
+
+        if (results.length<=0){
+              res.send(false);
+        
+           }else{
+               res.json(results);
+           }
+
+        sqlconnection.end();
+    });
+};
+
+
 //Función de bloqueo de usuarios, la llamada a este método debe ser de este tipo /api/bloquear/:id
 exports.bloquear = function (req,res) {
 	
