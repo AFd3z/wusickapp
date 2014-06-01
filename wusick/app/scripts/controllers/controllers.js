@@ -7,7 +7,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'IdUs
         $scope.userData = {};
         //Las peticiones desde el controlador indican la ruta a la base de datos.
         $scope.obtenerUsuario = function(){
-            $http.post('/api/login', $scope.userData)
+            $http.post('/user/login', $scope.userData)
                 .success(function(data) {
                 	console.log(data);
                     if(data==='null'){
@@ -19,7 +19,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'IdUs
                     	 $http.post('/api/crearSesion', $scope.userData)
                          .success(function(data){
                          	console.log(data);
-                         	//window.location.href = '/partials/jades/editar.jade';
+                         	window.location.href = '/administrator';
                              
                          })
                          .error(function(data) {
@@ -101,4 +101,20 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','IdUsuario', functio
      $scope.message = 'Hola usuario numero 'IdUsuario.id;
 
 
+}]);
+
+WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.obtenerListado = function(){
+        $scope.listGral;
+         //Las peticiones desde el controlador indican la ruta a la base de datos.
+        $http.get('/user/listadoUsuarios')
+        .success(function(data){
+            console.log('todo ok:' + data);
+            $scope.listGral = data;
+        })
+        .error(function(data) {
+            console.log('Error:' + data);
+        });
+    };
+    
 }]);

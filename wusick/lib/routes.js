@@ -1,6 +1,8 @@
 'use strict';
 
 var api = require('./controllers/api'),
+    user = require('./controllers/user'),
+    post = require('./controllers/post'),
     index = require('./controllers');
 
 /**
@@ -22,17 +24,18 @@ module.exports = function(app) {
  
  
  //RUTAS USUARIO
- app.route('/api/login').post(api.login);
- app.route('/api/registro').post(api.registro);
+ app.route('/user/login').post(user.login);
+ app.route('/user/registro').post(user.registro);
  
  //ADMINISTRACION
- app.route('/api/bloquear/:id').post(api.bloquear);
- app.route('/api/desbloquear/:id').post(api.desbloquear);
- app.route('/api/borrarUsuario/:id').post(api.borrarUsuario);
+ app.route('/user/bloquear/:id').post(user.bloquear);
+ app.route('/user/desbloquear/:id').post(user.desbloquear);
+ app.route('/user/borrarUsuario/:id').post(user.borrarUsuario);
+ app.route('/user/listadoUsuarios').get(user.listadoUsuarios);
 
  //POST
- app.route('/api/postear').post(api.postear);
- app.route('/api/borrarPost/:id').post(api.borrarPost);
+ app.route('/post/postear').post(post.postear);
+ app.route('/post/borrarPost/:id').post(post.borrarPost);
 
   
 

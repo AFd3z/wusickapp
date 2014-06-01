@@ -27,6 +27,10 @@ angular.module('wusickAppApp', [
         templateUrl: 'partials/main',
         controller: 'mainCtrl'
       })
+        .when('/administrator', {
+        templateUrl: 'partials/jades/admin-index',
+        controller: 'adminCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
