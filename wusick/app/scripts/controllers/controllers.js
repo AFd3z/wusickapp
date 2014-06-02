@@ -19,7 +19,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'IdUs
                     	 $http.post('/api/crearSesion', $scope.userData)
                          .success(function(data){
                          	console.log(data);
-                         	window.location.href = '/administrator';
+                         	  $location.url("/administrator");
                              
                          })
                          .error(function(data) {
@@ -29,6 +29,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'IdUs
                     	console.log('vamos a main');
                         $http.post('/api/getIdByEmail', $scope.userData)
                             .success(function(data){
+                                console.log(data);
                                      IdUsuario.id = data;
                                     $location.url("/main");
                         
