@@ -1,0 +1,60 @@
+﻿<div ng-include="'partials/navbarAdmin'"></div>
+
+<div class="container">
+    <div ng-init="obtenerListado()">
+		<table class='table table-bordered table-hover table-condensed'>
+			<thead>
+				<tr class='text-center'>
+					<th class="id">Id&nbsp;<a ng-click="sort_by('id')"><i class="icon-sort"></i></a></th>
+					<th class="nombre">Nombre&nbsp;<a ng-click="sort_by('nombre')"><i class="icon-sort"></i></a></th>
+					<th class="email">email&nbsp;<a ng-click="sort_by('email')"><i class="icon-sort"></i></a></th>
+					<th class="fecha">fecha de alta&nbsp;<a ng-click="sort_by('fecha')"><i class="icon-sort"></i></a></th>
+					<th class="tipo">tipo de Usuario&nbsp;<a ng-click="sort_by('tipo')"><i class="icon-sort"></i></a></th>
+					<th class="estado">Estado&nbsp;<a ng-click="sort_by('estado')"><i class="icon-sort"></i></a></th>
+					<th class="estado">Editar&nbsp;<i class="icon-sort"></i></th>
+					<th class="estado">Eliminar&nbsp;<i class="icon-sort"></i></th>
+				</tr>
+			</thead>
+			<tfoot>
+
+			</tfoot>
+			<tbody>
+				<tr ng-repeat="item in listGral">
+					<td>{{item.idUsuario}}</td>
+					<td>{{item.nombre}}</td>
+					<td>{{item.email}}</td>
+					<td>{{item.fecha_alta}}</td>
+					
+					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 1">
+    					Básico
+					</td>
+					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 2">
+    					Artista
+					</td>
+					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 3">
+    					Sala
+					</td>
+					
+					<td>
+						<div class='btn-group btn-toggle'>
+							<div ng-if="item.bloqueado == 0">
+								<button value={{item.idUsuario}} ng-click='activarUsuario()' class='btn btn-sm btn-primary active'>ACTIVO</button>
+								<button value={{item.idUsuario}} ng-click='bloquearUsuario()' class='btn btn-sm btn-default'>BLOQUEADO</button>
+							</div>
+							<div ng-if="item.bloqueado == 1">
+								<button ng-click='activarUsuario()' class='btn btn-sm btn-default'>ACTIVO</button>
+								<button ng-click='bloquearUsuario()' class='btn btn-sm btn-primary active'>BLOQUEADO</button>
+							</div>
+						</div>
+					</td>
+
+					
+					
+					
+					<td class="text-center"><img src='../../../images/edit.png', alt='Editar') /></td>
+					<td class="text-center"><img src='../../../images/delete.png', alt='Eliminar') /></td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+ </div>
