@@ -54,7 +54,7 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http', function ($scop
 		$http.post('/api/existeMail', $scope.userData)
 			.success(function(data){
 				if(data==false){
-					$http.post('/api/registro', $scope.userData)
+					$http.post('/user/registro', $scope.userData)
 						.success(function(data){
 						$scope.formData = {};
 						 smoke.alert('Gracias por registrarse en Wusick. Sus datos son los siguientes: \n <strong>Usuario:</strong> '+$scope.userData.nombre+'\n <strong>ContraseÃƒÂ±a:</strong> ' +$scope.userData.pass+'\n<strong>Email: </strong>' +$scope.userData.email);
@@ -104,10 +104,9 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','IdUsuario', functio
 
 }]);
 
-WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, $http) {
+WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, $http,$window) {
     $scope.obtenerListado = function(){
         $scope.listGral;
-         //Las peticiones desde el controlador indican la ruta a la base de datos.
         $http.get('/user/listadoUsuarios')
         .success(function(data){
             console.log('todo ok:' + data);
@@ -116,6 +115,60 @@ WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, 
         .error(function(data) {
             console.log('Error:' + data);
         });
+    };
+  
+    $scope.bloquear = function(obj){
+    	var c = confirm('Bloquear usuario '+obj.target.attributes.name.value+' ?');
+    	if (c==true){
+    	 $http.post('/user/bloquear/'+obj.target.attributes.data.value)
+         .success(function(data){
+                console.log(data);
+                location.reload();
+         })
+        .error(function(data) {
+                 console.log('Error:' + data);
+         });
+    	}else{
+    		alert('No se bloqueara el usuario '+obj.target.attributes.name.value);
+    		
+    	}
+    	 
+    };
+    
+    $scope.desbloquear = function(obj){
+    	var c = confirm('Desbloquear usuario '+obj.target.attributes.name.value+' ?');
+    	if (c==true){
+    	 $http.post('/user/desbloquear/'+obj.target.attributes.data.value)
+         .success(function(data){
+                console.log(data);
+                location.reload();
+         })
+        .error(function(data) {
+                 console.log('Error:' + data);
+         });
+    	}else{
+    		alert('No se desbloqueara el usuario '+obj.target.attributes.name.value);
+    		
+    	}
+    	 
+    };
+    
+    $scope.borrarUsuario = function(obj){
+    	var c = confirm('Está seguro de querer borrar el usuario '+obj.target.attributes.name.value+' ?');
+    	if (c==true){
+    	 $http.post('/user/borrarUsuario/'+obj.target.attributes.data.value)
+         .success(function(data){
+                console.log(data);
+                location.reload();
+         })
+        .error(function(data) {
+                 console.log('Error:' + data);
+         });
+    	}else{
+    		alert('No se borrará el usuario '+obj.target.attributes.name.value);
+    		
+    	}
+    	 
     };
     
 }]);

@@ -145,7 +145,7 @@ CREATE TABLE `basicos` (
 
 LOCK TABLES `basicos` WRITE;
 /*!40000 ALTER TABLE `basicos` DISABLE KEYS */;
-INSERT INTO `basicos` VALUES ('1989-02-15','H',6),('1984-05-07','H',7),('1989-01-02','M',8);
+INSERT INTO `basicos` VALUES ('1989-02-15','H',6),('1984-05-07','H',7),('1989-01-02','M',8),('2014-07-01','H',23);
 /*!40000 ALTER TABLE `basicos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -224,6 +224,60 @@ CREATE TABLE `posts` (
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger `trata_posts_eliminados` before DELETE ON `posts`
+for each row 
+BEGIN
+	INSERT INTO `posts_eliminados` SET
+	`idPosts` 		  = OLD.idPosts,
+	`contenido` 	  = OLD.contenido,
+	`fecha` 		  = OLD.fecha,
+	`post_img` 		  = OLD.post_img,
+	`destinatario` 	  = OLD.destinatario,
+	`idUsuario` 	  = OLD.Usuarios_idUsuario;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `posts_eliminados`
+--
+
+DROP TABLE IF EXISTS `posts_eliminados`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `posts_eliminados` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idPosts` int(11) NOT NULL,
+  `contenido` varchar(500) DEFAULT NULL,
+  `fecha` datetime DEFAULT NULL,
+  `post_img` varchar(500) DEFAULT NULL,
+  `destinatario` varchar(45) DEFAULT NULL,
+  `idUsuario` int(11) NOT NULL,
+  `fecha_eliminado` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `posts_eliminados`
+--
+
+LOCK TABLES `posts_eliminados` WRITE;
+/*!40000 ALTER TABLE `posts_eliminados` DISABLE KEYS */;
+/*!40000 ALTER TABLE `posts_eliminados` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -316,16 +370,16 @@ CREATE TABLE `usuarios` (
   `password` varchar(20) NOT NULL,
   `email` varchar(45) NOT NULL,
   `fecha_alta` date NOT NULL,
-  `bloqueado` bit(1) NOT NULL DEFAULT b'0',
-  `profile_img` varchar(500) NOT NULL,
-  `header_img` varchar(500) NOT NULL,
+  `bloqueado` tinyint(1) NOT NULL DEFAULT '0',
+  `profile_img` varchar(500) NOT NULL DEFAULT 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSF0pus3I09NGJ8VBG0_1Q8No9PYQ2ouoIFhXXN14gSLFIo_C0SPrRdTJYzeA',
+  `header_img` varchar(500) NOT NULL DEFAULT 'http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',
   `Tipo_usuarios_idTipo_usuarios` int(11) NOT NULL,
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_Usuarios_Tipo_usuarios1_idx` (`Tipo_usuarios_idTipo_usuarios`),
   CONSTRAINT `fk_Usuarios_Tipo_usuarios1` FOREIGN KEY (`Tipo_usuarios_idTipo_usuarios`) REFERENCES `tipo_usuarios` (`idTipo_usuarios`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -334,8 +388,114 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31','\0','','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31','\0','','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31','\0','','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31','\0','','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31','\0','','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31','\0','','',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31','\0','','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31','\0','','',3);
+INSERT INTO `usuarios` VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31',0,'','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31',1,'','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31',1,'','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31',1,'','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31',1,'','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31',1,'','',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31',1,'','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31',1,'','',3),(16,'pepito','pepito','pepito@pepito','2014-06-02',1,'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1),(23,'pepito2','pepito2','pepito2@pepito2','2014-06-02',0,'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSF0pus3I09NGJ8VBG0_1Q8No9PYQ2ouoIFhXXN14gSLFIo_C0SPrRdTJYzeA','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger `trata_usuarios_eliminados` before DELETE ON `usuarios`
+for each row 
+BEGIN
+
+	DECLARE fn date;
+	DECLARE sx char(1);
+	DECLARE gn varchar(45);
+	DECLARE af integer;
+	DECLARE pb varchar(45);
+	DECLARE dr varchar(45);
+	DECLARE id_nuevo integer;
+	DECLARE tipo integer;
+
+	INSERT INTO `usuarios_eliminados` SET
+	`idUsuario`		= OLD.`idUsuario`,
+	`nombre`		= OLD.`nombre`,
+	`password`		= OLD.`password`,
+	`email`			= OLD.`email`,
+	`fecha_alta`	= OLD.`fecha_alta`,
+	`bloqueado`		= OLD.`bloqueado`,
+	`profile_img`	= OLD.`profile_img`,
+	`header_img`	= OLD.`header_img`,
+	`tipo_de_usuario`	= OLD.`Tipo_usuarios_idTipo_usuarios`,
+	/* datos de tabla basicos por  defecto son null*/
+	`fecha_nac`		= null,
+	`sexo`			= null,
+	/* datos de tabla artistas  defecto son null*/
+	`genero`		= null,
+	/* datos de tabla salas  defecto son null*/
+	`aforo`			= null,
+	`poblacion`		= null,
+	`direccion`		= null;
+
+	set tipo = OLD.`Tipo_usuarios_idTipo_usuarios`;
+	select max(id) into id_nuevo from usuarios_eliminados;
+
+	CASE tipo
+		WHEN 1 THEN
+			select `fecha_nac`, `sexo` into fn, sx FROM `basicos` WHERE `Usuarios_idUsuario` = OLD.`idUsuario`;
+			update `usuarios_eliminados` set `fecha_nac` = fn, `sexo` = sx 
+			WHERE `idUsuario` = OLD.`idUsuario` and `id` = id_nuevo;
+		WHEN 2 THEN
+			select `genero` into gn FROM `artistas` WHERE `Usuarios_idUsuario` = OLD.`idUsuario`;
+			update `usuarios_eliminados` set `genero` = gn
+			WHERE `idUsuario` = OLD.`idUsuario` and `id` = id_nuevo;
+		WHEN 3 THEN
+			select `aforo`, `poblacion`,`direccion` into af, pb, dr FROM `salas` WHERE `Usuarios_idUsuario` = OLD.`idUsuario`;
+			update `usuarios_eliminados` set `aforo` = af, `poblacion` = pb, `direccion` = dr
+			WHERE `idUsuario` = OLD.`idUsuario` and `id` = id_nuevo;
+	END CASE;
+
+    /* eliminamos los posts que contengan el id del usuario eliminado */
+	DELETE FROM `posts` where `Usuarios_idUsuario` = OLD.`idUsuario`;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `usuarios_eliminados`
+--
+
+DROP TABLE IF EXISTS `usuarios_eliminados`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuarios_eliminados` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idUsuario` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `fecha_alta` date DEFAULT NULL,
+  `bloqueado` bit(1) DEFAULT NULL,
+  `profile_img` varchar(500) DEFAULT NULL,
+  `header_img` varchar(500) DEFAULT NULL,
+  `tipo_de_usuario` varchar(500) DEFAULT NULL,
+  `fecha_nac` date DEFAULT NULL,
+  `sexo` char(1) DEFAULT NULL,
+  `genero` varchar(45) DEFAULT NULL,
+  `aforo` int(11) DEFAULT NULL,
+  `poblacion` varchar(45) DEFAULT NULL,
+  `direccion` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuarios_eliminados`
+--
+
+LOCK TABLES `usuarios_eliminados` WRITE;
+/*!40000 ALTER TABLE `usuarios_eliminados` DISABLE KEYS */;
+INSERT INTO `usuarios_eliminados` VALUES (1,13,'mauricio','mauricio','mairicio@mau.com','2014-06-02','\0','','','1','2014-06-12','H',NULL,NULL,NULL,NULL),(2,14,'mauricio2','mauricio2','mairicio2@mau.com','2014-06-02','\0','','','2',NULL,NULL,'1',NULL,NULL,NULL),(3,15,'mauricio3','mauricio3','mairicio3@mau.com','2014-06-02','\0','','','3',NULL,NULL,NULL,21,'Madrid','calle alcala, nº 14, 2028 de Madrid');
+/*!40000 ALTER TABLE `usuarios_eliminados` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -374,4 +534,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-01 14:08:59
+-- Dump completed on 2014-06-02 22:16:12
