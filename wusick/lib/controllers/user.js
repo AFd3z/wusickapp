@@ -169,10 +169,11 @@ exports.bloquear = function (req,res) {
 	    sqlconnection.query(query, function(err, results) {
 	            if (err){
 	               res.send(err, "query error");
-	                  
+	                
+	               console.log(results);
 	               }else{
 	            	   //si está bloqueado lo desbloqueamos
-	            	   if (results==1){
+	            	   if (results=='1'){
 	            	   var query2 = 'UPDATE usuarios SET bloqueado=0 where idUsuario='+id;
 	            	   sqlconnection.query(query2, function(err, results) {
    				        if (err)

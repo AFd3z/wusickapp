@@ -119,10 +119,24 @@ WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, 
     
     $scope.activarUsuario = function(){
     	alert('activar Usuario ');
+    	 $http.post('/user/bloquear')
+         .success(function(data){
+                console.log(data);
+         })
+        .error(function(data) {
+                 console.log('Error:' + data);
+         });
     };
     
     $scope.bloquearUsuario = function(){
     	alert('bloquear Usuario ');
+    	 $http.post('/user/bloquear')
+         .success(function(data){
+                console.log(data);
+         })
+        .error(function(data) {
+                 console.log('Error:' + data);
+         });
     };
     
 }]);
