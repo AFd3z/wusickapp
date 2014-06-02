@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('wusickAppApp')
-  .controller('NavbarMainCtrl', function ($scope, $location) {
+  .controller('NavbarAdminCtrl', function ($scope, $location) {
     $scope.menu = [
-    {'title': 'opc 1','link': '/perfil'},
-    {'title': 'opc 2','link': '/cuenta'},
-    {'title': 'Salir','link': '/login'}
+    {'title': 'opc1','link': '/login'},
+    {'title': 'opc2','link': '/login'},
+    {'title': 'salir','link': '/login'}
 
     ];
     

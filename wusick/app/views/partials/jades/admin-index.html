@@ -1,4 +1,5 @@
 ﻿<div ng-include="'partials/navbarAdmin'"></div>
+
 <div class="container">
     <div ng-init="obtenerListado()">
 		<table class='table table-bordered table-hover table-condensed'>
@@ -23,8 +24,9 @@
 					<td>{{item.nombre}}</td>
 					<td>{{item.email}}</td>
 					<td>{{item.fecha_alta}}</td>
+					
 					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 1">
-    					B�sico
+    					Básico
 					</td>
 					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 2">
     					Artista
@@ -33,30 +35,15 @@
     					Sala
 					</td>
 					
-					<!-- td ng-if="item.bloqueado == 0">
-    					Desbloqueado
-					</td>
-					<td ng-if="item.bloqueado == 1">
-    					Bloqueado
-					</td -->
-					
 					<td>
 						<div class='btn-group btn-toggle'>
 							<div ng-if="item.bloqueado == 0">
-								<a href='#' >
-									<button class='btn btn-sm btn-primary active'>ACTIVO</button>
-								</a>
-								<a href='#' >
-									<button class='btn btn-sm btn-default'>BLOQUEADO</button>
-								</a>
+								<button value={{item.idUsuario}} ng-click='activarUsuario()' class='btn btn-sm btn-primary active'>ACTIVO</button>
+								<button value={{item.idUsuario}} ng-click='bloquearUsuario()' class='btn btn-sm btn-default'>BLOQUEADO</button>
 							</div>
 							<div ng-if="item.bloqueado == 1">
-								<a href='#' >
-									<button class='btn btn-sm btn-default'>ACTIVO</button>
-								</a>
-								<a href='#' >
-									<button class='btn btn-sm btn-primary active'>BLOQUEADO</button>
-								</a>
+								<button ng-click='activarUsuario()' class='btn btn-sm btn-default'>ACTIVO</button>
+								<button ng-click='bloquearUsuario()' class='btn btn-sm btn-primary active'>BLOQUEADO</button>
 							</div>
 						</div>
 					</td>
@@ -64,8 +51,8 @@
 					
 					
 					
-					<td><img src='../../../images/edit.png', alt='Editar') /></td>
-					<td><img src='../../../images/delete.png', alt='Eliminar') /></td>
+					<td class="text-center"><img src='../../../images/edit.png', alt='Editar') /></td>
+					<td class="text-center"><img src='../../../images/delete.png', alt='Eliminar') /></td>
 				</tr>
 			</tbody>
 		</table>

@@ -117,4 +117,12 @@ WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, 
         });
     };
     
+    $scope.activarUsuario = function(){
+    	alert('activar Usuario ');
+    };
+    
+    $scope.bloquearUsuario = function(){
+    	alert('bloquear Usuario ');
+    };
+    
 }]);
