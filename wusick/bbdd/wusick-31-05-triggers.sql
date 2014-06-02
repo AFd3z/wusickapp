@@ -2,9 +2,9 @@ CREATE DATABASE  IF NOT EXISTS `mydb` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `mydb`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: localhost    Database: mydb
+-- Host: 127.0.0.1    Database: mydb
 -- ------------------------------------------------------
--- Server version	5.6.17-log
+-- Server version	5.5.31
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -370,7 +370,7 @@ CREATE TABLE `usuarios` (
   `password` varchar(20) NOT NULL,
   `email` varchar(45) NOT NULL,
   `fecha_alta` date NOT NULL,
-  `bloqueado` bit(1) NOT NULL DEFAULT b'0',
+  `bloqueado` tinyint(1) NOT NULL DEFAULT '0',
   `profile_img` varchar(500) NOT NULL DEFAULT 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSF0pus3I09NGJ8VBG0_1Q8No9PYQ2ouoIFhXXN14gSLFIo_C0SPrRdTJYzeA',
   `header_img` varchar(500) NOT NULL DEFAULT 'http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',
   `Tipo_usuarios_idTipo_usuarios` int(11) NOT NULL,
@@ -388,7 +388,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31','\0','','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31','\0','','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31','\0','','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31','\0','','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31','\0','','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31','\0','','',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31','','','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31','\0','','',3),(16,'pepito','pepito','pepito@pepito','2014-06-02','\0','http://s3.amazonaws.com/37assets/svn/765-default-avatar.png','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1),(23,'pepito2','pepito2','pepito2@pepito2','2014-06-02','\0','https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSF0pus3I09NGJ8VBG0_1Q8No9PYQ2ouoIFhXXN14gSLFIo_C0SPrRdTJYzeA','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1);
+INSERT INTO `usuarios` VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31',0,'','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31',1,'','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31',1,'','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31',1,'','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31',1,'','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31',1,'','',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31',1,'','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31',1,'','',3),(16,'pepito','pepito','pepito@pepito','2014-06-02',1,'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1),(23,'pepito2','pepito2','pepito2@pepito2','2014-06-02',0,'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSF0pus3I09NGJ8VBG0_1Q8No9PYQ2ouoIFhXXN14gSLFIo_C0SPrRdTJYzeA','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -534,4 +534,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-02  9:47:57
+-- Dump completed on 2014-06-02 22:16:12

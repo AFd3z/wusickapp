@@ -103,10 +103,9 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','IdUsuario', functio
 
 }]);
 
-WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, $http) {
+WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, $http,$window) {
     $scope.obtenerListado = function(){
         $scope.listGral;
-         //Las peticiones desde el controlador indican la ruta a la base de datos.
         $http.get('/user/listadoUsuarios')
         .success(function(data){
             console.log('todo ok:' + data);
@@ -116,27 +115,59 @@ WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, 
             console.log('Error:' + data);
         });
     };
-    
-    $scope.activarUsuario = function(){
-    	alert('activar Usuario ');
-    	 $http.post('/user/bloquear')
+  
+    $scope.bloquear = function(obj){
+    	var c = confirm('Bloquear usuario '+obj.target.attributes.name.value+' ?');
+    	if (c==true){
+    	 $http.post('/user/bloquear/'+obj.target.attributes.data.value)
          .success(function(data){
                 console.log(data);
+                location.reload();
          })
         .error(function(data) {
                  console.log('Error:' + data);
          });
+    	}else{
+    		alert('No se bloqueara el usuario '+obj.target.attributes.name.value);
+    		
+    	}
+    	 
     };
     
-    $scope.bloquearUsuario = function(){
-    	alert('bloquear Usuario ');
-    	 $http.post('/user/bloquear')
+    $scope.desbloquear = function(obj){
+    	var c = confirm('Desbloquear usuario '+obj.target.attributes.name.value+' ?');
+    	if (c==true){
+    	 $http.post('/user/desbloquear/'+obj.target.attributes.data.value)
          .success(function(data){
                 console.log(data);
+                location.reload();
          })
         .error(function(data) {
                  console.log('Error:' + data);
          });
+    	}else{
+    		alert('No se desbloqueara el usuario '+obj.target.attributes.name.value);
+    		
+    	}
+    	 
+    };
+    
+    $scope.borrarUsuario = function(obj){
+    	var c = confirm('Está seguro de querer borrar el usuario '+obj.target.attributes.name.value+' ?');
+    	if (c==true){
+    	 $http.post('/user/borrarUsuario/'+obj.target.attributes.data.value)
+         .success(function(data){
+                console.log(data);
+                location.reload();
+         })
+        .error(function(data) {
+                 console.log('Error:' + data);
+         });
+    	}else{
+    		alert('No se borrará el usuario '+obj.target.attributes.name.value);
+    		
+    	}
+    	 
     };
     
 }]);

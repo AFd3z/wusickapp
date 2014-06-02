@@ -159,23 +159,13 @@ exports.listadoUsuarios= function (req,res){
 };
 
 
-//Función de bloqueo y desbloqueo de usuarios, la llamada a este método debe ser de este tipo /user/bloquear/:id
+//Función de bloqueo de usuarios, la llamada a este método debe ser de este tipo /user/bloquear/:id
 exports.bloquear = function (req,res) {
 	
 	var id =req.params.id;
 	var sqlconnection = connection.createConnection();
-	var query = 'SELECT bloqueado FROM usuarios WHERE idUsuario='+id;
-	           
-	    sqlconnection.query(query, function(err, results) {
-	            if (err){
-	               res.send(err, "query error");
-	                
-	               console.log(results);
-	               }else{
-	            	   //si est� bloqueado lo desbloqueamos
-	            	   if (results=='1'){
-	            	   var query2 = 'UPDATE usuarios SET bloqueado=0 where idUsuario='+id;
-	            	   sqlconnection.query(query2, function(err, results) {
+	var query = 'UPDATE usuarios SET bloqueado=1 where idUsuario='+id;
+	            	   sqlconnection.query(query, function(err, results) {
    				        if (err)
    				            res.send(err, "query error");
    				        
@@ -183,25 +173,26 @@ exports.bloquear = function (req,res) {
    				        res.send('desb');
    				    	sqlconnection.end();
 		        	});
-	            	   
-	            	   
-	            	   }else{
-	            		 //si est� desbloqueado lo bloqueamos
-	            		   var query3 = 'UPDATE usuarios SET bloqueado=1 where idUsuario='+id;
-		            	   sqlconnection.query(query3, function(err, results) {
-	   				        if (err)
-	   				            res.send(err, "query error");
-	   				        
-	   				        console.log("Usuario bloqueado con ID: "+id);
-	   				        res.send('bloq');
-	   				    	sqlconnection.end();
-		            	   });
-	            	   }
-	               }
-	             
-	            });	
+
 };
 
+
+//Función de desbloqueo de usuarios, la llamada a este método debe ser de este tipo /user/bloquear/:id
+exports.desbloquear = function (req,res) {
+	
+	var id =req.params.id;
+	var sqlconnection = connection.createConnection();
+	var query = 'UPDATE usuarios SET bloqueado=0 where idUsuario='+id;
+	            	   sqlconnection.query(query, function(err, results) {
+   				        if (err)
+   				            res.send(err, "query error");
+   				        
+   				        console.log("Usuario desbloqueado con ID: "+id);
+   				        res.send('desb');
+   				    	sqlconnection.end();
+		        	});
+
+};
 
 //Función de borrado de usuarios, la llamada a este método debe ser de este tipo /user/borrarUsuario/:id
 exports.borrarUsuario = function (req,res) {

@@ -38,21 +38,18 @@
 					<td>
 						<div class='btn-group btn-toggle'>
 							<div ng-if="item.bloqueado == 0">
-								<button value={{item.idUsuario}} ng-click='activarUsuario()' class='btn btn-sm btn-primary active'>ACTIVO</button>
-								<button value={{item.idUsuario}} ng-click='bloquearUsuario()' class='btn btn-sm btn-default'>BLOQUEADO</button>
+								<button value={{item.idUsuario}} class='btn btn-sm btn-primary active'>ACTIVO</button>
+								<button data={{item.idUsuario}} name={{item.nombre}} ng-click='bloquear($event)' class='btn btn-sm btn-default'>BLOQUEADO</button>
 							</div>
 							<div ng-if="item.bloqueado == 1">
-								<button ng-click='activarUsuario()' class='btn btn-sm btn-default'>ACTIVO</button>
-								<button ng-click='bloquearUsuario()' class='btn btn-sm btn-primary active'>BLOQUEADO</button>
+								<button data={{item.idUsuario}} name={{item.nombre}} ng-click='desbloquear($event)' class='btn btn-sm btn-default'>ACTIVO</button>
+								<button class='btn btn-sm btn-primary active'>BLOQUEADO</button>
 							</div>
 						</div>
 					</td>
 
-					
-					
-					
-					<td class="text-center"><img src='../../../images/edit.png', alt='Editar') /></td>
-					<td class="text-center"><img src='../../../images/delete.png', alt='Eliminar') /></td>
+					<td class="text-center"><img src='../../../images/edit.png', alt='Editar' /></td>
+					<td class="text-center"><a href ng-click='borrarUsuario($event)' ><img src='../../../images/delete.png', alt='Eliminar' data={{item.idUsuario}} name={{item.nombre}} /></a></td>
 				</tr>
 			</tbody>
 		</table>
