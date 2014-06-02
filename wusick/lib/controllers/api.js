@@ -221,7 +221,8 @@ exports.getIdByEmail = function(req, res){
 
 //Función para obtener el nombre de usuario a través del id
 exports.getUserById = function(req, res){
-	var id=req.body.id;
+	var id=req.session.idUsuario;
+	console.log(id);
 	var sqlconnection = connection.createConnection();
 	var query = 'SELECT nombre FROM usuarios WHERE idUsuario="'+id+'";';
 	           
@@ -230,7 +231,9 @@ exports.getUserById = function(req, res){
 	               res.send(err, "query error");
 	                  
 	               }else{
-	               req.session.user=results;	   
+	            	   console.log(results);
+	               req.session.user=results;
+	               console.log(req.session.user);
 	               res.send(req.session.user);
 	             }
 	            });
