@@ -2,9 +2,9 @@ CREATE DATABASE  IF NOT EXISTS `mydb` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `mydb`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: 127.0.0.1    Database: mydb
+-- Host: localhost    Database: mydb
 -- ------------------------------------------------------
--- Server version	5.6.16
+-- Server version	5.6.17-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -38,7 +38,7 @@ CREATE TABLE `administradores` (
 
 LOCK TABLES `administradores` WRITE;
 /*!40000 ALTER TABLE `administradores` DISABLE KEYS */;
-INSERT INTO `administradores` (`idAdministrador`, `email`, `password`) VALUES (1,'admin@admin','admin');
+INSERT INTO `administradores` VALUES (1,'admin@admin','admin');
 /*!40000 ALTER TABLE `administradores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,7 +91,7 @@ CREATE TABLE `artistas` (
 
 LOCK TABLES `artistas` WRITE;
 /*!40000 ALTER TABLE `artistas` DISABLE KEYS */;
-INSERT INTO `artistas` (`Genero`, `Usuarios_idUsuario`) VALUES ('1',4),('3',5);
+INSERT INTO `artistas` VALUES ('1',4),('3',5);
 /*!40000 ALTER TABLE `artistas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +145,7 @@ CREATE TABLE `basicos` (
 
 LOCK TABLES `basicos` WRITE;
 /*!40000 ALTER TABLE `basicos` DISABLE KEYS */;
-INSERT INTO `basicos` (`fecha_nac`, `sexo`, `Usuarios_idUsuario`) VALUES ('1989-02-15','H',6),('1984-05-07','H',7),('1989-01-02','M',8);
+INSERT INTO `basicos` VALUES ('1989-02-15','H',6),('1984-05-07','H',7),('1989-01-02','M',8),('2014-07-01','H',23);
 /*!40000 ALTER TABLE `basicos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,7 +170,7 @@ CREATE TABLE `generos` (
 
 LOCK TABLES `generos` WRITE;
 /*!40000 ALTER TABLE `generos` DISABLE KEYS */;
-INSERT INTO `generos` (`idGeneros`, `nombre`) VALUES (1,'Clásica'),(9,'Electrónica'),(6,'Fusión'),(3,'Heavy-Metal'),(4,'Hip-Hop'),(5,'Latina'),(8,'New age'),(2,'Pop'),(7,'Rock');
+INSERT INTO `generos` VALUES (1,'ClÃ¡sica'),(9,'ElectrÃ³nica'),(6,'FusiÃ³n'),(3,'Heavy-Metal'),(4,'Hip-Hop'),(5,'Latina'),(8,'New age'),(2,'Pop'),(7,'Rock');
 /*!40000 ALTER TABLE `generos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -304,7 +304,7 @@ CREATE TABLE `salas` (
 
 LOCK TABLES `salas` WRITE;
 /*!40000 ALTER TABLE `salas` DISABLE KEYS */;
-INSERT INTO `salas` (`aforo`, `poblacion`, `direccion`, `Usuarios_idUsuario`) VALUES (1000,'Madrid','C/ Princesa 1',9),(1800,'Madrid','C/ Virgen del Puerto, s/n',10),(600,'Madrid','C/ de Bernardino Obregón, 18',11);
+INSERT INTO `salas` VALUES (1000,'Madrid','C/ Princesa 1',9),(1800,'Madrid','C/ Virgen del Puerto, s/n',10),(600,'Madrid','C/ de Bernardino ObregÃ³n, 18',11);
 /*!40000 ALTER TABLE `salas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,7 +353,7 @@ CREATE TABLE `tipo_usuarios` (
 
 LOCK TABLES `tipo_usuarios` WRITE;
 /*!40000 ALTER TABLE `tipo_usuarios` DISABLE KEYS */;
-INSERT INTO `tipo_usuarios` (`idTipo_usuarios`, `nombre`) VALUES (2,'Artista'),(1,'Básico'),(3,'Sala');
+INSERT INTO `tipo_usuarios` VALUES (2,'Artista'),(1,'BÃ¡sico'),(3,'Sala');
 /*!40000 ALTER TABLE `tipo_usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,15 +371,15 @@ CREATE TABLE `usuarios` (
   `email` varchar(45) NOT NULL,
   `fecha_alta` date NOT NULL,
   `bloqueado` bit(1) NOT NULL DEFAULT b'0',
-  `profile_img` varchar(500) NOT NULL,
-  `header_img` varchar(500) NOT NULL,
+  `profile_img` varchar(500) NOT NULL DEFAULT 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSF0pus3I09NGJ8VBG0_1Q8No9PYQ2ouoIFhXXN14gSLFIo_C0SPrRdTJYzeA',
+  `header_img` varchar(500) NOT NULL DEFAULT 'http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',
   `Tipo_usuarios_idTipo_usuarios` int(11) NOT NULL,
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_Usuarios_Tipo_usuarios1_idx` (`Tipo_usuarios_idTipo_usuarios`),
   CONSTRAINT `fk_Usuarios_Tipo_usuarios1` FOREIGN KEY (`Tipo_usuarios_idTipo_usuarios`) REFERENCES `tipo_usuarios` (`idTipo_usuarios`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -388,7 +388,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` (`idUsuario`, `nombre`, `password`, `email`, `fecha_alta`, `bloqueado`, `profile_img`, `header_img`, `Tipo_usuarios_idTipo_usuarios`) VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31','\0','','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31','\0','','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31','\0','','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31','\0','','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31','\0','','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31','\0','','',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31','','','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31','\0','','',3);
+INSERT INTO `usuarios` VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31','\0','','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31','\0','','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31','\0','','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31','\0','','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31','\0','','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31','\0','','',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31','','','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31','\0','','',3),(16,'pepito','pepito','pepito@pepito','2014-06-02','\0','http://s3.amazonaws.com/37assets/svn/765-default-avatar.png','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1),(23,'pepito2','pepito2','pepito2@pepito2','2014-06-02','\0','https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSF0pus3I09NGJ8VBG0_1Q8No9PYQ2ouoIFhXXN14gSLFIo_C0SPrRdTJYzeA','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -494,7 +494,7 @@ CREATE TABLE `usuarios_eliminados` (
 
 LOCK TABLES `usuarios_eliminados` WRITE;
 /*!40000 ALTER TABLE `usuarios_eliminados` DISABLE KEYS */;
-INSERT INTO `usuarios_eliminados` (`id`, `idUsuario`, `nombre`, `password`, `email`, `fecha_alta`, `bloqueado`, `profile_img`, `header_img`, `tipo_de_usuario`, `fecha_nac`, `sexo`, `genero`, `aforo`, `poblacion`, `direccion`) VALUES (1,13,'mauricio','mauricio','mairicio@mau.com','2014-06-02','\0','','','1','2014-06-12','H',NULL,NULL,NULL,NULL),(2,14,'mauricio2','mauricio2','mairicio2@mau.com','2014-06-02','\0','','','2',NULL,NULL,'1',NULL,NULL,NULL),(3,15,'mauricio3','mauricio3','mairicio3@mau.com','2014-06-02','\0','','','3',NULL,NULL,NULL,21,'Madrid','calle alcala, nº 14, 2028 de Madrid');
+INSERT INTO `usuarios_eliminados` VALUES (1,13,'mauricio','mauricio','mairicio@mau.com','2014-06-02','\0','','','1','2014-06-12','H',NULL,NULL,NULL,NULL),(2,14,'mauricio2','mauricio2','mairicio2@mau.com','2014-06-02','\0','','','2',NULL,NULL,'1',NULL,NULL,NULL),(3,15,'mauricio3','mauricio3','mairicio3@mau.com','2014-06-02','\0','','','3',NULL,NULL,NULL,21,'Madrid','calle alcala, nÂº 14, 2028 de Madrid');
 /*!40000 ALTER TABLE `usuarios_eliminados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -534,4 +534,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-02  2:41:07
+-- Dump completed on 2014-06-02  9:47:57
