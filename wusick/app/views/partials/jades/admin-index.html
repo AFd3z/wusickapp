@@ -2,9 +2,12 @@
 
 <div class="container">
     <div ng-init="obtenerListado()">
+    	<div>
+    		
+    	</div>
 		<table class='table table-bordered table-hover table-condensed'>
 			<thead>
-				<tr class='text-center'>
+				<tr>
 					<th class="id">Id&nbsp;<a ng-click="sort_by('id')"><i class="icon-sort"></i></a></th>
 					<th class="nombre">Nombre&nbsp;<a ng-click="sort_by('nombre')"><i class="icon-sort"></i></a></th>
 					<th class="email">email&nbsp;<a ng-click="sort_by('email')"><i class="icon-sort"></i></a></th>
@@ -26,13 +29,13 @@
 					<td>{{item.fecha_alta}}</td>
 					
 					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 1">
-    					Básico
+    					 <a class="glyphicon glyphicon-user"></a> BÃ¡sico
 					</td>
 					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 2">
-    					Artista
+    					 <a class="glyphicon glyphicon-music"></a> Artista
 					</td>
 					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 3">
-    					Sala
+    					 <a class="glyphicon glyphicon-home"></a> Sala
 					</td>
 					
 					<td>
@@ -48,7 +51,7 @@
 						</div>
 					</td>
 
-					<td class="text-center"><img src='../../../images/edit.png', alt='Editar' /></td>
+					<td class="text-center"><a href ng-click='editarUsuario($event)' ><img src='../../../images/edit.png', alt='Editar' data={{item.idUsuario}} name={{item.nombre}} /></td>
 					<td class="text-center"><a href ng-click='borrarUsuario($event)' ><img src='../../../images/delete.png', alt='Eliminar' data={{item.idUsuario}} name={{item.nombre}} /></a></td>
 				</tr>
 			</tbody>
