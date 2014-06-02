@@ -103,7 +103,7 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','IdUsuario', functio
 
 }]);
 
-WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, $http,$window) {
+WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, $http, $window) {
     $scope.obtenerListado = function(){
         $scope.listGral;
         $http.get('/user/listadoUsuarios')
@@ -129,9 +129,7 @@ WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, 
          });
     	}else{
     		alert('No se bloqueara el usuario '+obj.target.attributes.name.value);
-    		
     	}
-    	 
     };
     
     $scope.desbloquear = function(obj){
@@ -153,7 +151,7 @@ WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, 
     };
     
     $scope.borrarUsuario = function(obj){
-    	var c = confirm('Est� seguro de querer borrar el usuario '+obj.target.attributes.name.value+' ?');
+    	var c = confirm('Está seguro de querer BORRAR el usuario '+obj.target.attributes.name.value+' ?');
     	if (c==true){
     	 $http.post('/user/borrarUsuario/'+obj.target.attributes.data.value)
          .success(function(data){
@@ -164,10 +162,24 @@ WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, 
                  console.log('Error:' + data);
          });
     	}else{
-    		alert('No se borrar� el usuario '+obj.target.attributes.name.value);
-    		
+    		alert('No se borrará el usuario '+obj.target.attributes.name.value);
     	}
-    	 
+    };
+    
+    $scope.editarUsuario = function(obj){
+    	var c = confirm('Está seguro de querer EDITAR el usuario: '+obj.target.attributes.name.value+' ?');
+    	if (c==true){
+    	 $http.post('/user/editarUsuario/'+obj.target.attributes.data.value)
+         .success(function(data){
+                console.log(data);
+                location.reload();
+         })
+        .error(function(data) {
+                 console.log('Error:' + data);
+         });
+    	}else{
+    		alert('No se editará el usuario: '+obj.target.attributes.name.value);
+    	}
     };
     
 }]);

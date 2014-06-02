@@ -158,7 +158,6 @@ exports.listadoUsuarios= function (req,res){
     });
 };
 
-
 //Función de bloqueo de usuarios, la llamada a este método debe ser de este tipo /user/bloquear/:id
 exports.bloquear = function (req,res) {
 	
@@ -175,7 +174,6 @@ exports.bloquear = function (req,res) {
 		        	});
 
 };
-
 
 //Función de desbloqueo de usuarios, la llamada a este método debe ser de este tipo /user/bloquear/:id
 exports.desbloquear = function (req,res) {
@@ -219,5 +217,79 @@ exports.logout = function (req,res) {
 	req.session.destroy();
 	window.location("/login");
 
-};		
+};
+
+//Funcion Edicion de un usuario
+exports.registro = function (req,res) {
+	
+		var user = req.body.nombre;
+		var pass = req.body.pass;
+		var email = req.body.email;
+		var tipo = req.body.tipo;
 		
+		var json ="";
+
+		  //creamos objeto conexión
+		  var sqlconnection = connection.createConnection();
+		    var query = 'INSERT INTO USUARIOS (nombre, password,email,fecha_alta,Tipo_usuarios_idTipo_usuarios) VALUES ("'+user+'","'+pass+'","'+email+'",curdate(),'+tipo+') ';
+
+		    //lanzamos query
+		    sqlconnection.query(query, function(err, results) {
+		        if (err)
+		            res.send(err, "query error");
+		        
+		        var insertedID=results.insertId;
+		        //console.log(insertedID);
+		        //console.log(tipo);
+		     
+
+		        //insertamos los datos propios d cada tipo de usuario en la tabla que corresponda
+		        switch (tipo){
+    		        case '1':
+    		        	var query2 = 'INSERT INTO basicos (fecha_nac, sexo, Usuarios_idUsuario) VALUES ("'+req.body.fecha+'","'+req.body.sexo+'",'+insertedID+') ';
+      		        	sqlconnection.query(query2, function(err, results) {
+            				        if (err)
+            				            res.send(err, "query error");
+            				       
+            		        	console.log("registro correcto del usuario"+tipo+": "+user+" con ID: ");
+            				    	sqlconnection.end();
+
+      		        	});
+    		        break;
+
+    		        case '2':
+    		          var query3 = 'INSERT INTO artistas (Genero, Usuarios_idUsuario) VALUES ("'+req.body.genero+'",'+insertedID+') ';
+        		        	sqlconnection.query(query3, function(err, results) {
+        				        if (err)
+        				            res.send(err, "query error");
+        				  
+        		        	console.log("registro correcto del usuario"+tipo+": "+user+" con ID: "+insertedID);
+        				    	sqlconnection.end();
+    		        	});
+                break;
+    		        
+    		        case '3':
+    		        	var query4 = 'INSERT INTO salas (aforo,poblacion,direccion, Usuarios_idUsuario) VALUES ("'+req.body.aforo+'","'+req.body.poblacion+'","'+req.body.direccion+'",'+insertedID+') ';
+        		        	sqlconnection.query(query4, function(err, results) {
+            				        if (err)
+            				            res.send(err, "query error");
+            				        
+            		        	console.log("registro correcto del usuario "+tipo+": "+user+" con ID: "+insertedID);
+            				    	sqlconnection.end();
+        		        	});
+    		        break;	
+
+                default: 
+                    res.send(err, "Query Error");
+                break;
+
+		        }
+		        
+		        //devolvemos el objeto jsonizado (si necesario)
+		        //res.json(json);
+		        //devolvemos el objeto json tal cual
+		        res.json(results);
+
+		  });
+	};
+
