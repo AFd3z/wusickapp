@@ -220,36 +220,34 @@ exports.logout = function (req,res) {
 };
 
 //Funcion Edicion de un usuario
-exports.editarUsuario = function (req,res) {
+exports.modificarUsuario = function (req,res) {
 	
-//------------------------------------------------------------------------------------------------------------		
-	var id = req.params.id;
+		var id = req.params.id;
 		console.log("<<<estas en user.js>>>>" + id);
 		var json ="";
-
 		  //creamos objeto conexión
 		  var sqlconnection = connection.createConnection();
 		  
-		  	var query0 = 'select * from usuarios where idUsuario = '+id;
+		  	var query0 = 'select * from usuarios where idUsuario = '+ id +';';
 		  	
 		    sqlconnection.query(query0, function(err, results) {
-	            if (err){
-	               //si algo va mal
-	               res.send(err, "query error, en la select");
-	                  
-	            }else{
-	               //si la select no falla continuamos con la actualización
-	               var numUsuarios = results.affectedRows;
-	               if(numUsuarios <= 0){
-	            	   console.log("no existe el usuario");
-	            	   res.send("no existe el usuario");
-	               }else{
-	            	   console.log("id de el usuario es: "+ id +" y en la bbdd es: " + results[0]);
-	               }            
+	            if(err){
+	            	 res.send(err, "query error");
 	            }
-	            sqlconnection.end();
+	            
+	            else{
+	            	
+	            	res.json(results[0]);
+	            }
 	        });	
  //------------------------------------------------------------------------------------------------------------
 
 	};
+	
+exports.datosXtipo = function(req, res){
+		var tipo = req.params.tipo;
+		console.log(tipo);
+		res.send(tipo);
+		
+	}
 

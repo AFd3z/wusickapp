@@ -148,7 +148,7 @@ WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, 
     		alert('No se desbloqueara el usuario '+obj.target.attributes.name.value);
     		
     	}
-    	 
+  
     };
     
     $scope.borrarUsuario = function(obj){
@@ -167,18 +167,33 @@ WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, 
     	}
     };
     
-    $scope.editarUsuario = function(obj){
+    $scope.modificarUsuario = function(obj){
     	var c = confirm('Está seguro de querer EDITAR el usuario: '+obj.target.attributes.name.value+' ?');
     	if (c==true){
-    	 $http.post('/user/editarUsuario/'+obj.target.attributes.data.value)
-         .success(function(data){
-        	 console.log("<<<estas en controller.js>>>>" + id);
-             console.log(data);
-             location.reload();
-         })
-        .error(function(data) {
-                 console.log('Error:' + data);
-         });
+	    		$scope.id = obj.target.attributes.data.value;
+	    		console.log($scope.id);
+	    	$http.post('/user/modificarUsuario/'+$scope.id)
+		         .success(function(data){
+		        	 console.log(data);
+		             $scope.nombre = data.nombre;
+		             $scope.email = data.email;
+		             $scope.pass = data.password;
+		             $scope.tipo = data.Tipo_usuarios_idTipo_usuarios;
+		             	
+				             /*$http.get('/user/datosXtipo', $scope.tipo)
+					             .success(function(data){
+					            	 console.log(data);
+					            	 
+					             })
+					             .error(function(data) {
+					                 console.log('Error:' + data);
+					             });*/
+		             
+		             //location.reload();
+		         })
+		        .error(function(data) {
+		                 console.log('Error:' + data);
+		         });	
     	}else{
     		alert('No se editará el usuario: '+obj.target.attributes.name.value);
     	}
