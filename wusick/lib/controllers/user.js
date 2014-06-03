@@ -37,7 +37,7 @@ var json ="";
 						 if (results.length > '0'){
 							console.log('vamos por admin');
 							console.log("login correcto de administrador: "+results[0].email+", "+results[0].email);
-							res.send(results);
+							res.send(results[0]);
                          } else if (results.length=='0'){
 							console.log("login incorrecto"+results);
 							res.send('null');
