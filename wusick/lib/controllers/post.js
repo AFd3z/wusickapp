@@ -27,7 +27,7 @@ exports.postear = function (req,res) {
 	            });	
 };
 
-//Función de borrado de posts, la llamada será /post/borrarPost/:id
+//Funcion de borrado de posts, la llamada sera /post/borrarPost/:id
 exports.borrarPost = function (req,res) {
 	
 	var id =req.params.id;
