@@ -97,7 +97,7 @@ exports.getIdByEmail = function(req, res){
 	  				res.send(err, "query error");
 	                  
 	               }else{
-	                id=results[0].idUsuario.toString();	   
+	                id=results.idUsuario;	   
 	               	res.send(id);
 	             }
 	            });
@@ -114,9 +114,14 @@ exports.getIdAdminByEmail = function(req, res){
 	                  
 	               }else{
 	                 
+<<<<<<< HEAD
 	               	id=results[0].idAdministrador.toString();
 	               	res.send(id);
 	               	console.log(id);
+=======
+	            	   id=results.idAdministrador;	   
+		               	res.send(id);
+>>>>>>> 960cdbbcc05deb38b1926758e1e90309a3fe8903
 	             }
 	            });
 };
