@@ -73,7 +73,7 @@
  
 <div id="edicion" class="col-xs-6 col-xs-offset-3 alert alert-success alert-dismissable" style="display:none">
   	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-  	<strong>Formulario</strong> va a editar los datos del usuario .....<br>
+  	Formulario va a editar los datos de: <strong>{{nombre}}</strong><br>
 
 	<div id="formEdicion">
 		<div id="logo"></div>
@@ -83,7 +83,7 @@
 		            <label id="labname" for="nombreU" class="control-label">Nombre</label>
 		             <span ng-show="registro.nombreU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		             <span ng-show="registro.nombreU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-		            <input type="text" name="nombreU" class="form-control" ng-value={{nombre}} ng-model="userData.nombre" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="20" required/>
+		            <input type="text" name="nombreU" class="form-control" placeholder={{nombre}} ng-model="userData.nombre" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="20" required/>
 		           	<p><small class="text-danger" ng-show="registro.nombreU.$invalid">Entre 6 y 20 caracteres alfanuméricos.</small></p>
 	            </div>			            
 	            <div class="clearfix"></div>
@@ -92,7 +92,7 @@
 		            <label id="labmail" for="emailU" class="control-label">Email</label> 
 		            <span ng-show="registro.emailU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		            <span ng-show="registro.emailU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-		            <input type="email" name="emailU" class="form-control" ng-value={{email}} ng-model="userData.email" required/>
+		            <input type="email" name="emailU" class="form-control" placeholder={{email}} ng-model="userData.email" required/>
 		            <small class="text-danger" ng-show="registro.emailU.$invalid">Email inválido.</small>
 		          
 	            </div>
@@ -102,7 +102,7 @@
 		            <label id="labpass" for="passU" class="control-label">Contraseña</label>
 		            <span ng-show="registro.passU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		             <span ng-show="registro.passU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-		            <input type="text" name="passU" id="passU" class="form-control" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contraseña'" ng-model="userData.pass" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="20" required/>
+		            <input type="text" name="passU" id="passU" class="form-control" placeholder={{password}} ng-model="userData.pass" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="20" required/>
 		            <small class="text-danger" ng-show="registro.passU.$invalid">Entre 6 y 20 caracteres alfanuméricos.</small>
 		           
 		           	
