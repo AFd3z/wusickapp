@@ -41,8 +41,6 @@ var json ="";
                          } else if (results.length=='0'){
 							console.log("login incorrecto"+results);
 							res.send('null');
-                        }else{
-							res.send('admin');
                         }
               });
        }else{
