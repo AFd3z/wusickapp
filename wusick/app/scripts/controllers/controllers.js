@@ -13,18 +13,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'IdUs
                     if(data==='null'){
                          console.log(data);
                          smoke.alert('Usuario o contraseña incorrectos');
-                    }else if(data=='admin'){
-                    	console.log('vamos a panel');
-                    	
-                    	 $http.post('/api/crearSesion', $scope.userData)
-                         .success(function(data){
-                         	console.log(data);
-                         	  $location.url("/administrator");
-                             
-                         })
-                         .error(function(data) {
-                             console.log('Error: ' + data);
-                         });
+                   
                     }else{
                     	console.log('vamos a main');
                         $http.post('/api/getIdByEmail', $scope.userData)
@@ -104,7 +93,9 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','IdUsuario', functio
 
 }]);
 
-WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, $http, $window) {
+WusickControllers.controller('adminCtrl', ['$scope', '$http','AdminData', function ($scope, $http, $window, AdminData) {
+   
+
     $scope.obtenerListado = function(){
         $scope.listGral;
         $http.get('/user/listadoUsuarios')
