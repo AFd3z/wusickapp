@@ -171,8 +171,9 @@ WusickControllers.controller('adminCtrl', ['$scope', '$http', function ($scope, 
     	if (c==true){
     	 $http.post('/user/editarUsuario/'+obj.target.attributes.data.value)
          .success(function(data){
-                console.log(data);
-                location.reload();
+        	 console.log("<<<estas en controller.js>>>>" + id);
+             console.log(data);
+             location.reload();
          })
         .error(function(data) {
                  console.log('Error:' + data);

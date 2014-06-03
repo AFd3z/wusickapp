@@ -220,18 +220,37 @@ exports.logout = function (req,res) {
 };
 
 //Funcion Edicion de un usuario
-exports.registro = function (req,res) {
-	
-		var user = req.body.nombre;
-		var pass = req.body.pass;
-		var email = req.body.email;
-		var tipo = req.body.tipo;
-		
+exports.editarUsuario = function (req,res) {
+//------------------------------------------------------------------------------------------------------------		
+	var id = req.params.id;
+		console.log("<<<estas en user.js>>>>" + id);
 		var json ="";
 
 		  //creamos objeto conexión
 		  var sqlconnection = connection.createConnection();
-		    var query = 'INSERT INTO USUARIOS (nombre, password,email,fecha_alta,Tipo_usuarios_idTipo_usuarios) VALUES ("'+user+'","'+pass+'","'+email+'",curdate(),'+tipo+') ';
+		  
+		  	var query0 = 'select * from usuarios where idUsuario = '+id;
+		  	
+		    sqlconnection.query(query0, function(err, results) {
+	            if (err){
+	               //si algo va mal
+	               res.send(err, "query error, en la select");
+	                  
+	            }else{
+	               //si la select no falla continuamos con la actualización
+	               var numUsuarios = results.affectedRows;
+	               if(numUsuarios <= 0){
+	            	   console.log("no existe el usuario");
+	            	   res.send("no existe el usuario");
+	               }else{
+	            	   console.log("id de el usuario es: "+ id +" y en la bbdd es: " + results[0]);
+	               }            
+	            }
+	            sqlconnection.end();
+	        });	
+ //------------------------------------------------------------------------------------------------------------
+		    /*
+		    var query = 'UPDATE USUARIOS SET (nombre, password, email, Tipo_usuarios_idTipo_usuarios) VALUES ("'+user+'","'+pass+'","'+email+'",curdate(),'+tipo+') ';
 
 		    //lanzamos query
 		    sqlconnection.query(query, function(err, results) {
@@ -290,6 +309,6 @@ exports.registro = function (req,res) {
 		        //devolvemos el objeto json tal cual
 		        res.json(results);
 
-		  });
+		  }); */
 	};
 
