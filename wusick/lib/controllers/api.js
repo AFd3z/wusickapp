@@ -115,6 +115,8 @@ exports.getIdAdminByEmail = function(req, res){
 	               }else{
 	                 
 	               	id=results[0].idAdministrador.toString();
+	               	res.send(id);
+	               	console.log(id);
 	             }
 	            });
 };

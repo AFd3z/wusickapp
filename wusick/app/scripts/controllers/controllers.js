@@ -8,7 +8,6 @@ WusickControllers.controller('loginAdminCtrl', ['$scope', '$location', '$http', 
         $scope.obtenerUsuario = function(){
             $http.post('/user/login', $scope.userData)
                 .success(function(data) {
-                    console.log(data);
                     if(data==='null'){
                          console.log(data);
                          smoke.alert('Usuario o contraseña incorrectos');
@@ -45,6 +44,9 @@ WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'IdUs
                          console.log(data);
                          smoke.alert('Usuario o contraseña incorrectos');
                    
+                    }else if(data.idAdministrador!='null'){
+                         smoke.alert('Usuario o contraseña incorrectos');
+
                     }else{
                     	console.log('vamos a main');
                         $http.post('/api/getIdByEmail', $scope.userData)
