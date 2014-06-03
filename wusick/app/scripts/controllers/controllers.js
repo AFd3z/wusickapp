@@ -2,7 +2,38 @@
 
 var WusickControllers = angular.module('WusickControllers', []);
 
-
+WusickControllers.controller('loginAdminCtrl', ['$scope', '$location', '$http', 'IdAdmin', function ($scope, $location, $http, IdAdmin) {
+        $scope.userData = {};
+        //Las peticiones desde el controlador indican la ruta a la base de datos.
+        $scope.obtenerUsuario = function(){
+            $http.post('/user/login', $scope.userData)
+                .success(function(data) {
+                    console.log(data);
+                    if(data==='null'){
+                         console.log(data);
+                         smoke.alert('Usuario o contraseña incorrectos');
+                   
+                    }else{
+                        $http.post('/api/getIdAdminByEmail', $scope.userData)
+                            .success(function(data){
+                                console.log(data);
+                                     IdAdmin.id = data;
+                                    $location.url("/administrator");
+                        
+                            })
+                            .error(function(data) {
+                            console.log('Error:' + data);
+                            });
+                             
+                         }
+                          
+                })
+                .error(function(data) {
+                    console.log('Error: ' + data);
+                });
+            };
+        
+}]);
 WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'IdUsuario', function ($scope, $location, $http, IdUsuario) {
         $scope.userData = {};
         //Las peticiones desde el controlador indican la ruta a la base de datos.
@@ -36,6 +67,8 @@ WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'IdUs
             };
         
 }]);
+
+
 
 WusickControllers.controller('registroCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.userData = {};
@@ -93,8 +126,9 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','IdUsuario', functio
 
 }]);
 
-WusickControllers.controller('adminCtrl', ['$scope', '$http','AdminData', function ($scope, $http, $window, AdminData) {
+WusickControllers.controller('adminCtrl', ['$scope', '$http','IdAdmin', function ($scope, $http, IdAdmin) {
    
+    $scope.message = 'Hola usuario con id '+IdAdmin.id;
 
     $scope.obtenerListado = function(){
         $scope.listGral;

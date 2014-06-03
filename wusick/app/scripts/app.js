@@ -15,6 +15,11 @@ angular.module('wusickAppApp', [
         templateUrl: 'partials/login',
         controller: 'loginCtrl'
       })
+      .when('/loginAdmin', {
+        templateUrl: 'partials/loginAdmin',
+        controller: 'loginAdminCtrl'
+      })
+
       .when('/login', {
         templateUrl: 'partials/login',
         controller: 'loginCtrl'

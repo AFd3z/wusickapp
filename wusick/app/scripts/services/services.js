@@ -6,5 +6,11 @@ WusickServices.factory('IdUsuario', function() {
   };
 });
 
+WusickServices.factory('IdAdmin', function() {
+  return {
+    id: {}
+  };
+});
+
 
 

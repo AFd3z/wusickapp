@@ -94,7 +94,7 @@ exports.getIdByEmail = function(req, res){
 	var id;           
 	    sqlconnection.query(query, function(err, results) {
 	            if (err){
-	               res.send(err, "query error");
+	  				res.send(err, "query error");
 	                  
 	               }else{
 	                id=results[0].idUsuario.toString();	   
@@ -102,6 +102,24 @@ exports.getIdByEmail = function(req, res){
 	             }
 	            });
 };
+
+exports.getIdAdminByEmail = function(req, res){
+	var email = req.body.email;
+	var sqlconnection = connection.createConnection();
+	var query = 'SELECT idAdministrador FROM administradores WHERE email="'+email+'";';
+	var id;           
+	    sqlconnection.query(query, function(err, results) {
+	            if (err){
+	  				res.send(err, "query error");
+	                  
+	               }else{
+	                 
+	               	id=results[0].idAdministrador.toString();
+	             }
+	            });
+};
+
+
 
 //Función para obtener el nombre de usuario a través del id
 exports.getUserById = function(req, res){
