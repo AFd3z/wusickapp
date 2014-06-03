@@ -6,9 +6,5 @@ WusickServices.factory('IdUsuario', function() {
   };
 });
 
-WusickServices.factory('AdminData', function() {
-  return {
-    email:{},
-    pass: {}
-  };
-});
+
+

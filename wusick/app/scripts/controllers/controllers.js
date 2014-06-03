@@ -3,7 +3,7 @@
 var WusickControllers = angular.module('WusickControllers', []);
 
 
-WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'IdUsuario', 'AdminData', function ($scope, $location, $http, IdUsuario, AdminData) {
+WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'IdUsuario', function ($scope, $location, $http, IdUsuario) {
         $scope.userData = {};
         //Las peticiones desde el controlador indican la ruta a la base de datos.
         $scope.obtenerUsuario = function(){
@@ -13,20 +13,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'IdUs
                     if(data==='null'){
                          console.log(data);
                          smoke.alert('Usuario o contraseña incorrectos');
-                    }else if(data=='admin'){
-                    	console.log('vamos a panel');
-                    	
-                    	 $http.post('/api/crearSesion', $scope.userData)
-                         .success(function(data){
-                         	console.log(data.email);
-                            AdminData.email=data.email;
-                            AdminData.pass=data.password;
-                         	  $location.url("/administrator");
-                             
-                         })
-                         .error(function(data) {
-                             console.log('Error: ' + data);
-                         });
+                   
                     }else{
                     	console.log('vamos a main');
                         $http.post('/api/getIdByEmail', $scope.userData)
@@ -108,7 +95,6 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','IdUsuario', functio
 
 WusickControllers.controller('adminCtrl', ['$scope', '$http','AdminData', function ($scope, $http, $window, AdminData) {
    
-    $scope.admin = AdminData.email;
 
     $scope.obtenerListado = function(){
         $scope.listGral;
