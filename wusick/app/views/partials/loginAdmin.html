@@ -1,0 +1,28 @@
+  <div id="loginpage" ng-init="alert('Ha entrado en area restringida!');">
+    <h1>LOGIN ADMINISTRACION</h1>
+        <div class="col-xs-12">
+                <div class="clearfix"></div>
+                <form id="login" role="form" name ="login">
+                  <div class="form-group">
+                      <label id="labmail" for="nombre">Email</label>
+                      <input type="email" placeholder="Em@il" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Em@il'" ng-model="userData.email" id="nombre" name="nombre" class="form-control"/>
+                  </div>
+                  <div class="clearfix"></div>
+
+                  <div class="form-group">
+                      <label id="labpass" for="pass">Contraseña</label>
+                      <input type="password" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contraseña'" ng-model="userData.pass" id="pass" name ="pass" class="form-control"/>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group text-center">
+                    <small><p><a href="">Olvidaste tu password?</a><p></small>
+                    <small><a href="/registro">Crear una cuenta</a></small>
+                     <div class="clearfix"></div>
+                     <button type="submit" class="btn btn-info" value="Log in" ng-click="obtenerUsuario()" ng-disabled="login.$pristine || login.$invalid">Log in</button>
+                  </div>
+                    
+                 
+                </form>
+             
+        </div>
+  </div>
