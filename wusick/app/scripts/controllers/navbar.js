@@ -3,7 +3,7 @@
 angular.module('wusickAppApp')
   .controller('NavbarCtrl', function ($scope, $location) {
     $scope.menu = [
-    {'title': 'Home','link': 'http://www.responsivedesigner.es/webApp/demo/demoPage.html'},
+    {'title': 'Home','link': 'http://www.responsivedesigner.es/webApp/wusick.html'},
     {'title': 'Login','link': '/login'},
     {'title': 'Registro','link': '/registro'}
 
