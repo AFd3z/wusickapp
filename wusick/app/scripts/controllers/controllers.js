@@ -72,7 +72,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'IdUs
 
 
 
-WusickControllers.controller('registroCtrl', ['$scope', '$http', function ($scope, $http) {
+WusickControllers.controller('registroCtrl', ['$scope', '$http','$location' function ($scope, $http, $location) {
     $scope.userData = {};
     $scope.createUsuario = function(){
 		$http.post('/api/existeMail', $scope.userData)
@@ -81,6 +81,7 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http', function ($scop
 					$http.post('/user/registro', $scope.userData)
 						.success(function(data){
 						$scope.formData = {};
+                        $location.url("/login");
 						 smoke.alert('Gracias por registrarse en Wusick. Sus datos son los siguientes: \n <strong>Usuario:</strong> '+$scope.userData.nombre+'\n <strong>ContraseÃ±a:</strong> ' +$scope.userData.pass+'\n<strong>Email: </strong>' +$scope.userData.email);
 						})
 						.error(function(data) {
