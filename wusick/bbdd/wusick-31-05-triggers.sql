@@ -70,6 +70,24 @@ LOCK TABLES `administradores_has_permisos` WRITE;
 UNLOCK TABLES;
 
 --
+-- Temporary table structure for view `amigos_de`
+--
+
+DROP TABLE IF EXISTS `amigos_de`;
+/*!50001 DROP VIEW IF EXISTS `amigos_de`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `amigos_de` (
+  `usuarioLogeado` tinyint NOT NULL,
+  `idUsuario` tinyint NOT NULL,
+  `nombre` tinyint NOT NULL,
+  `email` tinyint NOT NULL,
+  `fecha_alta` tinyint NOT NULL,
+  `Tipo_usuarios_idTipo_usuarios` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `artistas`
 --
 
@@ -145,7 +163,7 @@ CREATE TABLE `basicos` (
 
 LOCK TABLES `basicos` WRITE;
 /*!40000 ALTER TABLE `basicos` DISABLE KEYS */;
-INSERT INTO `basicos` VALUES ('1989-02-15','H',6),('1984-05-07','H',7),('1989-01-02','M',8),('2014-07-01','H',23);
+INSERT INTO `basicos` VALUES ('1989-02-15','H',6),('1984-05-07','H',7),('1989-01-02','M',8);
 /*!40000 ALTER TABLE `basicos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -207,14 +225,14 @@ DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
   `idPosts` int(11) NOT NULL AUTO_INCREMENT,
   `contenido` varchar(500) NOT NULL,
-  `fecha` date NOT NULL,
+  `fecha` datetime NOT NULL,
   `post_img` varchar(500) DEFAULT NULL,
   `destinatario` varchar(45) DEFAULT NULL,
   `Usuarios_idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idPosts`),
   KEY `fk_Posts_Usuarios1_idx` (`Usuarios_idUsuario`),
   CONSTRAINT `fk_Posts_Usuarios1` FOREIGN KEY (`Usuarios_idUsuario`) REFERENCES `usuarios` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,6 +241,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
+INSERT INTO `posts` VALUES (1,'hola prueba','2014-06-03 00:00:00',NULL,NULL,6),(2,'hola prueba user 7','2014-06-03 19:17:40',NULL,NULL,7),(3,'hola prueba user 8','2014-06-03 19:20:30',NULL,NULL,8),(4,'hola prueba user 16','2014-06-03 19:34:35',NULL,NULL,16),(5,'hola prueba artista 4','2014-06-03 19:34:36',NULL,NULL,4),(6,'hola prueba artista 5','2014-06-03 19:34:37',NULL,NULL,5),(7,'hola prueba sala 9','2014-06-03 19:34:38',NULL,NULL,9),(8,'hola prueba sala 10','2014-06-03 19:34:39',NULL,NULL,10),(9,'hola prueba sala 11','2014-06-03 19:34:45',NULL,NULL,11);
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -379,7 +398,7 @@ CREATE TABLE `usuarios` (
   UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_Usuarios_Tipo_usuarios1_idx` (`Tipo_usuarios_idTipo_usuarios`),
   CONSTRAINT `fk_Usuarios_Tipo_usuarios1` FOREIGN KEY (`Tipo_usuarios_idTipo_usuarios`) REFERENCES `tipo_usuarios` (`idTipo_usuarios`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -388,7 +407,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31',0,'','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31',1,'','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31',1,'','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31',1,'','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31',1,'','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31',1,'','',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31',1,'','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31',1,'','',3),(16,'pepito','pepito','pepito@pepito','2014-06-02',1,'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1),(23,'pepito2','pepito2','pepito2@pepito2','2014-06-02',0,'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSF0pus3I09NGJ8VBG0_1Q8No9PYQ2ouoIFhXXN14gSLFIo_C0SPrRdTJYzeA','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1);
+INSERT INTO `usuarios` VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31',0,'','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31',0,'','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31',0,'','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31',1,'','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31',0,'','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31',1,'','',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31',0,'','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31',1,'','',3),(16,'pepito','pepito','pepito@pepito','2014-06-02',1,'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -485,7 +504,7 @@ CREATE TABLE `usuarios_eliminados` (
   `poblacion` varchar(45) DEFAULT NULL,
   `direccion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -494,7 +513,7 @@ CREATE TABLE `usuarios_eliminados` (
 
 LOCK TABLES `usuarios_eliminados` WRITE;
 /*!40000 ALTER TABLE `usuarios_eliminados` DISABLE KEYS */;
-INSERT INTO `usuarios_eliminados` VALUES (1,13,'mauricio','mauricio','mairicio@mau.com','2014-06-02','\0','','','1','2014-06-12','H',NULL,NULL,NULL,NULL),(2,14,'mauricio2','mauricio2','mairicio2@mau.com','2014-06-02','\0','','','2',NULL,NULL,'1',NULL,NULL,NULL),(3,15,'mauricio3','mauricio3','mairicio3@mau.com','2014-06-02','\0','','','3',NULL,NULL,NULL,21,'Madrid','calle alcala, nº 14, 2028 de Madrid');
+INSERT INTO `usuarios_eliminados` VALUES (1,13,'mauricio','mauricio','mairicio@mau.com','2014-06-02','\0','','','1','2014-06-12','H',NULL,NULL,NULL,NULL),(2,14,'mauricio2','mauricio2','mairicio2@mau.com','2014-06-02','\0','','','2',NULL,NULL,'1',NULL,NULL,NULL),(3,15,'mauricio3','mauricio3','mairicio3@mau.com','2014-06-02','\0','','','3',NULL,NULL,NULL,21,'Madrid','calle alcala, nº 14, 2028 de Madrid'),(4,23,'pepito2','pepito2','pepito2@pepito2','2014-06-02','\0','https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSF0pus3I09NGJ8VBG0_1Q8No9PYQ2ouoIFhXXN14gSLFIo_C0SPrRdTJYzeA','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg','1','2014-07-01','H',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `usuarios_eliminados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -522,8 +541,28 @@ CREATE TABLE `usuarios_has_usuarios` (
 
 LOCK TABLES `usuarios_has_usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios_has_usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios_has_usuarios` VALUES (5,4),(6,4),(7,4),(8,4),(16,4),(4,5),(6,5),(7,5),(8,5),(16,5),(7,6),(8,6),(16,6),(6,7),(8,7),(16,7),(6,8),(7,8),(16,8),(6,9),(7,9),(8,9),(10,9),(11,9),(16,9),(6,10),(7,10),(8,10),(9,10),(11,10),(16,10),(6,11),(7,11),(8,11),(9,11),(10,11),(16,11),(6,16),(7,16),(8,16);
 /*!40000 ALTER TABLE `usuarios_has_usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Final view structure for view `amigos_de`
+--
+
+/*!50001 DROP TABLE IF EXISTS `amigos_de`*/;
+/*!50001 DROP VIEW IF EXISTS `amigos_de`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `amigos_de` AS select `t1`.`Usuarios_idUsuario` AS `usuarioLogeado`,`t2`.`idUsuario` AS `idUsuario`,`t2`.`nombre` AS `nombre`,`t2`.`email` AS `email`,`t2`.`fecha_alta` AS `fecha_alta`,`t2`.`Tipo_usuarios_idTipo_usuarios` AS `Tipo_usuarios_idTipo_usuarios` from (`usuarios_has_usuarios` `t1` join `usuarios` `t2`) where (`t2`.`idUsuario` = `t1`.`Usuarios_idUsuario1`) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -534,4 +573,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-02 22:16:12
+-- Dump completed on 2014-06-04  8:15:41
