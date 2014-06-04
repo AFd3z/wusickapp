@@ -44,8 +44,8 @@ var json ="";
                         }
               });
        }else{
-        console.log("login correcto del usuario: "+results[0].nombre+", "+results[0].email);
         json = JSON.stringify(results);
+
         //returning jsonized result
         //res.json(json);
         //returning json object

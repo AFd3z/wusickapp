@@ -41,14 +41,12 @@ WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'IdUs
                 .success(function(data) {
                 	console.log(data);
                     if(data==='null'){
-                         console.log(data);
+                        
                          smoke.alert('Usuario o contraseña incorrectos');
                    
-                    }else if(data.idAdministrador!='null'){
-                         smoke.alert('Usuario o contraseña incorrectos');
-
-                    }else{
-                    	console.log('vamos a main');
+                    }else if(data[0].bloqueado ===0){
+                        
+                        console.log('vamos a main');
                         $http.post('/api/getIdByEmail', $scope.userData)
                             .success(function(data){
                                 console.log(data);
@@ -59,7 +57,11 @@ WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'IdUs
                             .error(function(data) {
                             console.log('Error:' + data);
                             });
-                             
+                        
+
+                    }else if(data[0].bloqueado ===1){
+                    	    smoke.alert("Su usuario ha sido bloquedo. Si quiere ser desbloqueado pongase en contacto con un administrador.");
+                              console.log(data.bloqueado);
                          }
                           
                 })
@@ -72,7 +74,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'IdUs
 
 
 
-WusickControllers.controller('registroCtrl', ['$scope', '$http','$location' function ($scope, $http, $location) {
+WusickControllers.controller('registroCtrl', ['$scope', '$http','$location', function ($scope, $http, $location) {
     $scope.userData = {};
     $scope.createUsuario = function(){
 		$http.post('/api/existeMail', $scope.userData)
@@ -81,12 +83,12 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http','$location' func
 					$http.post('/user/registro', $scope.userData)
 						.success(function(data){
 						$scope.formData = {};
-                        $location.url("/login");
 						 smoke.alert('Gracias por registrarse en Wusick. Sus datos son los siguientes: \n <strong>Usuario:</strong> '+$scope.userData.nombre+'\n <strong>ContraseÃ±a:</strong> ' +$scope.userData.pass+'\n<strong>Email: </strong>' +$scope.userData.email);
 						})
 						.error(function(data) {
 							console.log('Error:' + data);
 						});
+                        $location.url("/login");
 				}else{
 					smoke.alert('Ya existe una cuenta asociada al email '+$scope.userData.email+'.');
 				}

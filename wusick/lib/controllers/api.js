@@ -99,6 +99,7 @@ exports.getIdByEmail = function(req, res){
 	               }else{
 	                id=results.idUsuario;	   
 	               	res.send(id);
+	               	
 	             }
 	            });
 };
