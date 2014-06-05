@@ -28,6 +28,7 @@
 					<td>{{item.nombre}}</td>
 					<td>{{item.email}}</td>
 					<td>{{item.fecha_alta}}</td>
+
 					
 					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 1">
     					 <a class="glyphicon glyphicon-user"></a> Básico
@@ -53,7 +54,7 @@
 					</td>
 
 					<td class="text-center">
-						<a href onclick = ($('#edicion').css("display","block"));>
+						<a data-toggle="modal" data-target="#myModal">
 							<img src='../../../images/edit.png', alt='Editar' data={{item.idUsuario}} name={{item.nombre}} ng-click='modificarUsuario($event)' />
 						</a>
 					</td>
@@ -63,126 +64,142 @@
 						</a>
 					</td>
 				</tr>
+				     
 			</tbody>
 		</table>
     </div>
- </div>
- 
- 
- <!-- formulario de edición de datos de usuario -->
- 
-<div id="edicion" class="col-xs-6 col-xs-offset-3 alert alert-success alert-dismissable" style="display:none">
-  	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-  	Formulario va a editar los datos de: <strong>{{nombre}}</strong><br>
 
+ </div>
+
+ <!-- formulario de edición de datos de usuario -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Formulario de Edicion, Usuario: <strong>{{nombre}}</strong></h4>
+      </div>
+      <div class="modal-body">
 	<div id="formEdicion">
 		<div id="logo"></div>
         <div class="col-xs-12 col">
         	<form id="registro" role="form" name="registro">
+        	<!-- nombre -->
             	<div ng-class="{'has-error': registro.nombreU.$invalid, 'has-success': registro.nombreU.$valid}" class="form-group">
 		            <label id="labname" for="nombreU" class="control-label">Nombre</label>
 		             <span ng-show="registro.nombreU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		             <span ng-show="registro.nombreU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
 		            <input type="text" name="nombreU" class="form-control" placeholder={{nombre}} ng-model="userData.nombre" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="20" required/>
 		           	<p><small class="text-danger" ng-show="registro.nombreU.$invalid">Entre 6 y 20 caracteres alfanuméricos.</small></p>
-	            </div>			            
+	            </div>
+	        <!--./nombre -->		            
 	            <div class="clearfix"></div>
-
+			<!-- email -->
 	            <div ng-class="{'has-error': registro.emailU.$invalid, 'has-success': registro.emailU.$valid}" class="form-group">	
 		            <label id="labmail" for="emailU" class="control-label">Email</label> 
 		            <span ng-show="registro.emailU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		            <span ng-show="registro.emailU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
 		            <input type="email" name="emailU" class="form-control" placeholder={{email}} ng-model="userData.email" required/>
 		            <small class="text-danger" ng-show="registro.emailU.$invalid">Email inválido.</small>
-		          
 	            </div>
+	        <!-- ./email -->
 	            <div class="clearfix"></div>
-
+			<!-- contraseña -->
 	            <div ng-class="{'has-error': registro.passU.$invalid, 'has-success': registro.passU.$valid}" class="form-group">
 		            <label id="labpass" for="passU" class="control-label">Contraseña</label>
 		            <span ng-show="registro.passU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		             <span ng-show="registro.passU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-		            <input type="text" name="passU" id="passU" class="form-control" placeholder={{password}} ng-model="userData.pass" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="20" required/>
+		            <input type="text" name="passU" id="passU" class="form-control" placeholder={{pass}} ng-model="userData.pass" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="20" required/>
 		            <small class="text-danger" ng-show="registro.passU.$invalid">Entre 6 y 20 caracteres alfanuméricos.</small>
-		           
-		           	
 	            </div>
+	        <!-- ./contraseña -->
 	            <div class="clearfix"></div>
+	            
 
+			
 	            <div ng-class="{'has-error': registro.tipoU.$invalid,'has-success': registro.tipoU.$valid}" class="form-group">
 		            <label id="labtipo" for="tipoU" class="control-label">Tipo de Perfil</label>
 		            <span ng-show="registro.tipoU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		            <span ng-show="registro.tipoU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
 		            <select id="tipoU"  name="tipoU" class="form-control" ng-model="userData.tipo" ng-init="tiposUsuario()" required>
-		            	<option ng-repeat="tipo in tipos" ng-value="{{tipo.idTipo_usuarios}}">{{tipo.nombre}}</option>
-		            
+		            	<option ng-repeat="tipo in tipos" ng-value="{{item.idTipo_usuarios}}">{{item.nombre}}</option>
 		            </select>
 		            <small class="text-danger" ng-show="registro.tipoU.$invalid">Debes seleccionar un tipo de perfil obligatoriamente.</small>
 	            </div>
 	            <div class="clearfix"></div>
 	            
-			          
-				<!--USUARIO BASICO-->
-				<div ng-class="{'has-error': registro.fechaU.$invalid, 'has-success': registro.fechaU.$valid}" class="form-group" ng-show="registro.tipoU.$valid && userData.tipo=='1'">
-		            <label id="labfec" for="fechaU" class="control-label">Fecha de Nacimiento</label>
-		            <span ng-show="registro.fechaU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
-	                <span ng-show="registro.fechaU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-		            <input type="date" name="fechaU" id="fechaU" class="form-control"  ng-model="userData.fecha" ng-required="userData.tipo=='1'"/>
-		            <small class="text-danger" ng-show="registro.fechaU.$invalid">Selecciona tu fecha de nacimiento.</small>
-	            </div>
-	            <div ng-class="{'has-error': registro.sexoU.$invalid, 'has-success': registro.sexoU.$valid}" class="form-group" ng-show="registro.tipoU.$valid && userData.tipo=='1'">
-		            <label id="labsexo" for="sexoU" class="control-label">Sexo</label>
-		            <span ng-show="registro.sexoU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
-	                <span ng-show="registro.sexoU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-		            	<select id="sexoU" ng-model="userData.sexo" name="sexoU" class="form-control" ng-required="userData.tipo=='1'">
-		            		<option value="M">Mujer</option>
-		            		<option value="H">Hombre</option>
-		            	</select>
-		            <small class="text-danger" ng-show="registro.sexoU.$invalid">¿Eres hombre o mujer?</small>
-	            </div>
-			          
-
-				<!--USUARIO ARTISTA-->
-				<div ng-class="{'has-error': registro.generoU.$invalid, 'has-success': registro.generoU.$valid}" class="form-group" ng-show="registro.tipoU.$valid && userData.tipo=='2'">
-		            <label id="labgenero" for="generoU" class="control-label">Género Musical</label>
-		            <span ng-show="registro.generoU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
-	            	<span ng-show="registro.generoU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-		            	<select id="generoU" ng-model="userData.genero" name="generoU" class="form-control" ng-required="userData.tipo=='2'" ng-init="generos()">
-		            		<option ng-repeat="genero in generos" ng-value="{{genero.idGeneros}}">{{genero.nombre}}</option>
-		            	</select>
-		            <small class="text-danger" ng-show="registro.generoU.$invalid">¿Qué tipo de música toca tu grupo?</small>
-	            </div>
-
-
-	        	<!--USUARIO SALA-->
-				<div ng-class="{'has-error': registro.aforoU.$invalid, 'has-success': registro.aforoU.$valid}" class="form-group" ng-show="registro.tipoU.$valid && userData.tipo=='3'">
-		            <label id="labafo" for="aforoU" class="control-label">Aforo</label>
-		            <span ng-show="registro.aforoU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
-	             	<span ng-show="registro.aforoU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-		            <input type="text" id="aforoU" ng-model="userData.aforo" name="aforoU" class="form-control" ng-pattern="/\d/g" ng-required="userData.tipo=='3'" />
-		            <small class="text-danger" ng-show="registro.aforoU.$invalid">Introduce el aforo de la sala que vas a registar.</small>
-	            </div>
-	            <div ng-class="{'has-error': registro.poblacionU.$invalid, 'has-success': registro.poblacionU.$valid}" class="form-group" ng-show="registro.tipoU.$valid && userData.tipo=='3'">
-		            <label id="labafo" for="poblacionU" class="control-label">Población</label>
-		            <span ng-show="registro.poblacionU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
-	            	<span ng-show="registro.poblacionU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-		            <input type="text" id="poblacionU" ng-model="userData.poblacion" name="poblacionU" class="form-control" ng-pattern="/\w/g" ng-Maxlength="45" ng-required="userData.tipo=='3'" />
-		            <small class="text-danger" ng-show="registro.poblacionU.$invalid">¿Dónde está la sala?.</small>
-	            </div>
-	            <div ng-class="{'has-error': registro.direccionU.$invalid, 'has-success': registro.direccionU.$valid}" class="form-group" ng-show="registro.tipoU.$valid && userData.tipo=='3'">
-		            <label id="labafo" for="direccionU" class="control-label">Dirección</label>
-		            <span ng-show="registro.direccionU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
-	                <span ng-show="registro.direccionU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-		            <input type="text" id="direccionU" ng-model="userData.direccion" name="direccionU" class="form-control" ng-pattern="/\w/g" ng-Maxlength="45" ng-required="userData.tipo=='3'" />
-		            <small class="text-danger" ng-show="registro.direccionU.$invalid">¿En que dirección exacta?.</small>
-	            </div>
-
+	            
+	            
+		    	<td ng-if="{{tipo}} == '1'">
+	 			<!--USUARIO BASICO-->
+					<div ng-class="{'has-error': registro.fechaU.$invalid, 'has-success': registro.fechaU.$valid}" class="form-group"">
+			            <label id="labfec" for="fechaU" class="control-label">Fecha de Nacimiento</label>
+			            <span ng-show="registro.fechaU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
+		                <span ng-show="registro.fechaU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
+			            <input type="date" name="fechaU" id="fechaU" class="form-control"  ng-model="userData.fecha" ng-required="userData.tipo=='1'"/>
+			            <small class="text-danger" ng-show="registro.fechaU.$invalid">Selecciona tu fecha de nacimiento.</small>
+		            </div>
+		            <div ng-class="{'has-error': registro.sexoU.$invalid, 'has-success': registro.sexoU.$valid}" class="form-group">
+			            <label id="labsexo" for="sexoU" class="control-label">Sexo</label>
+			            <span ng-show="registro.sexoU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
+		                <span ng-show="registro.sexoU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
+			            	<select id="sexoU" ng-model="userData.sexo" name="sexoU" class="form-control" ng-required="userData.tipo=='1'">
+			            		<option value="M">Mujer</option>
+			            		<option value="H">Hombre</option>
+			            	</select>
+			            <small class="text-danger" ng-show="registro.sexoU.$invalid">¿Eres hombre o mujer?</small>
+		            </div>
+				</td>
+				<td ng-if="{{tipo}}  == '2'">
+	   			<!--USUARIO ARTISTA-->
+					<div ng-class="{'has-error': registro.generoU.$invalid, 'has-success': registro.generoU.$valid}" class="form-group">
+			            <label id="labgenero" for="generoU" class="control-label">Género Musical</label>
+			            <span ng-show="registro.generoU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
+		            	<span ng-show="registro.generoU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
+			            	<select id="generoU" ng-model="userData.genero" name="generoU" class="form-control" ng-required="userData.tipo=='2'" ng-init="generos()">
+			            		<option ng-repeat="genero in generos" ng-value="{{genero.idGeneros}}">{{genero.nombre}}</option>
+			            	</select>
+			            <small class="text-danger" ng-show="registro.generoU.$invalid">¿Qué tipo de música toca tu grupo?</small>
+		            </div>
+				</td>
+				<td ng-if="{{tipo}} == '3'">
+   				<!--USUARIO SALA-->
+					<div ng-class="{'has-error': registro.aforoU.$invalid, 'has-success': registro.aforoU.$valid}" class="form-group">
+			            <label id="labafo" for="aforoU" class="control-label">Aforo</label>
+			            <span ng-show="registro.aforoU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
+		             	<span ng-show="registro.aforoU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
+			            <input type="text" id="aforoU" ng-model="userData.aforo" name="aforoU" class="form-control" ng-pattern="/\d/g" ng-required="userData.tipo=='3'" />
+			            <small class="text-danger" ng-show="registro.aforoU.$invalid">Introduce el aforo de la sala que vas a registar.</small>
+		            </div>
+		            <div ng-class="{'has-error': registro.poblacionU.$invalid, 'has-success': registro.poblacionU.$valid}" class="form-group">
+			            <label id="labafo" for="poblacionU" class="control-label">Población</label>
+			            <span ng-show="registro.poblacionU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
+		            	<span ng-show="registro.poblacionU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
+			            <input type="text" id="poblacionU" ng-model="userData.poblacion" name="poblacionU" class="form-control" ng-pattern="/\w/g" ng-Maxlength="45" ng-required="userData.tipo=='3'" />
+			            <small class="text-danger" ng-show="registro.poblacionU.$invalid">¿Dónde está la sala?.</small>
+		            </div>
+		            <div ng-class="{'has-error': registro.direccionU.$invalid, 'has-success': registro.direccionU.$valid}" class="form-group">
+			            <label id="labafo" for="direccionU" class="control-label">Dirección</label>
+			            <span ng-show="registro.direccionU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
+		                <span ng-show="registro.direccionU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
+			            <input type="text" id="direccionU" ng-model="userData.direccion" name="direccionU" class="form-control" ng-pattern="/\w/g" ng-Maxlength="45" ng-required="userData.tipo=='3'" />
+			            <small class="text-danger" ng-show="registro.direccionU.$invalid">¿En que dirección exacta?.</small>
+		            </div>
+				</td>
 				<div class="form-group text-center">
 	            	<button class="btn btn-info" value="Log in" ng-click="createUsuario()" ng-disabled="registro.$pristine || registro.$invalid">Confirmar cambios</button>
 	        	</div>
 		    </form>
         </div>
     </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
-
-
