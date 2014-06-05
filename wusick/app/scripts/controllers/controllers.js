@@ -198,8 +198,8 @@ WusickControllers.controller('adminCtrl', ['$scope', '$http','IdAdmin', function
     };
     
     $scope.modificarUsuario = function(obj){
-    	var c = confirm('Está seguro de querer EDITAR el usuario: '+obj.target.attributes.name.value+' ?');
-    	if (c==true){
+    	//var c = confirm('Está seguro de querer EDITAR el usuario: '+obj.target.attributes.name.value+' ?');
+    	if (true){
 	    		$scope.id = obj.target.attributes.data.value;
 	    		console.log($scope.id);
 	    	$http.post('/user/modificarUsuario/'+$scope.id)
