@@ -2,7 +2,7 @@
 
 var WusickControllers = angular.module('WusickControllers', []);
 
-WusickControllers.controller('loginAdminCtrl', ['$scope', '$location', '$http', 'IdAdmin', function ($scope, $location, $http, IdAdmin) {
+WusickControllers.controller('loginAdminCtrl', ['$scope', '$location', '$http', 'DatosAdmin', function ($scope, $location, $http, DatosAdmin) {
         $scope.userData = {};
         //Las peticiones desde el controlador indican la ruta a la base de datos.
         $scope.obtenerUsuario = function(){
@@ -16,7 +16,7 @@ WusickControllers.controller('loginAdminCtrl', ['$scope', '$location', '$http', 
                         $http.post('/api/getIdAdminByEmail', $scope.userData)
                             .success(function(data){
                                 console.log(data);
-                                     IdAdmin.id = data;
+                                     DatosAdmin.id = data;
                                     $location.url("/administrator");
                         
                             })
@@ -136,9 +136,9 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','DatosUs
 
 }]);
 
-WusickControllers.controller('adminCtrl', ['$scope', '$http','IdAdmin', function ($scope, $http, IdAdmin) {
+WusickControllers.controller('adminCtrl', ['$scope', '$http','DatosAdmin', function ($scope, $http, DatosAdmin) {
    
-    $scope.message = 'Hola usuario con id '+IdAdmin.id;
+    $scope.message = 'Hola usuario con id '+DatosAdmin.email;
 
     $scope.obtenerListado = function(){
         $scope.listGral;
