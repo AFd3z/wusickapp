@@ -1,9 +1,9 @@
 	<div ng-include="'partials/navbar'"></div>
-
+	<div class="container">
 	<div id="registropage">
 		<div id="logo"></div>
         <div class="col-xs-12 col">
-        	<form id="registro" role="form" name="registro">
+        	<form id="registro" role="form" name="registro" class="min">
 		            	<div ng-class="{'has-error': registro.nombreU.$invalid, 'has-success': registro.nombreU.$valid}" class="form-group">
 				            <label id="labname" for="nombreU" class="control-label">Nombre</label>
 				             <span ng-show="registro.nombreU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
@@ -107,3 +107,4 @@
 		    </form>
         </div>
     </div>
+</div>

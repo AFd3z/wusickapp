@@ -1,15 +1,45 @@
 <div ng-include="'partials/navbarMain'"></div>
 
-	<div id="mainpage" class="row" ng-init="">
-        <div class="col-xs-12 col-md-3" id="izq">
-            {{message}}
+	<div id="mainpage" ng-init="">
+        <aside class="visible-desktop col-xs-3 row">
+    <!-- search -->
+    <form class="form-search">
+        <div class="input-prepend">
+            <button type="submit" class="btn"></button>
+            <input type="text" class="search-query">
         </div>
-        <div class="col-xs-12 col-md-3" id="central">
-			<div id="comment" class="col-xs-12">
-			</div>
-        </div>
-        <div class="col-xs-12 col-md-3" id="dcha">
+    </form>
 
+    <!-- menu -->
+    <ul class="sideMenu">
+        <li class="active">
+            <a href="index.html">Amigos</a>
+        </li>
+        <li>
+            <a href="typography.html">Eventos</a>
+        </li>
+        <li>
+            <a href="form.html">Aristas</a>
+        </li>
+        <li>
+            <a href="buttons.html">Salas</a>
+        </li>
+        
+    </ul>
+
+</aside>
+
+
+        <div class="col-xs-12 col-md-9" id="central">
+			<div class="col-xs-12">
+                <form role="form">
+                    <textarea class="form-control" id="comment">
+                        
+                    </textarea>
+                            <p>{{usuario.idUsuario}}</p>
+                </form>
+                
+			</div>
         </div>
         <div class="clearfix"></div>
     </div>
