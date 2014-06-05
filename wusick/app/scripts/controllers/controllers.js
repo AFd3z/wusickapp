@@ -33,31 +33,35 @@ WusickControllers.controller('loginAdminCtrl', ['$scope', '$location', '$http', 
             };
         
 }]);
-WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'IdUsuario', function ($scope, $location, $http, IdUsuario) {
+WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'DatosUsuario','webStorage', function ($scope, $location, $http, DatosUsuario, webStorage) {
         $scope.userData = {};
         //Las peticiones desde el controlador indican la ruta a la base de datos.
         $scope.obtenerUsuario = function(){
             $http.post('/user/login', $scope.userData)
-                .success(function(data) {
-                	console.log(data);
+                .success(function(data) {	                 
                     if(data==='null'){
                         
                          smoke.alert('Usuario o contraseña incorrectos');
-                   
                     }else if(data[0].bloqueado ===0){
-                        
-                        console.log('vamos a main');
-                        $http.post('/api/getIdByEmail', $scope.userData)
-                            .success(function(data){
-                                console.log(data);
-                                     IdUsuario.id = data;
-                                    $location.url("/main");
-                        
-                            })
-                            .error(function(data) {
-                            console.log('Error:' + data);
-                            });
-                        
+
+                                    webStorage.session.add('usuario', data[0]);
+
+                                    /*
+                                     DatosUsuario.idUsuario = data[0].idUsuario;
+                                     DatosUsuario.email = data[0].email;
+                                     DatosUsuario.Tipo_usuarios_idTipo_usuarios= data[0].Tipo_usuarios_idTipo_usuarios;
+                                     DatosUsuario.nombre = data[0].nombre;
+                                     DatosUsuario.fecha_alta = data[0].fecha_alta;
+                                     DatosUsuario.header_img = data[0].header_img;
+                                     DatosUsuario.profile_img = data[0].profile_img;
+                                     DatosUsuario.password = data[0].password;
+                                     DatosUsuario.logged = true;
+                                    */
+
+
+                                     console.log(data[0]);
+                                     $location.url("/main");
+
 
                     }else if(data[0].bloqueado ===1){
                     	    smoke.alert("Su usuario ha sido bloquedo. Si quiere ser desbloqueado pongase en contacto con un administrador.");
@@ -124,10 +128,11 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http','$location', fun
 
 }]);
 
-WusickControllers.controller('mainCtrl', ['$scope', '$http','IdUsuario', function ($scope, $http, IdUsuario) {
-   
-     $scope.message = 'Hola usuario con id '+IdUsuario.id;
+WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','DatosUsuario','webStorage', function ($scope, $http, $location, DatosUsuario, webStorage) {
+     
 
+     $scope.usuario = webStorage.session.get('usuario');
+    
 
 }]);
 

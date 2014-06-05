@@ -5,6 +5,7 @@ angular.module('wusickAppApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+  'webStorageModule',
   'WusickServices',
   'WusickControllers'
   
