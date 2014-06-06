@@ -128,25 +128,10 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http','$location', fun
 
 }]);
 
-<<<<<<< HEAD
-WusickControllers.controller('mainCtrl', ['$scope', '$http', function ($scope, $http) {
-    $scope.userSesion;
-    $scope.getSesion = function(){
-        $http.get('/api/getSesion')
-            .success(function(data){
-                $http.get('/api/getIdByEmail')
-                .success(function(data){
-                    console.log(data);
-                    $scope.userSesion = data;
-                    return $scope.userSesion;
-                })
-                .error(function(data) {
-                    console.log('Error:' + data);
-                });
-=======
+
+
 WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','DatosUsuario','webStorage', function ($scope, $http, $location, DatosUsuario, webStorage) {
      
->>>>>>> 7107bf06bf06d3483426a1c20b365734392b49a5
 
      $scope.usuario = webStorage.session.get('usuario');
     
