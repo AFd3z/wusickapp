@@ -109,6 +109,7 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http', function ($scope, $
                 .success(function(data){
                     console.log(data);
                     $scope.userSesion = data;
+                    return $scope.userSesion;
                 })
                 .error(function(data) {
                     console.log('Error:' + data);
