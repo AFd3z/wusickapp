@@ -32,8 +32,17 @@ border-color:transparent;
 }
 
 .nav > li > a:hover, .nav > li > a:focus {
-text-decoration: underline;
+
 background-color: transparent;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+
+background-color: transparent;
+border:0;
+color:white;
+background:#001B36;
+border-radius:0;
 }
 
 

@@ -41,6 +41,12 @@ WusickControllers.controller('loginAdminCtrl', ['$scope', '$location', '$http', 
 }]);
 WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'DatosUsuario','webStorage', function ($scope, $location, $http, DatosUsuario, webStorage) {
         $scope.userData = {};
+        $scope.sessionUser= webStorage.session.get('admin');
+        console.log($scope.sessionUser);
+
+        if($scope.sessionUser!='null'){
+            webStorage.session.clear();
+        }
         //Las peticiones desde el controlador indican la ruta a la base de datos.
         $scope.obtenerUsuario = function(){
             $http.post('/user/login', $scope.userData)
