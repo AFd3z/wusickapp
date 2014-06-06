@@ -243,16 +243,32 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
 		             $scope.email = data.email;
 		             $scope.pass = data.password;
 		             $scope.tipo = data.Tipo_usuarios_idTipo_usuarios;
-		             	
-				             /*$http.get('/user/datosXtipo', $scope.tipo)
-					             .success(function(data){
-					            	 console.log(data);
-					            	 
-					             })
-					             .error(function(data) {
-					                 console.log('Error:' + data);
-					             });*/
 		             
+		            switch ($scope.tipo) {
+						case 1:/*basicos*/
+							$scope.fecha_nac =data.fecha_nac;
+							$scope.sexo =data.fecha_nac;
+						break;
+						case 2:/*artista*/
+							$scope.genero = data.idGeneros;
+						break;
+						case 3:/*sala*/
+							$scope.aforo =data.aforo;
+							$scope.poblacion =data.poblacion;
+							$scope.direccion =data.direccion;
+						break;
+						default:
+						break;
+					}
+		             
+		             	
+		             /*$http.get('/user/datosXtipo', $scope.tipo)
+			             .success(function(data){
+			            	 console.log(data);
+		             })
+		             .error(function(data) {
+		                 console.log('Error:' + data);
+		             });*/
 		             //location.reload();
 		         })
 		        .error(function(data) {
