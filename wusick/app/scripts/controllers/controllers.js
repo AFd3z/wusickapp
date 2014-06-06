@@ -139,12 +139,26 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http','$location', fun
 
 WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStorage', function ($scope, $http, $location, webStorage) {
     
-    $scope.usuario = webStorage.session.get('usuario');
-    console.log($scope.usuario);
-        if($scope.usuario==null){
-            smoke.alert('No estás loggeado como usuario!');
-            $location.url("/login");
-        }
+	   $scope.usuario = webStorage.session.get('usuario');
+	    console.log($scope.usuario);
+	        if($scope.usuario==null){
+	            smoke.alert('No estas logeado como usuario!');
+	            $location.url("/login");
+	        };
+	        
+	        
+	    $scope.id = $scope.usuario.idUsuario; 
+	    $scope.posts= function (){
+	    	$scope.posts;
+	        $http.post('/post/obtenerPost/'+$scope.id)
+	             .success(function(data){
+	                  console.log(data);
+	                  $scope.posts = data;
+	              })
+	             .error(function(data) {
+	                        console.log('Error:' + data);
+	              });
+	        };
 }]);
 
 WusickControllers.controller('navbarAdminCtrl', ['$scope','$location','webStorage', function ($scope, $location, webStorage) {
