@@ -46,8 +46,8 @@ exports.borrarPost = function (req,res) {
 	            });	
 };
 
-//Funcion de recuperacion de post
-exports.feed = function (req,res) {
+//Funcion de recuperacion de post del main
+exports.obtenerPost = function (req,res) {
 	
 	var id =req.params.id;
 

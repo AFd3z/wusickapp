@@ -36,6 +36,7 @@ module.exports = function(app) {
  app.route('/user/datosXtipo').get(user.datosXtipo);
 
  //POST
+ app.route('/post/obtenerPost/:id').post(post.obtenerPost);
  app.route('/post/postear').post(post.postear);
  app.route('/post/borrarPost/:id').post(post.borrarPost);
 
