@@ -39,9 +39,9 @@ WusickControllers.controller('loginAdminCtrl', ['$scope', '$location', '$http', 
             };
         
 }]);
-WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'DatosUsuario','webStorage', function ($scope, $location, $http, DatosUsuario, webStorage) {
+WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'webStorage', function ($scope, $location, $http, webStorage) {
         $scope.userData = {};
-        $scope.sessionUser= webStorage.session.get('admin');
+        $scope.sessionUser= webStorage.session.get('usuario');
         console.log($scope.sessionUser);
 
         if($scope.sessionUser!='null'){
@@ -127,12 +127,14 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http','$location', fun
 
 
 
-WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','DatosUsuario','webStorage', function ($scope, $http, $location, DatosUsuario, webStorage) {
-     
-
-     $scope.usuario = webStorage.session.get('usuario');
+WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStorage', function ($scope, $http, $location, webStorage) {
     
-
+    $scope.usuario = webStorage.session.get('usuario');
+    console.log($scope.usuario);
+        if($scope.usuario==null){
+            smoke.alert('No estás loggeado como usuario!');
+            $location.url("/login");
+        }
 }]);
 
 WusickControllers.controller('navbarAdminCtrl', ['$scope','$location','webStorage', function ($scope, $location, webStorage) {
@@ -149,9 +151,14 @@ WusickControllers.controller('navbarAdminCtrl', ['$scope','$location','webStorag
      
 }]);
 
-WusickControllers.controller('adminCtrl', ['$scope', '$http','webStorage', function ($scope, $http, webStorage) {
+WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webStorage', function ($scope, $location, $http, webStorage) {
+    
     $scope.admin= webStorage.session.get('admin');
-
+    console.log($scope.admin);
+        if($scope.admin==null){
+            smoke.alert('No estás loggeado como administrador!');
+            $location.url("/loginAdmin");
+        }
     $scope.obtenerListado = function(){
         $scope.listGral;
         $http.get('/user/listadoUsuarios')
