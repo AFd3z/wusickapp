@@ -5,7 +5,10 @@ angular.module('wusickAppApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+  'webStorageModule',
+  'WusickServices',
   'WusickControllers'
+  
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
@@ -13,6 +16,11 @@ angular.module('wusickAppApp', [
         templateUrl: 'partials/login',
         controller: 'loginCtrl'
       })
+      .when('/loginAdmin', {
+        templateUrl: 'partials/loginAdmin',
+        controller: 'loginAdminCtrl'
+      })
+
       .when('/login', {
         templateUrl: 'partials/login',
         controller: 'loginCtrl'
@@ -24,6 +32,10 @@ angular.module('wusickAppApp', [
        .when('/main', {
         templateUrl: 'partials/main',
         controller: 'mainCtrl'
+      })
+        .when('/administrator', {
+        templateUrl: 'partials/jades/admin-index',
+        controller: 'adminCtrl'
       })
       .otherwise({
         redirectTo: '/'

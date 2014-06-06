@@ -1,6 +1,8 @@
 'use strict';
 
 
+//FUNCIONALIDADES VARIAS
+
 var connection = require('dbfunct/MySQLconnection');
 
 //Funcion para comprobar si existe mail registrado
@@ -82,146 +84,50 @@ exports.generos= function (req,res){
     });
 };
 
-//Funcion Login
-exports.login = function (req,res,callback) {
 
-var user = req.body.email;
-var pass = req.body.pass;
-var json ="";
-
-    //creating connection object
-    var sqlconnection = connection.createConnection();
-    var query = 'SELECT * FROM usuarios WHERE email="'+user+'" AND password="'+pass+'"';
-
-    //sending query through our connection object
-    sqlconnection.query(query, function(err, results) {
-       if (err)
-            return callback(err, "query error");
-       
-       if (results.length=='0'){
-              var query = 'SELECT * FROM administradores WHERE email="'+user+'" AND password="'+pass+'"';
-              sqlconnection.query(query, function(err, results) {
-             
-                         if (err)
-                              return callback(err, "query error");
-                         
-                         console.log('vamos por admin');
-                         if (results.length=='0'){
-                          console.log("login incorrecto"+results);
-                          res.send('null');
-                        }else{
-                          res.send('admin');
-                        }
-              });
-       }else{
-        console.log("login correcto del usuario: "+user);
-        json = JSON.stringify(results);
-        //returning jsonized result
-        //res.json(json);
-        //returning json object
-        res.json(results);
-
-       }
-
-        sqlconnection.end();
-
-    });
-};
-
-//Funcion Registro
-
-exports.registro = function (req,res) {
-	
-		var user = req.body.nombre;
-		var pass = req.body.pass;
-		var email = req.body.email;
-		var tipo = req.body.tipo;
-		
-		var json ="";
-
-		    //creating connection object
-		  var sqlconnection = connection.createConnection();
-		    var query = 'INSERT INTO USUARIOS (nombre, password,email,fecha_alta,Tipo_usuarios_idTipo_usuarios) VALUES ("'+user+'","'+pass+'","'+email+'",curdate(),'+tipo+') ';
-
-		    //sending query through our connection object
-		    sqlconnection.query(query, function(err, results) {
-		        if (err)
-		            res.send(err, "query error");
-		        
-		        var insertedID=results.insertId;
-		        console.log(insertedID);
-		        console.log(tipo);
-		     
-
-		        //inserting specific data into specific user type table
-		        switch (tipo){
-    		        case '1':
-    		        	var query2 = 'INSERT INTO basicos (fecha_nac, sexo, Usuarios_idUsuario) VALUES ("'+req.body.fecha+'","'+req.body.sexo+'",'+insertedID+') ';
-      		        	sqlconnection.query(query2, function(err, results) {
-            				        if (err)
-            				            res.send(err, "query error");
-            				       
-            		        	console.log("registro correcto del usuario"+tipo+": "+user+" con ID: ");
-            				    	sqlconnection.end();
-
-      		        	});
-    		        break;
-
-    		        case '2':
-    		          var query3 = 'INSERT INTO artistas (Genero, Usuarios_idUsuario) VALUES ("'+req.body.genero+'",'+insertedID+') ';
-        		        	sqlconnection.query(query3, function(err, results) {
-        				        if (err)
-        				            res.send(err, "query error");
-        				  
-        		        	console.log("registro correcto del usuario"+tipo+": "+user+" con ID: ");
-        				    	sqlconnection.end();
-    		        	});
-                break;
-    		        
-    		        case '3':
-    		        	var query4 = 'INSERT INTO salas (aforo,poblacion,direccion, Usuarios_idUsuario) VALUES ("'+req.body.aforo+'","'+req.body.poblacion+'","'+req.body.direccion+'",'+insertedID+') ';
-        		        	sqlconnection.query(query4, function(err, results) {
-            				        if (err)
-            				            res.send(err, "query error");
-            				        
-            		        	console.log("registro correcto del usuario "+tipo+": "+user+" con ID: ");
-            				    	sqlconnection.end();
-        		        	});
-    		        break;	
-
-                default: 
-                    res.send(err, "Query Error");
-                break;
-
-		        }
-		        
-		        //returning jsonized result
-		        //res.json(json);
-		        //returning json object
-		        res.json(results);
-
-		  });
-	};
 
 //Función para obtener el id de usuarios a través del email (primera variable de sesión)
 exports.getIdByEmail = function(req, res){
+	var email = req.body.email;
 	var sqlconnection = connection.createConnection();
-	var query = 'SELECT idUsuario FROM usuarios WHERE email="'+req.session.mail+'";';
-	           
+	var query = 'SELECT idUsuario FROM usuarios WHERE email="'+email+'";';
+	var id;           
 	    sqlconnection.query(query, function(err, results) {
 	            if (err){
-	               res.send(err, "query error");
+	  				res.send(err, "query error");
 	                  
 	               }else{
-	               req.session.idUsuario=results;	   
-	               res.send(req.session.idUsuario);
+	                id=results.idUsuario;	   
+	               	res.send(id);
+	               	
 	             }
 	            });
 };
 
+exports.getIdAdminByEmail = function(req, res){
+	var email = req.body.email;
+	var sqlconnection = connection.createConnection();
+	var query = 'SELECT idAdministrador FROM administradores WHERE email="'+email+'";';
+	var id;           
+	    sqlconnection.query(query, function(err, results) {
+	            if (err){
+	  				res.send(err, "query error");
+	                  
+	               }else{
+	                 
+	            	   	id=results.idAdministrador;	   
+		               	res.send(id);
+
+	             }
+	            });
+};
+
+
+
 //Función para obtener el nombre de usuario a través del id
 exports.getUserById = function(req, res){
-	var id=req.body.id;
+	var id=req.session.idUsuario;
+	console.log(id);
 	var sqlconnection = connection.createConnection();
 	var query = 'SELECT nombre FROM usuarios WHERE idUsuario="'+id+'";';
 	           
@@ -230,7 +136,9 @@ exports.getUserById = function(req, res){
 	               res.send(err, "query error");
 	                  
 	               }else{
-	               req.session.user=results;	   
+	            	   console.log(results);
+	               req.session.user=results;
+	               console.log(req.session.user);
 	               res.send(req.session.user);
 	             }
 	            });
@@ -252,7 +160,7 @@ exports.getFriendsById = function(req, res){
 	            });
 };	
 	
-	
+
 //Función que crea la sesión	
 exports.crearSesion = function (req,res) {
 	
@@ -267,12 +175,4 @@ exports.getSesion = function (req,res) {
 	res.send(req.session.mail);
 	
 };
-
-//Funcion que destruye sesión	    
-exports.logout = function (req,res) {
 	
-	req.session.destroy();
-	window.location("/login");
-
-};		
-		
