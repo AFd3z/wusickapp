@@ -3,7 +3,7 @@
 var WusickControllers = angular.module('WusickControllers', []);
 
 WusickControllers.controller('loginAdminCtrl', ['$scope', '$location', '$http', 'webStorage', function ($scope, $location, $http, webStorage) {
-
+        $scope.userData={}
         $scope.sessionAdmin= webStorage.session.get('admin');
         console.log($scope.sessionAdmin);
 
