@@ -25,6 +25,10 @@ angular.module('wusickAppApp', [
         templateUrl: 'partials/login',
         controller: 'loginCtrl'
       })
+      .when('/recpass', {
+        templateUrl: 'partials/recpass',
+        controller: 'recPassCtrl'
+      })
        .when('/registro', {
         templateUrl: 'partials/registro',
         controller: 'registroCtrl'

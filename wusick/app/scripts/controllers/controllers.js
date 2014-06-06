@@ -73,7 +73,17 @@ WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'webS
         
 }]);
 
+WusickControllers.controller('recPassCtrl', ['$scope', '$http','$location', function ($scope, $http, $location) {
 
+        $scope.enviarPwd = function(){
+
+
+        }
+
+
+
+
+}]);
 
 WusickControllers.controller('registroCtrl', ['$scope', '$http','$location', function ($scope, $http, $location) {
     $scope.userData = {};
