@@ -63,3 +63,19 @@ exports.obtenerPost = function (req,res) {
 	             }
 	            });	
 };
+
+//Funcion de recuperacion de post del admin
+exports.obtenerTodosPost = function (req,res) {
+
+	var sqlconnection = connection.createConnection();
+	var query = 'select p.idPosts idPost, p.contenido contenido, p.fecha fecha, p.post_img img, p.destinatario destinatario, u.nombre nombre from posts p, usuarios u where p.Usuarios_idUsuario = u.idUsuario order by p.fecha desc';
+	           
+	    sqlconnection.query(query, function(err, results) {
+	            if (err){
+	               res.send(err, "query error");
+	                  
+	               }else{
+	               res.send(results);
+	             }
+	            });	
+};

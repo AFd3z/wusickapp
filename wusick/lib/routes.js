@@ -37,6 +37,7 @@ module.exports = function(app) {
 
  //POST
  app.route('/post/obtenerPost/:id').post(post.obtenerPost);
+ app.route('/post/obtenerTodosPost').post(post.obtenerTodosPost);
  app.route('/post/postear').post(post.postear);
  app.route('/post/borrarPost/:id').post(post.borrarPost);
 
