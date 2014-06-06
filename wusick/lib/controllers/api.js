@@ -104,10 +104,10 @@ exports.getIdByEmail = function(req, res){
 	            });
 };
 
-exports.getIdAdminByEmail = function(req, res){
+exports.getAdminByEmail = function(req, res){
 	var email = req.body.email;
 	var sqlconnection = connection.createConnection();
-	var query = 'SELECT idAdministrador FROM administradores WHERE email="'+email+'";';
+	var query = 'SELECT * FROM administradores WHERE email="'+email+'";';
 	var id;           
 	    sqlconnection.query(query, function(err, results) {
 	            if (err){
@@ -115,8 +115,8 @@ exports.getIdAdminByEmail = function(req, res){
 	                  
 	               }else{
 	                 
-	            	   	id=results.idAdministrador;	   
-		               	res.send(id);
+	            	   
+		               	res.json(results);
 
 	             }
 	            });

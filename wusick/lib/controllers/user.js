@@ -209,13 +209,13 @@ exports.borrarUsuario = function (req,res) {
 	            });	
 };
 
-//Funcion que destruye sesión	    
+//Funcion que destruye sesión
+/*	    
 exports.logout = function (req,res) {
-	
-	req.session.destroy();
+	webStorage.session.clear();
 	window.location("/login");
 
-};
+};*/
 
 //Funcion Edicion de un usuario
 exports.modificarUsuario = function (req,res) {

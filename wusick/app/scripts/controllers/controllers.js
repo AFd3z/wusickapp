@@ -3,7 +3,13 @@
 var WusickControllers = angular.module('WusickControllers', []);
 
 WusickControllers.controller('loginAdminCtrl', ['$scope', '$location', '$http', 'webStorage', function ($scope, $location, $http, webStorage) {
-        $scope.userData = {};
+
+        $scope.sessionAdmin= webStorage.session.get('admin');
+        console.log($scope.sessionAdmin);
+
+        if($scope.sessionAdmin!='null'){
+            webStorage.session.clear();
+        }
         //Las peticiones desde el controlador indican la ruta a la base de datos.
         $scope.obtenerUsuario = function(){
             $http.post('/user/login', $scope.userData)
@@ -13,10 +19,10 @@ WusickControllers.controller('loginAdminCtrl', ['$scope', '$location', '$http', 
                          smoke.alert('Usuario o contraseña incorrectos');
                    
                     }else{
-                        $http.post('/api/getIdAdminByEmail', $scope.userData)
+                        $http.post('/api/getAdminByEmail', $scope.userData)
                             .success(function(data){
-                                console.log(data);
-                                    webStorage.session.add('id', data);
+                                    console.log(data);
+                                    webStorage.session.add('admin', data[0]);
                                     $location.url("/administrator");
                         
                             })
@@ -40,27 +46,12 @@ WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'Dato
             $http.post('/user/login', $scope.userData)
                 .success(function(data) {	                 
                     if(data==='null'){
-                        
                          smoke.alert('Usuario o contraseña incorrectos');
+                   
                     }else if(data[0].bloqueado ===0){
 
                                     webStorage.session.add('usuario', data[0]);
-
-                                    /*
-                                     DatosUsuario.idUsuario = data[0].idUsuario;
-                                     DatosUsuario.email = data[0].email;
-                                     DatosUsuario.Tipo_usuarios_idTipo_usuarios= data[0].Tipo_usuarios_idTipo_usuarios;
-                                     DatosUsuario.nombre = data[0].nombre;
-                                     DatosUsuario.fecha_alta = data[0].fecha_alta;
-                                     DatosUsuario.header_img = data[0].header_img;
-                                     DatosUsuario.profile_img = data[0].profile_img;
-                                     DatosUsuario.password = data[0].password;
-                                     DatosUsuario.logged = true;
-                                    */
-
-
-                                     console.log(data[0]);
-                                     $location.url("/main");
+                                    $location.url("/main");
 
 
                     }else if(data[0].bloqueado ===1){
@@ -138,10 +129,22 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','DatosUs
 
 }]);
 
+WusickControllers.controller('navbarAdminCtrl', ['$scope','$location','webStorage', function ($scope, $location, webStorage) {
+    $scope.menu = [
+    {'title': 'Usuarios','link':'/login'},
+    {'title': 'Post','link':'/login'},
+    {'title': 'Salir','link':'/loginAdmin'}
+    ];
+    
+    $scope.isActive = function(route) {
+      return route === $location.path();
+    };
+
+     
+}]);
+
 WusickControllers.controller('adminCtrl', ['$scope', '$http','webStorage', function ($scope, $http, webStorage) {
-   
-    var id = webStorage.session.get('id');
-    $scope.message = 'Hola usuario con id '+id;
+    $scope.admin= webStorage.session.get('admin');
 
     $scope.obtenerListado = function(){
         $scope.listGral;
