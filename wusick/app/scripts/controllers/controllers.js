@@ -144,7 +144,7 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http','$location', fun
 
 //CONTROLADOR MAIN
 
-WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStorage', function ($scope, $http, $location, webStorage) {
+WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStorage','$interval', function ($scope, $http, $location, webStorage,$interval) {
         
 
 	   $scope.usuario = webStorage.session.get('usuario');
@@ -172,10 +172,11 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
             
 
     
+        
 
 
-
-	    $scope.obtenerPost= function (){
+	    $scope.obtenerPost=  $interval(function (){
+	    	
 	    	$scope.posts;
 	        $http.post('/post/obtenerPost/'+$scope.id)
 	             .success(function(data){
@@ -185,7 +186,7 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
 	             .error(function(data) {
 	                        console.log('Error:' + data);
 	              });
-	        };
+	        },20000);
 
             $scope.$on('$viewContentLoaded', function() {
                 $scope.obtenerPost();

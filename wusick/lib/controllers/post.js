@@ -61,7 +61,7 @@ exports.obtenerPost = function (req,res) {
 	               }else{
 	               res.send(results);
 	             }
-	            });	
+	            });
 };
 
 //Funcion de recuperacion de post del admin
