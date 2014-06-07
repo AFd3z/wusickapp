@@ -155,7 +155,26 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
 	        };
 	        
 	        
-	    $scope.id = $scope.usuario.idUsuario; 
+	    $scope.id = $scope.usuario.idUsuario;
+
+        $scope.datosPost= {};
+        $scope.postear= function(){
+            console.log( $scope.datosPost);
+                $http.post('/post/postear', $scope.datosPost)
+                    .success(function(data){
+                        console.log(data);
+                        $scope.obtenerPost();
+                    })
+                    .error(function(data) {
+                    console.log('Error:' + data);
+                });
+        }
+            
+
+    
+
+
+
 	    $scope.obtenerPost= function (){
 	    	$scope.posts;
 	        $http.post('/post/obtenerPost/'+$scope.id)
