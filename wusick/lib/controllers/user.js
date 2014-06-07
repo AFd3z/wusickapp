@@ -217,51 +217,56 @@ exports.logout = function (req,res) {
 
 };*/
 
-//------------------------------------------------------------------------------------------------------------
+
+
 //Funcion Edicion de un usuario
 exports.modificarUsuario = function (req,res) {
- //------------------------------------------------------------------------------------------------------------
-		var id = req.params.id;
-		console.log("<<<estas en user.js id >>>>" + id);
-		var json ="";
-		  //creamos objeto conexión
-		  var sqlconnection = connection.createConnection();
-		  
-		  	var query0 = 'select * from usuarios where idUsuario = '+ id +';';
-		  	
-		    sqlconnection.query(query0, function(err, results) {
-	            if(err){
-	            	 res.send(err, "query error");
-	            }else{
-	            	var tipo = results[0].Tipo_usuarios_idTipo_usuarios;
-	            	var queryU;
-	            	console.log("<<<estas en user.js tipo >>>>" + tipo);
-	            	switch (tipo) {
-					case 1:/* todos los datos de Usuario Normal */
-						queryU = 'select * from usuarios u, basicos b where u.idUsuario = b.Usuarios_idUsuario and u.idUsuario = '+id;
-						break;
-					case 2: /* todos los datos de Usuario Artista */
-						queryU = 'select * from usuarios u,  artistas a where u.idUsuario = a.Usuarios_idUsuario and u.idUsuario = '+id;
-						break;
-					case 3: /* todos los datos de Usuario Sala */
-						queryU = 'select * from usuarios u, salas s where u.idUsuario = s.Usuarios_idUsuario and u.idUsuario = '+id;
-						break;
-					default:
-						break;
-					}
-	            	
-	            	sqlconnection.query(queryU, function(err, results) {
-	    	            if(err){
-	    	            	 res.send(err, "query error");
-	    	            }else{
-	    	            	res.json(results[0]);
-	    	            }
-	            	});
-	            }
-	        });	
-	};
- //------------------------------------------------------------------------------------------------------------
+	 //------------------------------------------------------------------------------------------------------------
+	var id = req.params.id;
+	console.log("<<<estas en user.js id >>>>" + id);
+	var json ="";
+	  //creamos objeto conexión
+	  var sqlconnection = connection.createConnection();
+	  
+	  	var query0 = 'select * from usuarios where idUsuario = '+ id +';';
+	  	
+	    sqlconnection.query(query0, function(err, results) {
+            if(err){
+            	 res.send(err, "query error");
+            }else{
+            	var tipo = results[0].Tipo_usuarios_idTipo_usuarios;
+            	var queryU;
+            	console.log("<<<estas en user.js tipo >>>>" + tipo);
+            	switch (tipo) {
+				case 1:/* todos los datos de Usuario Normal */
+					queryU = 'select * from usuarios u, basicos b where u.idUsuario = b.Usuarios_idUsuario and u.idUsuario = '+id;
+					break;
+				case 2: /* todos los datos de Usuario Artista */
+					queryU = 'select * from usuarios u,  artistas a where u.idUsuario = a.Usuarios_idUsuario and u.idUsuario = '+id;
+					break;
+				case 3: /* todos los datos de Usuario Sala */
+					queryU = 'select * from usuarios u, salas s where u.idUsuario = s.Usuarios_idUsuario and u.idUsuario = '+id;
+					break;
+				default:
+					break;
+				}
+            	
+            	sqlconnection.query(queryU, function(err, results) {
+    	            if(err){
+    	            	 res.send(err, "query error");
+    	            }else{
+    	            	res.json(results[0]);
+    	            }
+            	});
+            }
+        });
+	    //sqlconnection.end();
+};
 
+exports.UpdateUsuario = function (req,res) {
+	console.log("<<<estas en UpdateUsuario.js id: >>>>" + id);
+};
+//------------------------------------------------------------------------------------------------------------
 exports.datosXtipo = function(req, res){
 		var tipo = req.params.tipo;
 		console.log(tipo);

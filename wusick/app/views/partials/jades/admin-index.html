@@ -1,7 +1,7 @@
 <div ng-include="'partials/navbarAdmin'"></div>
 
 <div class="container">
-	<h2>Bienvenido<span class="text-info">{{message}}</span></h2>
+	<h2>Bienvenido <strong>{{admin.email}}</strong><span class="text-info">{{message}}</span></h2>
     <div ng-init="obtenerListado()">
     	<div>
     		
@@ -92,7 +92,7 @@
 		            <label id="labname" for="nombreU" class="control-label">Nombre</label>
 		             <span ng-show="registro.nombreU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		             <span ng-show="registro.nombreU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-		            <input type="text" name="nombreU" class="form-control" placeholder={{nombre}} ng-value="nombre" ng-model="userData.nombre" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="20" required/>
+		            <input type="text" name="nombreU" class="form-control" placeholder="{{nombre}}" value="{{nombre}}" ng-model=nombre ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="20" required/>
 		           	<p><small class="text-danger" ng-show="registro.nombreU.$invalid">Entre 6 y 20 caracteres alfanuméricos.</small></p>
 	            </div>
 	        <!--./nombre -->		            
@@ -102,7 +102,7 @@
 		            <label id="labmail" for="emailU" class="control-label">Email</label> 
 		            <span ng-show="registro.emailU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		            <span ng-show="registro.emailU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-		            <input type="email" name="emailU" class="form-control" placeholder={{email}} ng-model="userData.email" required/>
+		            <input type="email" name="emailU" class="form-control" placeholder={{email}} ng-model="email" required/>
 		            <small class="text-danger" ng-show="registro.emailU.$invalid">Email inválido.</small>
 	            </div>
 	        <!-- ./email -->
@@ -112,7 +112,7 @@
 		            <label id="labpass" for="passU" class="control-label">Contraseña</label>
 		            <span ng-show="registro.passU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 		             <span ng-show="registro.passU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-		            <input type="text" name="passU" id="passU" class="form-control" placeholder={{pass}} ng-model="userData.pass" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="20" required/>
+		            <input type="text" name="passU" id="passU" class="form-control" placeholder={{pass}} ng-model="pass" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="20" required/>
 		            <small class="text-danger" ng-show="registro.passU.$invalid">Entre 6 y 20 caracteres alfanuméricos.</small>
 	            </div>
 	        <!-- ./contraseña -->
@@ -125,7 +125,7 @@
 				            <label id="labfec" for="fechaU" class="control-label">Fecha de Nacimiento</label>
 				            <span ng-show="registro.fechaU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 			                <span ng-show="registro.fechaU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-				            <input type="date" name="fechaU" id="fechaU" class="form-control" value="{{fecha_nac}}" ng-model="userData.fecha" ng-required="userData.tipo=='1'"/>
+				            <input type="date" name="fechaU" id="fechaU" class="form-control" value="fecha_nac" ng-model="fecha_nac"/>
 				            <small class="text-danger" ng-show="registro.fechaU.$invalid">Selecciona tu fecha de nacimiento.</small>
 			            </div>
 				            
@@ -133,11 +133,8 @@
 				            <label id="labsexo" for="sexoU" class="control-label">Sexo</label>
 				            <span ng-show="registro.sexoU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 			                <span ng-show="registro.sexoU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-				            	<select id="sexoU" ng-model="userData.sexo" name="sexoU" class="form-control" ng-required="userData.tipo=='1'">
-				            		<option value="M" selected>Mujer</option>
-				            		<option value="H">Hombre</option>
-				            		<option value="H">Hombre 2</option>
-				            		<option value="H">Hombre 3</option>
+				            	<select id="sexoU" ng-model="sexo" name="sexoU" class="form-control">
+				            		<option ng-repeat="s in sexos" ng-value="{{s.sexo}}" ng-selected="{{s.sexo}} == {{sexo}}" >{{s.nombre}}</option>	            		
 				            	</select>
 				            <small class="text-danger" ng-show="registro.sexoU.$invalid">¿Eres hombre o mujer?</small>
 			            </div>
@@ -151,7 +148,7 @@
 				            <span ng-show="registro.generoU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 			            	<span ng-show="registro.generoU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
 				            	<select id="generoU" ng-model="userData.genero" name="generoU" class="form-control" ng-required="userData.tipo=='2'" ng-init="generos()">
-				            		<option ng-repeat="genero in generos" ng-value="{{genero.idGeneros}}">{{genero.nombre}}</option>
+				            		<option ng-repeat="gen in generos" ng-value="{{gen.idGeneros}}" ng-selected="{{gen.idGeneros}} == {{genero}}" >{{gen.nombre}}</option>
 				            	</select>
 				            <small class="text-danger" ng-show="registro.generoU.$invalid">¿Qué tipo de música toca tu grupo?</small>
 			            </div>
@@ -164,28 +161,28 @@
 				            <label id="labafo" for="aforoU" class="control-label">Aforo</label>
 				            <span ng-show="registro.aforoU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 			             	<span ng-show="registro.aforoU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-				            <input type="text" id="aforoU" ng-model="userData.aforo" placeholder={{aforo}} name="aforoU" class="form-control" ng-pattern="/\d/g" ng-required="userData.tipo=='3'" />
+				            <input type="text" id="aforoU" ng-model="aforo" placeholder={{aforo}} name="aforoU" class="form-control" ng-pattern="/\d/g" ng-required="userData.tipo=='3'" />
 				            <small class="text-danger" ng-show="registro.aforoU.$invalid">Introduce el aforo de la sala que vas a registar.</small>
 			            </div>
 			            <div ng-class="{'has-error': registro.poblacionU.$invalid, 'has-success': registro.poblacionU.$valid}" class="form-group">
 				            <label id="labafo" for="poblacionU" class="control-label">Población</label>
 				            <span ng-show="registro.poblacionU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 			            	<span ng-show="registro.poblacionU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-				            <input type="text" id="poblacionU" ng-model="userData.poblacion" placeholder={{poblacion}}  name="poblacionU" class="form-control" ng-pattern="/\w/g" ng-Maxlength="45" ng-required="userData.tipo=='3'" />
+				            <input type="text" id="poblacionU" ng-model="poblacion" placeholder={{poblacion}}  name="poblacionU" class="form-control" ng-pattern="/\w/g" ng-Maxlength="45" ng-required="userData.tipo=='3'" />
 				            <small class="text-danger" ng-show="registro.poblacionU.$invalid">¿Dónde está la sala?.</small>
 			            </div>
 			            <div ng-class="{'has-error': registro.direccionU.$invalid, 'has-success': registro.direccionU.$valid}" class="form-group">
 				            <label id="labafo" for="direccionU" class="control-label">Dirección</label>
 				            <span ng-show="registro.direccionU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 			                <span ng-show="registro.direccionU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
-				            <input type="text" id="direccionU" ng-model="userData.direccion" placeholder={{direccion}} name="direccionU" class="form-control" ng-pattern="/\w/g" ng-Maxlength="45" ng-required="userData.tipo=='3'" />
+				            <input type="text" id="direccionU" ng-model="direccion" placeholder={{direccion}} name="direccionU" class="form-control" ng-pattern="/\w/g" ng-Maxlength="45" ng-required="userData.tipo=='3'" />
 				            <small class="text-danger" ng-show="registro.direccionU.$invalid">¿En que dirección exacta?.</small>
 			            </div>
 				</div>
 			<!-- ./USUARIO SALA-->
 				
 				<div class="form-group text-center">
-	            	<button class="btn btn-info" value="Log in" ng-click="createUsuario()" ng-disabled="registro.$pristine || registro.$invalid">Confirmar cambios</button>
+	            	<button class="btn btn-info" value="Log in" ng-click="UpdateUsuario()" ng-disabled="registro.$pristine || registro.$invalid">Confirmar cambios</button>
 	        	</div>
 	        	
 		    </form>

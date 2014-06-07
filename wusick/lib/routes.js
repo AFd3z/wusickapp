@@ -34,6 +34,7 @@ module.exports = function(app) {
  app.route('/user/modificarUsuario/:id').post(user.modificarUsuario);
  app.route('/user/listadoUsuarios').get(user.listadoUsuarios);
  app.route('/user/datosXtipo').get(user.datosXtipo);
+ app.route('/user/UpdateUsuario').post(user.UpdateUsuario);
 
  //POST
  app.route('/post/obtenerPost/:id').post(post.obtenerPost);
