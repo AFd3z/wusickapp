@@ -39,6 +39,9 @@ WusickControllers.controller('loginAdminCtrl', ['$scope', '$location', '$http', 
             };
         
 }]);
+
+//REGISTROLOGIN
+
 WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'webStorage', function ($scope, $location, $http, webStorage) {
         $scope.userData = {};
         $scope.sessionUser= webStorage.session.get('usuario');
@@ -75,7 +78,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'webS
 
 WusickControllers.controller('recPassCtrl', ['$scope', '$http','$location', function ($scope, $http, $location) {
 
-        $scope.enviarPwd = function(){
+        $scope.recuperarPwd = function(){
 
 
         }
@@ -84,6 +87,9 @@ WusickControllers.controller('recPassCtrl', ['$scope', '$http','$location', func
 
 
 }]);
+
+//REGISTRO CONTROLLER
+
 
 WusickControllers.controller('registroCtrl', ['$scope', '$http','$location', function ($scope, $http, $location) {
     $scope.userData = {};
@@ -136,9 +142,11 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http','$location', fun
 }]);
 
 
+//CONTROLADOR MAIN
 
 WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStorage', function ($scope, $http, $location, webStorage) {
-    
+        
+
 	   $scope.usuario = webStorage.session.get('usuario');
 	    console.log($scope.usuario);
 	        if($scope.usuario==null){
@@ -148,7 +156,7 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
 	        
 	        
 	    $scope.id = $scope.usuario.idUsuario; 
-	    $scope.posts= function (){
+	    $scope.obtenerPost= function (){
 	    	$scope.posts;
 	        $http.post('/post/obtenerPost/'+$scope.id)
 	             .success(function(data){
@@ -159,7 +167,15 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
 	                        console.log('Error:' + data);
 	              });
 	        };
+
+            $scope.$on('$viewContentLoaded', function() {
+                $scope.obtenerPost();
+            });
 }]);
+
+
+//CONTROLADORES ADMIN
+
 
 WusickControllers.controller('navbarAdminCtrl', ['$scope','$location','webStorage', function ($scope, $location, webStorage) {
     $scope.menu = [
@@ -174,6 +190,7 @@ WusickControllers.controller('navbarAdminCtrl', ['$scope','$location','webStorag
 
      
 }]);
+
 
 WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webStorage', function ($scope, $location, $http, webStorage) {
     

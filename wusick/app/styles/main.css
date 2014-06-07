@@ -1,7 +1,16 @@
 
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-/* Custom page header */
+body{ background-color: #f5f5f5;
+
+}
+
+.includehead{
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+z-index: 9999;
+}
 .header {
   background: #003366;
 
@@ -9,8 +18,9 @@
 
 aside{
   background: #f5f5f5;
+  margin-top: 50px;
 }
-/* Make the masthead heading the same height as the navigation */
+
 .header h3 {
   margin-top: 0;
   margin-bottom: 0;
@@ -19,30 +29,73 @@ aside{
 }
 
 .nav > li > a{
-  padding: 15px;
+ padding: 15px 22px 15px 15px;
   color:#FFF;
 }
 
-.nav-tabs{
-  border:0;
+
+#navi{
+border-bottom: 0px solid #ddd;
 }
 
-.nav-tabs > li > a:hover {
+#navi.nav-tabs > li {
+float: left;
+margin-bottom: 0px;
+}
+
+#navi.nav-tabs > li > a {
+line-height: 1.42857143;
+border: 1px solid transparent;
+border-radius: 0;
+}
+
+#navi.nav-tabs > li > a:hover {
 border-color:transparent;
 }
 
-.nav > li > a:hover, .nav > li > a:focus {
+#navi .nav > li > a:hover, #navi .nav > li > a:focus {
 
 background-color: transparent;
 }
 
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+
+#navi .nav-tabs > li > a:hover {
+border-color: transparent;
+}
+#navi .nav > li > a:hover, .nav > li > a:focus {
+text-decoration: none;
+background-color: transparent;
+}
+#navi .nav > li > a {
+padding: 15px;
+color: #FFF;
+}
+
+.nav-tabs > li > a:hover {
+border-color: transparent;
+}
+.nav > li > a:hover, .nav > li > a:focus {
+text-decoration: none;
+background-color: #0066CC;
+}
+.nav > li > a
+
+
+#navi .nav-tabs > li.active > a, #navi .nav-tabs > li.active > a:hover, #navi .nav-tabs > li.active > a:focus{
 
 background-color: transparent;
 border:0;
 color:white;
 background:#001B36;
 border-radius:0;
+}
+
+#navi .nav-tabs > li > a {
+margin-right: 2px;
+line-height: 1.42857143;
+border: 1px solid transparent;
+border-radius: 0;
+
 }
 
 
@@ -81,19 +134,96 @@ form.min {
   margin-top:30px;
 }
 
-/*Main*/
+//* =================================
+                main
+==================================== */
 #mainpage{
+background-color: #f5f5f5;
+}
 
+#central{
+    background-color: #FFF;
+}
+
+#daside{
+ background-color: #FFF;
+position: fixed;
+right: 30px;
+height: 100%;
+width: 16.66666667%;
 }
 
 
+#welcome{
+    font-weight: 300;
+    padding-left: 2%;
+    margin-top: 70px;
+}
 
+#welcome span{
+    font-weight: 400;
+    text-transform: capitalize;
+}
+.mainmid{
+
+    margin-top:35px;
+    background-color: #FFF;
+}
+
+#listapost{
+    
+}
+
+.post{
+    border-top: 1px solid #ddd;
+    padding: 15px;
+}
+.posthead strong{
+    font-size: 1.14em;
+}
+.posthead small{
+    float:right;
+}
+
+.post p{
+    padding: 15px;
+}
+/* =================================
+                comment
+==================================== */
+
+#labcomment .nav-tabs > li > a{
+    line-height: .5;
+}
+#comment{
+    border-radius: 0 4px 4px 4px;;
+    height: 120px;
+    border: 1px solid #dddddd;
+    border-top: none;
+    padding-top: 10px;
+    box-shadow: none;
+    resize: none; 
+
+}
+
+#cf1{
+    padding-bottom: 22px;
+    
+}
+#cf1 .btn {
+    margin: 8px 0 0 74%;
+}
+
+
+.widget{
+    width: 99.7%;
+}
 
 /* =================================
                 Menu
 ==================================== */
 .sideMenu {
-    width: 105%;
+    width: 100%;
     padding: 0;
     margin: 0;
     list-style: none;
@@ -364,25 +494,9 @@ aside .form-search input[type="text"]:focus {
     background-color: #ffffff;
 }
 
-/* =================================
-                comment
-==================================== */
 
-#comment{
-  border:0;
-  border-radius:0;
-  margin:0;
-}
-/* Responsive: Portrait tablets and up */
-@media screen and (max-width: 768px) {
-  #izq{
-    margin-left:-100%;
-  }
-  #dcha{
-    margin-left: 100%;
-  }
-  
-}
+
+
 
 
 /* Responsive: Portrait tablets and up */

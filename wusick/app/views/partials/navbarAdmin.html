@@ -1,5 +1,5 @@
 ﻿<div class="header navbar-collapse" ng-controller="navbarAdminCtrl">
-  <ul class="nav nav-pills pull-right">
+  <ul class="nav nav-pills pull-right" id="navi">
     <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
         <a ng-href="{{item.link}}" id="{{item.id}}">{{item.title}}</a>
     </li>
