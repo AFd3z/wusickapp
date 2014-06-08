@@ -134,7 +134,7 @@
 				            <span ng-show="registro.sexoU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 			                <span ng-show="registro.sexoU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
 				            	<select id="sexoU" ng-model="sexo" name="sexoU" class="form-control">
-				            		<option ng-repeat="s in sexos" ng-value="{{s.sexo}}" ng-selected="{{s.sexo}} == {{sexo}}" >{{s.nombre}}</option>	            		
+				            		<option ng-repeat="s in sexos" ng-value="{{s.sexo}}" ng-selected="'{{s.sexo}}' === '{{sexo}}'" >{{s.nombre}}</option>	            		
 				            	</select>
 				            <small class="text-danger" ng-show="registro.sexoU.$invalid">¿Eres hombre o mujer?</small>
 			            </div>
