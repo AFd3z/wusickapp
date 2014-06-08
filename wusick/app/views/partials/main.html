@@ -15,14 +15,14 @@
             </div>
 
                 <form role="form" id="cf1">
-                    <textarea class="form-control" id="comment" resise="none" required ng-model="datosPost.contenido"></textarea>
+                    <textarea class="form-control" id="comment" resise="none" ng-required="true" ng-model="datosPost.contenido"></textarea>
                    <select ng-model="datosPost.destinatario" class="form-control">
                         <option selected="selected" value="">¿Algún destinatario en particular?</option>
                         <option ng-repeat="amigo in amigos">{{amigo.nombre}}</option>
                     </select>
                     <input type="text" id="postimg" ng-model="datosPost.img" class="form-control" placeholder="Inserta la url de una imagen..."/>
                    <!-- <input type="text" ng-model="datosPost.nombre" value={{usuario.nombre}} ng-hide="true"> -->
-                    <button type="submit" class="btn btn-info" ng-click="postear()" ng-disabled="cf1.$pristine || cf1.$invalid">Publicar</button>
+                    <button type="submit" class="btn btn-info" ng-click="postear()" ng-disabled="datosPost.contenido == undefined">Publicar</button>
     
                 </form>
 
@@ -37,7 +37,7 @@
                                     <small class="text-right">{{post.fecha}}</small>
                                 </div>
                                 <p>{{post.contenido}}</p>
-                                <p ng-show="{{post.img}}!=null">
+                                <p ng-show="post.img!='null'">
                                 <img class="imgpost" data-ng-src="{{post.img}}" alt="{{post.nombre}} Post">
                                 </p>
                             </div>
