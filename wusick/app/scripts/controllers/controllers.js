@@ -185,6 +185,7 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
             $http.post('/api/getFriendsById/'+$scope.id)
                 .success(function(data){
                     $scope.amigos= data;
+                    $scope.amigosSide= data;
                     //console.log(data);
                 })
                 .error(function(data) {
@@ -211,8 +212,30 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
                 $scope.obtenerAmigos();
             });
 
+        setInterval(function(){
+        $scope.$apply(function() {
+            $scope.obtenerPost();
+        });
+    }, 20000);
+}]);
+
+WusickControllers.controller('asideCtrl', ['$scope', '$http','$location','webStorage', function ($scope, $http, $location, webStorage) {
+ $scope.obtenerAmigos= function(){
+            $scope.amigos;
+            $http.post('/api/getFriendsById/'+$scope.id)
+                .success(function(data){
+                    $scope.amigosSide= data;
+                    //console.log(data);
+                })
+                .error(function(data) {
+                    console.log('Error:' + data);
+                });
+            }
+
+
 
 }]);
+
 
 
 //CONTROLADORES ADMIN

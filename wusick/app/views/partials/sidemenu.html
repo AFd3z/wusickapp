@@ -1,4 +1,4 @@
-<aside class="visible-desktop col-xs-3 row">
+<aside class="visible-desktop col-xs-3 row" ng-controller="asideCtrl">
     <!-- search -->
     <form class="form-search">
         <div class="input-prepend">
@@ -12,6 +12,7 @@
         <li class="active">
             <a href="">Amigos</a>
                 <ul id="listaAmigos">
+                    <li ng-repeat="amigoSide in amigosSide">{{amigoSide.nombre}}</li>
                 </ul>
         </li>
         <li>
