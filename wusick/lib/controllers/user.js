@@ -263,10 +263,63 @@ exports.modificarUsuario = function (req,res) {
 	    //sqlconnection.end();
 };
 
+
 exports.UpdateUsuario = function (req,res) {
-	console.log("<<<estas en UpdateUsuario.js id: >>>>" + id);
+	console.log("estas en UpdateUsuario.js id: "+user);
+	
+	var id = req.body.id;
+	var nombre = req.body.nombre;
+	var pass = req.body.pass;
+	var email = req.body.email;
+	var tipo = req.body.tipo;
+	
+	var json ="";
+	
+	//creamos objeto conexión
+	var sqlconnection = connection.createConnection();
+	  
+	var query0 = 'UPDATE usuarios SET nombre='+nombre+', password='+pass+', email='+email+' WHERE idUsuario='+id;
+	var query1;
+	
+	//lanzamos query
+    sqlconnection.query(query0, function(err, results) {
+	    if (err){
+	    	res.send(err, "query error");
+	    }else{
+	    	switch (tipo) {
+	    	case 1:
+	    		var fecha_nac = req.body.fecha_nac;
+	    		var sexo = req.body.sexo;
+	    		query1 = 'UPDATE basicos SET fecha_nac='+fecha_nac+', sexo='+sexo+' WHERE Usuarios_idUsuario='+id;
+	    		break;
+	    	case 2:
+	    		var genero = req.body.genero;
+	    		query1 = 'UPDATE artistas SET genero='+genero+' WHERE Usuarios_idUsuario='+id;
+	    		break;
+	    	case 3:
+	    		var aforo = req.body.aforo;
+	    		var poblacion = req.body.poblacion;
+	    		var direccion = req.body.direccion;
+	    		query1 = 'UPDATE usuarios SET aforo='+aforo+', poblacion='+poblacion+', direccion='+direccion+'	WHERE Usuarios_idUsuario='+id;
+	    		break;
+	    	default:
+	    		break;
+	    	}
+	    	
+	    	sqlconnection.query(query1, function(err, results) { 
+	    		if (err){
+	    	    	res.send(err, "query error");
+	    	    }else{
+	    	    	console.log("update OK");
+	    	    }
+	    	)};
+	    	    
+	    }
+    )};      
+        
 };
-//------------------------------------------------------------------------------------------------------------
+
+
 exports.datosXtipo = function(req, res){
 		var tipo = req.params.tipo;
 		console.log(tipo);

@@ -315,14 +315,13 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
 		             $scope.email = data.email;
 		             $scope.pass = data.password;
 		             $scope.tipo = data.Tipo_usuarios_idTipo_usuarios;
-		             
+
 		            switch ($scope.tipo) {
 						case 1:/*basicos*/
 							var fecha = data.fecha_nac;
 							var fecha_substr = fecha.substring(0, 10);
-							
-							$scope.fecha_nac = fecha_substr
-							console.log("fecha -> " + $scope.fecha_nac);
+
+							$scope.fecha_nac = fecha_substr;
 							$scope.sexo = data.sexo;
 							$scope.sexos = [{sexo: 'M', nombre: 'Mujer'},
 							                {sexo: 'H', nombre: 'Hombre'}]
@@ -356,25 +355,28 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
     };
     
     $scope.UpdateUsuario = function(){
+    	$scope.userData = {};
 		$http.post('/api/existeMail', $scope.userData)
 			.success(function(data){
 				if(data==false){
 					$http.post('/user/UpdateUsuario', $scope.userData)
-						.success(function(data){
-						$scope.formData = {};
-						 smoke.alert('Gracias por registrarse en Wusick. Sus datos son los siguientes: \n <strong>Usuario:</strong> '+$scope.userData.nombre+'\n <strong>ContraseÃ±a:</strong> ' +$scope.userData.pass+'\n<strong>Email: </strong>' +$scope.userData.email);
-						})
-						.error(function(data) {
-							console.log('Error:' + data);
-						});
-                        $location.url("/login");
+					.success(function(data){
+					$scope.formData = {};
+					 alert('Sus nuevos datos son los siguientes: \n Usuario: '+$scope.userData.nombre+'\n Contraseña: ' +$scope.userData.pass+'\n Email: ' +$scope.userData.email);
+					})
+					.error(function(data) {
+						console.log('Error:' + data);
+					});
+                    $location.url("/administrator");
 				}else{
-					smoke.alert('Ya existe una cuenta asociada al email '+$scope.userData.email+'.');
+					alert('Ya existe una cuenta asociada al email '+$scope.userData.email+'.');
 				}
 			})
 			.error(function(data) {
 				console.log('Error:' + data);
 			});
+			
+		
     };
     
     
