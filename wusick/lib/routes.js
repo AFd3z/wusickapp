@@ -21,7 +21,7 @@ module.exports = function(app) {
  app.route('/api/getIdByEmail').post(api.getIdByEmail);
  app.route('/api/getAdminByEmail').post(api.getAdminByEmail);
  app.route('/api/getUserById').get(api.getUserById);
- app.route('/api/getFriendsById').get(api.getFriendsById);
+ app.route('/api/getFriendsById/:id').post(api.getFriendsById);
 
  //RUTAS USUARIO
  app.route('/user/login').post(user.login);
