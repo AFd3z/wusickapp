@@ -169,9 +169,7 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
             }
                 $http.post('/post/postear', $scope.datosPost)
                     .success(function(data){
-
-                        console.log($scope.datosPost);
-                        console.log(data);
+                        $scope.post= data;
                         $scope.obtenerPost();
                     })
                     .error(function(data) {

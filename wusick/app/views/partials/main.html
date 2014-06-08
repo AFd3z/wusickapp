@@ -35,7 +35,7 @@
                                     <strong class="text-info">{{post.nombre}}<span><img></span>{{post.remitente}}</strong>
                                     <small class="text-right">{{post.fecha}}</small>
                                 </div>
-                                <p>{{post.contenido}}<img  ng-show="" ng-src="{{post.img}}" alt="{{post.nombre}} Post" ></p>
+                                <p>{{post.contenido}}<img  ng-show="'this:$src!=null'" data-ng-src="{{post.img}}" alt="{{post.nombre}} Post" ></p>
                             </div>
                         </li>
                     </ul>
