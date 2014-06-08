@@ -24,7 +24,17 @@ exports.postear = function (req,res) {
 	               res.send(err, "query error");
 	                  
 	               }else{
-	               res.send(results);
+	 
+	            	   var query2 = 'SELECT * FROM posts WHERE idPosts='+results.insertId;
+	    	           
+	           	    sqlconnection.query(query2, function(err, results) {
+	           	            if (err){
+	           	               res.send(err, "query error");
+	           	                  
+	           	               }else{       	   
+	           	               res.send(results);
+	           	             }
+	           	            });	 
 	             }
 	            });	
 };
