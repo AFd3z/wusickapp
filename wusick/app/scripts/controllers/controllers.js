@@ -160,6 +160,7 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
         $scope.datosPost= {};
         $scope.postear= function(){
             $scope.datosPost.id = $scope.id;
+            console.log($scope.datosPost.img);
             if($scope.datosPost.img===undefined || $scope.datosPost.img===''){
                 $scope.datosPost.img=null;
             }
@@ -167,9 +168,12 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
             if($scope.datosPost.destinatario===undefined || $scope.datosPost.destinatario===''){
                 $scope.datosPost.destinatario=null;
             }
+
+            console.log($scope.datosPost);
                 $http.post('/post/postear', $scope.datosPost)
                     .success(function(data){
                         $scope.post= data;
+                        console.log($scope.post);
                         $scope.obtenerPost();
                     })
                     .error(function(data) {

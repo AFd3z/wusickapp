@@ -14,11 +14,18 @@ exports.postear = function (req,res) {
 	var destinatario =req.body.destinatario;
 	var usuario = req.body.id;
 		
-		console.log(post_img+ ' '+ destinatario);
+
+		if(destinatario!=null){
+			destinatario = "'"+destinatario+"'";
+		}
+
+		if(post_img!=null){
+			post_img= "'"+post_img+"'";
+		}
 
 	var sqlconnection = connection.createConnection();
 	var query = 'INSERT INTO posts (contenido, fecha,post_img, destinatario, Usuarios_idUsuario) VALUES ("'+contenido+'",now(),'+post_img+','+destinatario+','+usuario+') ';
-	           
+	           console.log(query);
 	    sqlconnection.query(query, function(err, results) {
 	            if (err){
 	               res.send(err, "query error");
