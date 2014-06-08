@@ -160,16 +160,18 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
         $scope.datosPost= {};
         $scope.postear= function(){
             $scope.datosPost.id = $scope.id;
-            if($scope.datosPost.img===undefined){
+            if($scope.datosPost.img===undefined || $scope.datosPost.img===''){
                 $scope.datosPost.img=null;
             }
 
-            if($scope.datosPost.destinatario===undefined){
+            if($scope.datosPost.destinatario===undefined || $scope.datosPost.destinatario===''){
                 $scope.datosPost.destinatario=null;
             }
                 $http.post('/post/postear', $scope.datosPost)
                     .success(function(data){
+
                         console.log($scope.datosPost);
+                        console.log(data);
                         $scope.obtenerPost();
                     })
                     .error(function(data) {
