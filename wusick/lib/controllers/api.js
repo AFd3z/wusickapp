@@ -146,8 +146,10 @@ exports.getUserById = function(req, res){
 
 //Función para obtener los amigos
 exports.getFriendsById = function(req, res){
+	
+	var id = req.params.id;
 	var sqlconnection = connection.createConnection();
-	var query = 'SELECT Usuarios_idUsuario1 FROM usuarios_has_usuarios WHERE Usuarios_idUsuario="'+req.session.id+'";';
+	var query = 'select *  from amigos_de where usuarioLogeado = '+id;
 	           
 	    sqlconnection.query(query, function(err, results) {
 	            if (err){
