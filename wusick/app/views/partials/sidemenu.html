@@ -10,18 +10,54 @@
     <!-- menu -->
     <ul class="sideMenu">
         <li class="active">
-            <a href="index.html">Amigos</a>
+            <a href="">Amigos</a>
+                <ul id="listaAmigos">
+                </ul>
         </li>
         <li>
-            <a href="typography.html">Eventos</a>
+            <a href="#">Eventos</a>
         </li>
-        <li>
-            <a href="form.html">Aristas</a>
+        <li class>
+            <a href="#">Aristas</a>
         </li>
-        <li>
-            <a href="buttons.html">Salas</a>
+        <li class="last">
+            <a href="#">Salas</a>
         </li>
         
     </ul>
 
 </aside>
+
+<script>
+    
+    $(function() {
+
+    if ($('.sideMenu > li').hasClass('parent')) {
+
+        parentHeight = $('.sideMenu > li.parent').height();
+        $('.sideMenu > li.parent').css('height', parentHeight);
+
+    }
+
+    $('.sideMenu > li:has(ul)').click(function() {
+
+        var $this = $(this);
+
+        if (!$this.hasClass('open') & !$this.hasClass('parent')) {
+            totalHeight = $this.find('ul').outerHeight() + $this.height();
+            $this.css('height', totalHeight);
+            $this.addClass('open');
+        } else if ($this.hasClass('parent')) {
+            $this.removeClass('parent');
+            $this.removeAttr('style');
+        } else {
+            $this.removeClass('open');
+            $this.removeAttr('style');
+        }
+
+    });
+
+    $('.sideMenu > li:last').addClass('last');
+
+});
+</script>

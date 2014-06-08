@@ -33,7 +33,10 @@
                             <div class="post">
                                 <div class="posthead">
                                     <img ng-src="{{usuario.profile_img}}" class="img-responsive" heigth="50" width="50"/>
-                                    <strong class="text-info">{{post.nombre}}<span><img></span>{{post.remitente}}</strong>
+                                    <a href=""><strong class="text-info">{{post.nombre}}</strong></a>
+                                     <a href="" ng-show="post.destinatario!=null">
+                                        <strong class="text-info">  -->  {{post.destinatario}}</strong>
+                                    </a>
                                     <small class="text-right">{{post.fecha}}</small>
                                 </div>
                                 <p>{{post.contenido}}</p>

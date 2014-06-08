@@ -148,7 +148,7 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
         
 
 	   $scope.usuario = webStorage.session.get('usuario');
-	    console.log($scope.usuario);
+	    //console.log($scope.usuario);
 	        if($scope.usuario==null){
 	            smoke.alert('No estas logeado como usuario!');
 	            $location.url("/login");
@@ -160,7 +160,7 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
         $scope.datosPost= {};
         $scope.postear= function(){
             $scope.datosPost.id = $scope.id;
-            console.log($scope.datosPost.img);
+           // console.log($scope.datosPost.img);
             if($scope.datosPost.img===undefined || $scope.datosPost.img===''){
                 $scope.datosPost.img=null;
             }
@@ -169,12 +169,11 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
                 $scope.datosPost.destinatario=null;
             }
 
-            console.log($scope.datosPost);
                 $http.post('/post/postear', $scope.datosPost)
                     .success(function(data){
-                        $scope.post= data;
-                        console.log($scope.post);
+                        $scope.datospost=data[0];
                         $scope.obtenerPost();
+                     
                     })
                     .error(function(data) {
                     console.log('Error:' + data);
@@ -186,7 +185,7 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
             $http.post('/api/getFriendsById/'+$scope.id)
                 .success(function(data){
                     $scope.amigos= data;
-                    console.log(data);
+                    //console.log(data);
                 })
                 .error(function(data) {
                     console.log('Error:' + data);
@@ -198,8 +197,9 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
 	    	$scope.posts;
 	        $http.post('/post/obtenerPost/'+$scope.id)
 	             .success(function(data){
-	                  console.log(data);
+	                  //console.log(data);
 	                  $scope.posts = data;
+                         console.log($scope.posts);
 	              })
 	             .error(function(data) {
 	                        console.log('Error:' + data);
