@@ -194,6 +194,10 @@ width: 16.66666667%;
 /* =================================
                 comment
 ==================================== */
+#cf1{
+    padding-bottom: 22px;
+    
+}
 
 #labcomment .nav-tabs > li > a{
     line-height: .5;
@@ -206,17 +210,19 @@ width: 16.66666667%;
     padding-top: 10px;
     box-shadow: none;
     resize: none; 
+    margin-bottom: 10px;
 
 }
 
-#cf1{
-    padding-bottom: 22px;
-    
+#cf1 select {
+   width: 50%;
+    display: inline;
 }
+
 #cf1 .btn {
-    margin: 8px 0 0 74%;
-}
+   float: right;
 
+}
 
 .widget{
     width: 99.7%;

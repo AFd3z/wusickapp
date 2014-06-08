@@ -159,8 +159,17 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
 
         $scope.datosPost= {};
         $scope.postear= function(){
+            $scope.datosPost.id = $scope.id;
+            if($scope.datosPost.img===undefined){
+                $scope.datosPost.img=null;
+            }
+
+            if($scope.datosPost.destinatario===undefined){
+                $scope.datosPost.destinatario=null;
+            }
                 $http.post('/post/postear', $scope.datosPost)
                     .success(function(data){
+                        console.log($scope.datosPost);
                         $scope.obtenerPost();
                     })
                     .error(function(data) {
@@ -168,9 +177,9 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
                 });
         }
 
-       /* $scope.obtenerAmigos= function(){
+        $scope.obtenerAmigos= function(){
             $scope.amigos;
-            $http.post('/api/getFriendsById', $scope.id)
+            $http.post('/api/getFriendsById/'+$scope.id)
                 .success(function(data){
                     $scope.amigos= data;
                     console.log(data);
@@ -178,7 +187,7 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
                 .error(function(data) {
                     console.log('Error:' + data);
                 });
-        }*/
+        }
             
 
 	    $scope.obtenerPost= function (){
