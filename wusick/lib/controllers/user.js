@@ -263,10 +263,13 @@ exports.modificarUsuario = function (req,res) {
 	    //sqlconnection.end();
 };
 
+
 exports.UpdateUsuario = function (req,res) {
-	console.log("<<<estas en UpdateUsuario.js id: >>>>" + id);
+   
+        
 };
-//------------------------------------------------------------------------------------------------------------
+
+
 exports.datosXtipo = function(req, res){
 		var tipo = req.params.tipo;
 		console.log(tipo);
