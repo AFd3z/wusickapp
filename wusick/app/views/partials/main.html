@@ -38,7 +38,9 @@
                                 </div>
                                 <p>{{post.contenido}}</p>
                                 <p ng-show="post.img!='null'">
-                                <img class="imgpost" data-ng-src="{{post.img}}" alt="{{post.nombre}} Post">
+                                 <a href="{{post.img}}" alt="imagen">   
+                                     <img class="imgpost" data-ng-src="{{post.img}}" Post">
+                                </a>
                                 </p>
                             </div>
                         </li>
