@@ -368,10 +368,15 @@ width: 16.66666667%;
     border-top: 1px solid #dddddd;
 }
 
+.sideMenu > li > ul > li{
+    line-height: 2.2em;
+}
+
 .sideMenu > li > ul > li > a {
     display: block;
-    padding: 5px 0;
+    padding:0;
     font-size: 12px;
+    line-height: .5em;
 }
 
 .sideMenu > li > ul > li > a:hover {
@@ -508,6 +513,11 @@ aside .form-search input[type="text"]:focus {
     background-color: #ffffff;
 }
 
+.buscara{
+    text-decoration: underline;
+    color: #5bc0de !important;
+    font-weight: 500;
+}
 
 
 
