@@ -142,6 +142,173 @@ WusickControllers.controller('registroCtrl', ['$scope', '$http','$location', fun
 }]);
 
 
+//AMIGOSCTRL
+
+WusickControllers.controller('amigosCtrl', ['$scope', '$http','$location', 'webStorage', function ($scope, $http, $location, webStorage) {
+
+    $scope.usuario = webStorage.session.get('usuario');
+        //console.log($scope.usuario);
+            if($scope.usuario==null){
+                smoke.alert('No estas logeado como usuario!');
+                $location.url("/login");
+            };
+            
+            
+        $scope.id = $scope.usuario.idUsuario;
+        $scope.obtenerAmigos= function(){
+            $scope.amigos;
+            $http.post('/api/getFriendsById/'+$scope.id)
+                .success(function(data){
+                    $scope.amigos= data;
+                    $scope.amigosSide= data;
+                    $scope.artistasSide= data;
+                    $scope.salasSide= data;
+
+                    console.log($scope.amigos)
+                })
+                .error(function(data) {
+                    console.log('Error:' + data);
+                });
+        }
+
+        $scope.obtenerListado = function(){
+        $scope.todoUsuarios;
+        $http.get('/user/listadoUsuarios')
+        .success(function(data){
+            $scope.todoUsuarios = data;
+        })
+        .error(function(data) {
+            console.log('Error:' + data);
+        });
+    };
+
+    $scope.ordenarPor = function (orden){
+        $scope.ordenSel = orden;
+    }
+
+
+        $scope.$on('$viewContentLoaded', function() {
+                
+                $scope.obtenerAmigos();
+                 $scope.obtenerListado();
+            });
+
+
+}]);
+
+
+
+//CONTROLADOR ARTISTAS
+
+WusickControllers.controller('artistasCtrl', ['$scope', '$http','$location', 'webStorage', function ($scope, $http, $location, webStorage) {
+
+    $scope.usuario = webStorage.session.get('usuario');
+        //console.log($scope.usuario);
+            if($scope.usuario==null){
+                smoke.alert('No estas logeado como usuario!');
+                $location.url("/login");
+            };
+            
+            
+        $scope.id = $scope.usuario.idUsuario;
+        $scope.obtenerAmigos= function(){
+            $scope.amigos;
+            $http.post('/api/getFriendsById/'+$scope.id)
+                .success(function(data){
+                    $scope.amigos= data;
+                    $scope.amigosSide= data;
+                    $scope.artistasSide= data;
+                    $scope.salasSide= data;
+
+                    console.log($scope.amigos)
+                })
+                .error(function(data) {
+                    console.log('Error:' + data);
+                });
+        }
+
+        $scope.obtenerListado = function(){
+        $scope.todoUsuarios;
+        $http.get('/user/listadoUsuarios')
+        .success(function(data){
+            $scope.todoUsuarios = data;
+        })
+        .error(function(data) {
+            console.log('Error:' + data);
+        });
+    };
+
+    $scope.ordenarPor = function (orden){
+        $scope.ordenSel = orden;
+    }
+
+
+        $scope.$on('$viewContentLoaded', function() {
+                
+                $scope.obtenerAmigos();
+                 $scope.obtenerListado();
+            });
+
+
+}]);
+//
+
+//CONTROLADORSALAS
+
+WusickControllers.controller('salasCtrl', ['$scope', '$http','$location', 'webStorage', function ($scope, $http, $location, webStorage) {
+
+    $scope.usuario = webStorage.session.get('usuario');
+        //console.log($scope.usuario);
+            if($scope.usuario==null){
+                smoke.alert('No estas logeado como usuario!');
+                $location.url("/login");
+            };
+            
+            
+        $scope.id = $scope.usuario.idUsuario;
+        $scope.obtenerAmigos= function(){
+            $scope.amigos;
+            $http.post('/api/getFriendsById/'+$scope.id)
+                .success(function(data){
+                    $scope.amigos= data;
+                    $scope.amigosSide= data;
+                    $scope.artistasSide= data;
+                    $scope.salasSide= data;
+
+                    console.log($scope.amigos)
+                })
+                .error(function(data) {
+                    console.log('Error:' + data);
+                });
+        }
+
+        $scope.obtenerListado = function(){
+        $scope.todoUsuarios;
+        $http.get('/user/listadoUsuarios')
+        .success(function(data){
+            $scope.todoUsuarios = data;
+        })
+        .error(function(data) {
+            console.log('Error:' + data);
+        });
+    };
+
+    $scope.ordenarPor = function (orden){
+        $scope.ordenSel = orden;
+    }
+
+
+        $scope.$on('$viewContentLoaded', function() {
+                
+                $scope.obtenerAmigos();
+                 $scope.obtenerListado();
+            });
+
+
+}]);
+
+//
+
 //CONTROLADOR MAIN
 
 WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStorage', function ($scope, $http, $location, webStorage) {
@@ -397,3 +564,4 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
     
     
 }]);
+

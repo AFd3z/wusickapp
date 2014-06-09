@@ -137,7 +137,7 @@ form.min {
   margin-top:30px;
 }
 
-//* =================================
+/* =================================
                 main
 ==================================== */
 #mainpage{
@@ -146,6 +146,7 @@ background-color: #f5f5f5;
 
 #central{
     background-color: #FFF;
+    padding-bottom: 40px;
 }
 
 #daside{
@@ -156,11 +157,17 @@ height: 100%;
 width: 16.66666667%;
 }
 
+.titulo{ font-weight: 100; 
+          margin-top: 70px;}
 
-#welcome{
+h3#welcome{
     font-weight: 300;
-    padding-left: 2%;
     margin-top: 70px;
+}
+h4#welcome{
+    font-weight: 300;
+    font-size: 14px;
+    margin: 10px 0 20px;
 }
 
 #welcome span{
@@ -344,6 +351,8 @@ width: 16.66666667%;
 .sideMenu > li > a {
     display: block;
     height: 50px;
+    font-weight: bolder;
+    color: #003366;
 }
 
 /* Second level */
@@ -518,6 +527,79 @@ aside .form-search input[type="text"]:focus {
     color: #5bc0de !important;
     font-weight: 500;
 }
+
+#profile{
+  padding: 25px;
+}
+
+#profile-img{
+    display: inline-block;
+
+}
+
+#profile-name{
+    display: inline-block;
+}
+
+
+/* =================================
+                Amigos
+==================================== */
+
+#amigosListaAmigos{
+    
+}
+
+#amigosListaAmigos ul{
+    width:100%;
+    padding-bottom: 40px;
+}
+
+#amigosListaAmigos ul li{
+  width: 24.8%;
+  margin: .1%;
+  height: 170px;
+  display: inline;
+  float: left;
+  background-color: #428bca;
+
+}
+
+#amigosListaAmigos ul li:hover{
+    opacity: .9;
+}
+#amigosListaAmigos ul li:nth-child(2n){
+  background-color: #0080FF;
+}
+#amigosListaAmigos ul li:nth-child(3n+1){
+  background-color: #001B36;
+}
+
+#amigosListaAmigos ul li:nth-child(6n){
+  background-color: #003366;
+}
+
+.cajaAmigo{ 
+    color: #FFF;
+    line-height: 170px;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.cajaAmigo:hover{ 
+    color: #FFF;
+    
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+
 
 
 
