@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('wusickAppApp')
-  .controller('NavbarMainCtrl', function ($scope, $location) {
+  .controller('NavbarMainCtrl',['$scope','webStorage', function ($scope, $location,webStorage) {
+    $scope.sessionUsuario = webStorage.session.get('usuario');
     $scope.menu = [
-    {'title': 'Perfil','link': '/perfil'},
+    {'title': 'Perfil','link': '/perfil/'+$scope.sessionusuario.idUsuario},
     {'title': 'Cuenta','link': '/cuenta'},
     {'title': 'Salir','link': '/login'}
 
@@ -12,4 +13,4 @@ angular.module('wusickAppApp')
     $scope.isActive = function(route) {
       return route === $location.path();
     };
-  });
+}]);
