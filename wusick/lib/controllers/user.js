@@ -293,7 +293,7 @@ exports.UpdateUsuario = function(req,res) {
 	//creamos objeto conexión
 	var sqlconnection = connection.createConnection();
 	
-	var query0 = 'UPDATE usuarios SET nombre="'+nombre+'", password="'+password+'", email="'+email+'" WHERE idUsuario='+id;
+	var query0 = 'UPDATE usuarios SET nombre="'+nombre+'", password="'+password+'", email="'+email+'" WHERE idUsuario='+id+';';
 	var query1;
 	
 	//lanzamos query
@@ -306,19 +306,19 @@ exports.UpdateUsuario = function(req,res) {
 	    		/*-----usuario basico------*/
 	    		var fecha_nac = req.body.fecha_nac;
 	    		var sexo = req.body.sexo;
-	    		query1 = 'UPDATE basicos SET fecha_nac="'+fecha_nac+'", sexo="'+sexo+'" WHERE Usuarios_idUsuario='+id;
+	    		query1 = 'UPDATE basicos SET fecha_nac="'+fecha_nac+'", sexo="'+sexo+'" WHERE Usuarios_idUsuario='+id+';';
 	    		break;
 	    	case 2:
 	    		/*-----usuario artista------*/
 	    		var genero = req.body.genero;
-	    		query1 = 'UPDATE artistas SET genero="'+genero+'" WHERE Usuarios_idUsuario='+id;
+	    		query1 = 'UPDATE artistas SET genero="'+genero+'" WHERE Usuarios_idUsuario='+id+';';
 	    		break;
 	    	case 3:
 	    		/* -----usuario sala------*/
 	    		var aforo = req.body.aforo;
 	    		var poblacion = req.body.poblacion;
 	    		var direccion = req.body.direccion;
-	    		query1 = 'UPDATE salas SET aforo='+aforo+', poblacion="'+poblacion+'", direccion="'+direccion+'" WHERE Usuarios_idUsuario='+id;
+	    		query1 = 'UPDATE salas SET aforo='+aforo+', poblacion="'+poblacion+'", direccion="'+direccion+'" WHERE Usuarios_idUsuario='+id+';';
 	    		break;
 	    	default:
 	    		break;
