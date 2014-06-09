@@ -41,8 +41,12 @@
           <tr ng-repeat="todoUsuario in todoUsuarios | orderBy:ordenSel | filter:buscar" ng-show="todoUsuario.Tipo_usuarios_idTipo_usuarios==1 && todoUsuario.nombre!=usuario.nombre">
             <td>{{todoUsuario.nombre}}</td>
             <td>{{todoUsuario.email}}</td>
-            <td>{{todoUsuario.fecha_alta | date:"fullDate" }}</td>
-            <td><button class="btn btn-info">Añadir a Amigos</button></td>
+            <td>{{todoUsuario.fecha_alta | date:"shortDate" }}</td>
+            <td>
+              <!--<span>
+              <button class="btn btn-info">Agregar Amigo</button>
+              </span>-->
+            </td>
             
           </tr>
           </tbody>

@@ -41,7 +41,7 @@
           <tr ng-repeat="todoUsuario in todoUsuarios | orderBy:ordenSel | filter:buscar" ng-show="todoUsuario.Tipo_usuarios_idTipo_usuarios==2 && todoUsuario.nombre!=usuario.nombre">
             <td>{{todoUsuario.nombre}}</td>
             <td>{{todoUsuario.email}}</td>
-            <td>{{todoUsuario.fecha_alta | date:"fullDate" }}</td>
+            <td>{{todoUsuario.fecha_alta | date:"shortDate" }}</td>
             <td><button class="btn btn-info">Seguir Artista</button></td>
             
           </tr>

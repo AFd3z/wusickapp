@@ -1,0 +1,75 @@
+<div class="includehead" ng-include="'partials/navbarMain'"></div>
+<div ng-include="'partials/sidemenu'"></div>
+	<div id="mainpage" ng-init="">
+        <section class="col-xs-12 col-md-7" id="central" >
+            <div id="intro-perfil">
+                     <img id="header-image" src="http://images.fineartamerica.com/images-medium-large/loose-goose-iv-hot-air-balloon-rally-img-6492-torrey-smith.jpg" height="200" class="img-responsive" />
+                     <div id="sum-perfil">
+                        <img src="http://www.codeproject.com/KB/GDI-plus/ImageProcessing2/img.jpg" height="60" width="60" />
+                        <h4>{{usuario.nombre}}</h4>
+                     </div>
+
+            </div>
+
+			<div class="col-xs-12 mainmid" id="mainmid-perfil">
+                <div class="tabbable widget" id="labcomment">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="" data-toggle="tab">· Post ·</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab3">
+                    </div>
+                </div>
+            </div>
+
+                <form role="form" id="cf1">
+                    <textarea class="form-control" id="comment" resise="none" ng-required="true" ng-model="datosPost.contenido"></textarea>
+                   <select ng-model="datosPost.destinatario" class="form-control">
+                        <option selected="selected" value="">¿Algún destinatario en particular?</option>
+                        <option ng-repeat="amigo in amigos">{{amigo.nombre}}</option>
+                    </select>
+                    <input type="text" id="postimg" ng-model="datosPost.img" class="form-control" placeholder="Inserta la url de una imagen..."/>
+                   <!-- <input type="text" ng-model="datosPost.nombre" value={{usuario.nombre}} ng-hide="true"> -->
+                    <button type="submit" class="btn btn-info" ng-click="postear()" ng-disabled="datosPost.contenido == undefined">Publicar</button>
+    
+                </form>
+
+                <div id="listapost">
+                    <ul class="list-unstyled">
+    
+                        <li ng-repeat="post in posts">
+                            <div class="post">
+                                <div class="posthead">
+                                    <img ng-src="{{usuario.profile_img}}" class="img-responsive" heigth="50" width="50"/>
+                                    <a href=""><strong class="text-info">{{post.nombre}}</strong></a>
+                                     <a href="" ng-show="post.destinatario!=null">
+                                        <strong class="text-info">  -->  {{post.destinatario}}</strong>
+                                    </a>
+                                    <small class="text-right">{{post.fecha | date:'medium'}}</small>
+                                </div>
+                                <p>{{post.contenido}}</p>
+                                <p ng-show="post.img!='null'">
+                                 <a href="{{post.img}}" alt="imagen">   
+                                     <img class="img-responsive" data-ng-src="{{post.img}}" Post">
+                                </a>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                
+    
+                </div>
+                
+			</div>
+
+
+        </section>
+        <div id="daside"></div>
+        <div class="clearfix"></div>
+
+           
+
+
+
+
+    </div>

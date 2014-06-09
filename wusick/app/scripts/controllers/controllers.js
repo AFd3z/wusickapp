@@ -176,6 +176,8 @@ WusickControllers.controller('amigosCtrl', ['$scope', '$http','$location', 'webS
         $http.get('/user/listadoUsuarios')
         .success(function(data){
             $scope.todoUsuarios = data;
+            console.log($scope.todoUsuarios)
+
         })
         .error(function(data) {
             console.log('Error:' + data);
@@ -238,6 +240,17 @@ WusickControllers.controller('artistasCtrl', ['$scope', '$http','$location', 'we
         });
     };
 
+    $scope.esAmigo=function(usuId){
+
+            for(var i=0; i<$scope.amigos.length; i++){
+                if(usuId != $scope.amigos[i].id){
+                    return false;
+                }
+                return true;
+            }
+
+        }
+
     $scope.ordenarPor = function (orden){
         $scope.ordenSel = orden;
     }
@@ -280,6 +293,17 @@ WusickControllers.controller('salasCtrl', ['$scope', '$http','$location', 'webSt
                 .error(function(data) {
                     console.log('Error:' + data);
                 });
+        }
+
+        $scope.esAmigo=function(usuId){
+
+            for(var i=0; i<$scope.amigos.length; i++){
+                if(usuId != $scope.amigos[i].id){
+                    return false;
+                }
+                return true;
+            }
+
         }
 
         $scope.obtenerListado = function(){
@@ -379,6 +403,91 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
 	                        console.log('Error:' + data);
 	              });
 	        };
+
+            $scope.$on('$viewContentLoaded', function() {
+                $scope.obtenerPost();
+                $scope.obtenerAmigos();
+            });
+
+        setInterval(function(){
+        $scope.$apply(function() {
+            $scope.obtenerPost();
+        });
+    }, 180000);
+}]);
+
+
+
+//CONTROLADOR PERFIL
+
+WusickControllers.controller('perfilCtrl', ['$scope', '$http','$location','webStorage', function ($scope, $http, $location, webStorage) {
+        
+
+       $scope.usuario = webStorage.session.get('usuario');
+        //console.log($scope.usuario);
+            if($scope.usuario==null){
+                smoke.alert('No estas logeado como usuario!');
+                $location.url("/login");
+            };
+            
+            
+        $scope.id = $scope.usuario.idUsuario;
+        console.log($scope.usuario);
+        $scope.datosPost= {};
+        $scope.postear= function(){
+            $scope.datosPost.id = $scope.id;
+           // console.log($scope.datosPost.img);
+            if($scope.datosPost.img===undefined || $scope.datosPost.img===''){
+                $scope.datosPost.img=null;
+            }
+
+            if($scope.datosPost.destinatario===undefined || $scope.datosPost.destinatario===''){
+                $scope.datosPost.destinatario=null;
+            }
+
+                $http.post('/post/postear', $scope.datosPost)
+                    .success(function(data){
+                        $scope.datospost=data[0];
+                        $scope.obtenerPost();
+                        if($scope.amigos.length==0){
+                            smoke.alert('Tienes que tener amigos para postear. Si no...\n ¿Quién lo leería entonces?');
+                        }
+                     
+                    })
+                    .error(function(data) {
+                    console.log('Error:' + data);
+                });
+        }
+
+        $scope.obtenerAmigos= function(){
+            $scope.amigos;
+            $http.post('/api/getFriendsById/'+$scope.id)
+                .success(function(data){
+                    $scope.amigos= data;
+                    $scope.amigosSide= data;
+                    $scope.artistasSide= data;
+                    $scope.salasSide= data;
+
+                     console.log(  $scope.artistasSide);
+                })
+                .error(function(data) {
+                    console.log('Error:' + data);
+                });
+        }
+            
+
+        $scope.obtenerPost= function (){
+            $scope.posts;
+            $http.post('/post/obtenerPost/'+$scope.id)
+                 .success(function(data){
+                      //console.log(data);
+                      $scope.posts = data;
+                         console.log($scope.posts);
+                  })
+                 .error(function(data) {
+                            console.log('Error:' + data);
+                  });
+            };
 
             $scope.$on('$viewContentLoaded', function() {
                 $scope.obtenerPost();
