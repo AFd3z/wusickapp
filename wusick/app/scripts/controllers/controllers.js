@@ -480,11 +480,11 @@ WusickControllers.controller('perfilCtrl', ['$scope', '$http','$location','webSt
         }
             
 
-        $scope.obtenerPost= function (){
+        $scope.obtenerPostPropios= function (){
             $scope.posts;
-            $http.post('/post/obtenerPost/'+$scope.id)
+            $http.post('/post/obtenerPostPropios/'+$scope.id)
                  .success(function(data){
-                      //console.log(data);
+                      console.log(data);
                       $scope.posts = data;
                          console.log($scope.posts);
                   })
@@ -494,7 +494,7 @@ WusickControllers.controller('perfilCtrl', ['$scope', '$http','$location','webSt
             };
 
             $scope.$on('$viewContentLoaded', function() {
-                $scope.obtenerPost();
+                $scope.obtenerPostPropios();
                 $scope.obtenerAmigos();
             });
 
