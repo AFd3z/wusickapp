@@ -334,17 +334,21 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
     	}
     };
     
+    //------------------------------------
+    
+    $scope.userData = {};
     $scope.modificarUsuario = function(obj){
-    	//var c = confirm('Está seguro de querer EDITAR el usuario: '+obj.target.attributes.name.value+' ?');
     	if (true){
 	    		$scope.id = obj.target.attributes.data.value;
-	    		console.log($scope.id);
+	    		console.log("controllers.modificaUsuario: "+$scope.id);
 	    	$http.post('/user/modificarUsuario/'+$scope.id)
 		         .success(function(data){
 		        	 console.log(data);
+		        	 $scope.userData = data;
+		        	 
 		             $scope.nombre = data.nombre;
 		             $scope.email = data.email;
-		             $scope.pass = data.password;
+		             $scope.password = data.password;
 		             $scope.tipo = data.Tipo_usuarios_idTipo_usuarios;
 
 		            switch ($scope.tipo) {
@@ -352,17 +356,17 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
 							var fecha = data.fecha_nac;
 							var fecha_substr = fecha.substring(0, 10);
 
-							$scope.fecha_nac = fecha_substr;
+							$scope.userData.fecha_nac = fecha_substr;
 							$scope.sexo = data.sexo;
 							$scope.sexos = [{sexo: 'M', nombre: 'Mujer'},
 							                {sexo: 'H', nombre: 'Hombre'}]
 						break;
 						case 2:/*artista*/
-							$scope.genero = data.Genero;
+							$scope.userData.genero = data.Genero;
 							 $http.get('/api/generos')
 					            .success(function(data){
 					                console.log(data);
-					                $scope.generos = data;
+					                $scope.userData.generos = data;
 					            })
 					           .error(function(data) {
 					                    console.log('Error:' + data);
@@ -385,8 +389,11 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
     	}
     };
     
+    
+    
     $scope.UpdateUsuario = function(){
-    	$scope.userData = {};
+    	
+		console.log("controllers.UpdateUsuario: "+$scope.userData.id);
 		$http.post('/api/existeMail', $scope.userData)
 			.success(function(data){
 				if(data==false){
@@ -406,8 +413,6 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
 			.error(function(data) {
 				console.log('Error:' + data);
 			});
-			
-		
     };
     
     
