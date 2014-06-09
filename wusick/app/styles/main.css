@@ -626,7 +626,25 @@ position: relative;
 
 
 
+@media screen and (max-width: 992px){
+    #daside{
+        display: none;
+    }
 
+    .sideMenu > li {
+width: 23%;
+display: inline;
+float: left;
+margin: 0 .5%;
+
+}
+
+.sideMenu > li > ul {
+max-height: 150px;
+overflow: scroll;
+}
+
+}
 
 
 

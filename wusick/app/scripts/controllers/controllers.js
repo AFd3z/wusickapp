@@ -37,6 +37,10 @@ WusickControllers.controller('loginAdminCtrl', ['$scope', '$location', '$http', 
                     console.log('Error: ' + data);
                 });
             };
+
+            $scope.$on('$viewContentLoaded', function() {
+                smoke.alert('¡Estás entrando en un área restringida!');
+            });
         
 }]);
 
