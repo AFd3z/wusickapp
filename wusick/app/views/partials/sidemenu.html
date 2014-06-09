@@ -1,4 +1,4 @@
-<aside class="visible-desktop col-xs-3 row" ng-controller="asideCtrl">
+<aside class="visible-desktop col-xs-3 row">
     <!-- search -->
     <form class="form-search">
         <div class="input-prepend">
@@ -12,19 +12,23 @@
         <li class="" ng-show="usuario.Tipo_usuarios_idTipo_usuarios==1" >
             <a href="">Amigos</a>
                 <ul id="listaAmigos">
-                    <li ng-repeat="amigoSide in amigosSide">{{amigoSide.nombre}}</li>
+                    <li ng-repeat="amigoSide in amigosSide" ng-show="amigoSide.Tipo_usuarios_idTipo_usuarios==1">{{amigoSide.nombre}}</li>
                 </ul>
         </li>
         <li>
-            <ul id="listaArtistas">
-                    <li ng-repeat="artistaSide in artistasSide" ng-show="artistaSide.Tipo_usuario_idTipo_usuario==2">{{artistaSide.nombre}}</li>
+            <a href="">Artistas</a>
+                <ul id="listaArtistas">
+                    <li ng-repeat="artista in artistasSide" ng-show="artista.Tipo_usuarios_idTipo_usuarios==2" >{{artista.nombre}}</li>
                 </ul>
         </li>
-        <li class>
-            <a href="#">Artistas</a>
+        <li >
+            <a href="">Salas</a>
+            <ul id="listaArtistas">
+                    <li ng-repeat="sala in salasSide" ng-show="sala.Tipo_usuarios_idTipo_usuarios==3" >{{sala.nombre}}</li>
+                </ul>
         </li>
-        <li class="last">
-            <a href="#">Salas</a>
+         <li class="last">
+            <a href="">Eventos</a>
         </li>
         
     </ul>
