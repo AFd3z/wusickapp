@@ -173,6 +173,9 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
                     .success(function(data){
                         $scope.datospost=data[0];
                         $scope.obtenerPost();
+                        if($scope.amigos.length==0){
+                            smoke.alert('Tienes que tener amigos para postear. Si no...\n ¿Quién lo leería entonces?');
+                        }
                      
                     })
                     .error(function(data) {
@@ -186,7 +189,7 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
                 .success(function(data){
                     $scope.amigos= data;
                     $scope.amigosSide= data;
-                    //console.log(data);
+                    
                 })
                 .error(function(data) {
                     console.log('Error:' + data);
@@ -216,15 +219,20 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
         $scope.$apply(function() {
             $scope.obtenerPost();
         });
-    }, 20000);
+    }, 180000);
 }]);
 
 WusickControllers.controller('asideCtrl', ['$scope', '$http','$location','webStorage', function ($scope, $http, $location, webStorage) {
+ 
+ $scope.usuario = webStorage.session.get('usuario');
+
  $scope.obtenerAmigos= function(){
             $scope.amigos;
             $http.post('/api/getFriendsById/'+$scope.id)
                 .success(function(data){
                     $scope.amigosSide= data;
+                    $scope.artistaSide=data;
+                    $scope.salasSide=data;
                     //console.log(data);
                 })
                 .error(function(data) {

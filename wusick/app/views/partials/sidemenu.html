@@ -9,17 +9,19 @@
 
     <!-- menu -->
     <ul class="sideMenu">
-        <li class="active">
+        <li class="" ng-show="usuario.Tipo_usuarios_idTipo_usuarios==1" >
             <a href="">Amigos</a>
                 <ul id="listaAmigos">
                     <li ng-repeat="amigoSide in amigosSide">{{amigoSide.nombre}}</li>
                 </ul>
         </li>
         <li>
-            <a href="#">Eventos</a>
+            <ul id="listaArtistas">
+                    <li ng-repeat="artistaSide in artistasSide" ng-show="artistaSide.Tipo_usuario_idTipo_usuario==2">{{artistaSide.nombre}}</li>
+                </ul>
         </li>
         <li class>
-            <a href="#">Aristas</a>
+            <a href="#">Artistas</a>
         </li>
         <li class="last">
             <a href="#">Salas</a>

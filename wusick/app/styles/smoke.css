@@ -35,17 +35,17 @@
 }
 
 .smoke {
-  font-family: Menlo, 'Andale Mono', monospace;
   text-align: center;
   font-size: 22px;
   line-height: 150%;
+  font-weight: 300;
+  font-family: 'Lato', sans-serif;
 }
 
 .dialog-buttons button {
   display: inline-block;
   vertical-align: baseline;
   cursor: pointer;
-  font-family: Menlo, 'Andale Mono', monospace;
   font-style: normal;
   text-decoration: none;
   border: 0;
@@ -56,6 +56,7 @@
   line-height: 13px;
   font-weight: normal;
   padding: 9px 12px;
+  font-family: 'Lato', sans-serif;
 }
 
 .dialog-prompt input {
@@ -63,7 +64,6 @@
   border: 0;
   font-family: sans-serif;
   outline: none;
-  font-family: Menlo, 'Andale Mono', monospace;
   border: 1px solid #aaa;
   width: 75%;
   display: inline-block;
@@ -98,7 +98,7 @@
 
 
 .dialog-buttons button {
-  background-color: rgba(0,0,0,.85);
+  background-color: #5bc0de;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#222222,endColorstr=#222222);
   border-radius: 0;
   color: #fff;
