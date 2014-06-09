@@ -13,8 +13,8 @@ angular.module('wusickAppApp', [
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'http://www.responsivedesigner.es/webApp/wusick.html',
-        controller: ''
+        templateUrl: 'partials/login',
+        controller: 'loginCtrl'
       })
       .when('/Alogin', {
         templateUrl: 'partials/loginAdmin',
