@@ -41,7 +41,7 @@
                             <div class="post">
                                 <div class="posthead">
                                     <img ng-src="{{usuario.profile_img}}" class="img-responsive" heigth="50" width="50"/>
-                                    <a href=""><strong class="text-info">{{post.nombre}}</strong></a>
+                                    <a href=""><strong class="text-info">{{usuario.nombre}}</strong></a>
                                      <a href="" ng-show="post.destinatario!=null">
                                         <strong class="text-info">  -->  {{post.destinatario}}</strong>
                                     </a>
@@ -50,7 +50,7 @@
                                 <p>{{post.contenido}}</p>
                                 <p ng-show="post.img!='null'">
                                  <a href="{{post.img}}" alt="imagen">   
-                                     <img class="img-responsive" data-ng-src="{{post.img}}" Post">
+                                     <img class="img-responsive" data-ng-src="{{post.post_img}}" Post">
                                 </a>
                                 </p>
                             </div>
