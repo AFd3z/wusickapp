@@ -189,7 +189,10 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
                 .success(function(data){
                     $scope.amigos= data;
                     $scope.amigosSide= data;
-                    
+                    $scope.artistasSide= data;
+                    $scope.salasSide= data;
+
+                     console.log(  $scope.artistasSide);
                 })
                 .error(function(data) {
                     console.log('Error:' + data);
@@ -222,27 +225,6 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
     }, 180000);
 }]);
 
-WusickControllers.controller('asideCtrl', ['$scope', '$http','$location','webStorage', function ($scope, $http, $location, webStorage) {
- 
- $scope.usuario = webStorage.session.get('usuario');
-
- $scope.obtenerAmigos= function(){
-            $scope.amigos;
-            $http.post('/api/getFriendsById/'+$scope.id)
-                .success(function(data){
-                    $scope.amigosSide= data;
-                    $scope.artistaSide=data;
-                    $scope.salasSide=data;
-                    //console.log(data);
-                })
-                .error(function(data) {
-                    console.log('Error:' + data);
-                });
-            }
-
-
-
-}]);
 
 
 
@@ -334,21 +316,17 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
     	}
     };
     
-    //------------------------------------
-    
-    $scope.userData = {};
     $scope.modificarUsuario = function(obj){
+    	//var c = confirm('Está seguro de querer EDITAR el usuario: '+obj.target.attributes.name.value+' ?');
     	if (true){
 	    		$scope.id = obj.target.attributes.data.value;
-	    		console.log("controllers.modificaUsuario: "+$scope.id);
+	    		console.log($scope.id);
 	    	$http.post('/user/modificarUsuario/'+$scope.id)
 		         .success(function(data){
 		        	 console.log(data);
-		        	 $scope.userData = data;
-		        	 
 		             $scope.nombre = data.nombre;
 		             $scope.email = data.email;
-		             $scope.password = data.password;
+		             $scope.pass = data.password;
 		             $scope.tipo = data.Tipo_usuarios_idTipo_usuarios;
 
 		            switch ($scope.tipo) {
@@ -356,17 +334,17 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
 							var fecha = data.fecha_nac;
 							var fecha_substr = fecha.substring(0, 10);
 
-							$scope.userData.fecha_nac = fecha_substr;
+							$scope.fecha_nac = fecha_substr;
 							$scope.sexo = data.sexo;
 							$scope.sexos = [{sexo: 'M', nombre: 'Mujer'},
 							                {sexo: 'H', nombre: 'Hombre'}]
 						break;
 						case 2:/*artista*/
-							$scope.userData.genero = data.Genero;
+							$scope.genero = data.Genero;
 							 $http.get('/api/generos')
 					            .success(function(data){
 					                console.log(data);
-					                $scope.userData.generos = data;
+					                $scope.generos = data;
 					            })
 					           .error(function(data) {
 					                    console.log('Error:' + data);
@@ -389,11 +367,8 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
     	}
     };
     
-    
-    
     $scope.UpdateUsuario = function(){
-    	
-		console.log("controllers.UpdateUsuario: "+$scope.userData.id);
+    	$scope.userData = {};
 		$http.post('/api/existeMail', $scope.userData)
 			.success(function(data){
 				if(data==false){
@@ -413,6 +388,8 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
 			.error(function(data) {
 				console.log('Error:' + data);
 			});
+			
+		
     };
     
     
