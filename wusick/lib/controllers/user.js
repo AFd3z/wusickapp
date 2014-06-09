@@ -14,7 +14,7 @@ var json ="";
 
     //creamos objeto de conexion
     var sqlconnection = connection.createConnection();
-    var query = 'SELECT * FROM usuarios WHERE email="'+user+'" AND password="'+pass+'"';
+    var query = 'SELECT idUsuario,nombre, fecha_alta, bloqueado, profile_img, header_img, Tipo_usuarios_idTipo_usuarios FROM usuarios WHERE email="'+user+'" AND password="'+pass+'"';
 
     //lanzamos query
     sqlconnection.query(query, function(err, results) {
