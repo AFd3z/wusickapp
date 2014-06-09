@@ -53,7 +53,7 @@ angular.module('wusickAppApp', [
         templateUrl: 'partials/salas',
         controller: 'salasCtrl'
       })
-        .when('/perfil/:id', {
+        .when('/perfil', {
         templateUrl: 'partials/perfil',
         controller: 'perfilCtrl'
       })
