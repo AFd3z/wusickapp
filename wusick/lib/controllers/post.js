@@ -98,3 +98,21 @@ exports.obtenerTodosPost = function (req,res) {
 	             }
 	            });	
 };
+
+//Funcion de recuperacion de post del main
+exports.obtenerPostPropios = function (req,res) {
+	
+	var id =req.params.id;
+
+	var sqlconnection = connection.createConnection();
+	var query = 'select * from posts where Usuarios_idUsuario = '+id+' union select * from posts where destinatario = (select nombre  from usuarios where idUsuario = '+id+')';
+	           
+	    sqlconnection.query(query, function(err, results) {
+	            if (err){
+	               res.send(err, "query error");
+	                  
+	               }else{
+	               res.send(results);
+	             }
+	            });
+};
