@@ -57,6 +57,10 @@ angular.module('wusickAppApp', [
         templateUrl: 'partials/perfil',
         controller: 'perfilCtrl'
       })
+      .when('/cuenta', {
+        templateUrl: 'partials/cuenta',
+        controller: 'cuentaCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

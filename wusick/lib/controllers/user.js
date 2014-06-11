@@ -133,30 +133,22 @@ exports.registro = function (req,res) {
 
 //Funcion seguir
 exports.seguir = function (req,res) {
-	
-	
-	//TERMINAR
+
 	
 		var id = req.params.id;
+		var id2 = req.params.id2;
 
 		  var sqlconnection = connection.createConnection();
-		    var query = 'INSERT INTO usuarios_has_usuarios VALUES ("'+id+'","'+pass+'") ';
+		  var query = 'INSERT INTO usuarios_has_usuarios VALUES ("'+id+'","'+id2+'") ';
 
 		    sqlconnection.query(query, function(err, results) {
 		        if (err)
 		            res.send(err, "query error");
 		        
-		        var insertedID=results.insertId;
-		        //console.log(insertedID);
-		        //console.log(tipo);
+	        	console.log("Usuario "+id+" sigue a usuario "+id2);
+			    	sqlconnection.end();
 		     
-
-		      
-		        
-		        //devolvemos el objeto jsonizado (si necesario)
-		        //res.json(json);
-		        //devolvemos el objeto json tal cual
-		        res.json(results);
+			    	res.send("ok");
 
 		  });
 	};
