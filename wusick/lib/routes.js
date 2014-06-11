@@ -27,7 +27,7 @@ module.exports = function(app) {
  app.route('/user/login').post(user.login);
  app.route('/user/registro').post(user.registro);
  app.route('/user/seguir/:id/:id2').post(user.seguir);
- app.route('/user/añadir/:id/:id2').post(user.añadir);
+ app.route('/user/anadir/:id/:id2').post(user.anadir);
  
  //ADMINISTRACION
  app.route('/user/bloquear/:id').post(user.bloquear);

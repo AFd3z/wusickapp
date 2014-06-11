@@ -152,6 +152,48 @@ exports.seguir = function (req,res) {
 
 		  });
 	};
+	
+//Funcion añadir amigos
+exports.anadir = function (req,res) {
+
+	
+		var id = req.params.id;
+		var id2 = req.params.id2;
+
+		  var sqlconnection = connection.createConnection();
+		  var query = 'INSERT INTO solicitudes VALUES ("'+id+'","'+id2+'") ';
+
+		    sqlconnection.query(query, function(err, results) {
+		        if (err)
+		            res.send(err, "query error");
+		        
+	        	console.log("Usuario "+id+" envía petición de amistad a usuario "+id2);
+			    	sqlconnection.end();
+		     
+			    	res.send("ok");
+
+		  });
+	};
+	
+//Funcion mostrar solicitudes de amistad
+exports.solicitudes = function (req,res) {
+
+	
+		var id = req.params.id;
+
+		  var sqlconnection = connection.createConnection();
+		  var query = 'SELECT COUNT(*) FROM solicitudes WHERE idSolicitado='+id;
+
+		    sqlconnection.query(query, function(err, results) {
+		        if (err)
+		            res.send(err, "query error");
+
+			    	sqlconnection.end();
+		     
+			    	res.send(results);
+
+		  });
+	};	
 
 
 //---------- ADMINISTRACION -----------------

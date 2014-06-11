@@ -340,11 +340,8 @@ WusickControllers.controller('salasCtrl', ['$scope', '$http','$location', 'webSt
 
 //CONTROLADOR NAVBARMAIN
 
-WusickControllers.controller('NavbarMainCtrl',['$scope','webStorage','$routeParams', function ($scope, $location,webStorage,$routeParams) {
+WusickControllers.controller('NavbarMainCtrl',['$scope','$location', function ($scope, $location) {
 	
-	/*$scope.usuario=webStorage.session.get('usuario');
-	$scope.id2 = $scope.usuario.idUsuario;*/
-	//var param1 = $routeParams.id;
   $scope.menu = [
   {'title': 'Perfil','link': '/perfil/'+$scope.$parent.id},
   {'title': 'Cuenta','link': '/cuenta'},
