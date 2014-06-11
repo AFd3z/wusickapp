@@ -131,6 +131,36 @@ exports.registro = function (req,res) {
 		  });
 	};
 
+//Funcion seguir
+exports.seguir = function (req,res) {
+	
+	
+	//TERMINAR
+	
+		var id = req.params.id;
+
+		  var sqlconnection = connection.createConnection();
+		    var query = 'INSERT INTO usuarios_has_usuarios VALUES ("'+id+'","'+pass+'") ';
+
+		    sqlconnection.query(query, function(err, results) {
+		        if (err)
+		            res.send(err, "query error");
+		        
+		        var insertedID=results.insertId;
+		        //console.log(insertedID);
+		        //console.log(tipo);
+		     
+
+		      
+		        
+		        //devolvemos el objeto jsonizado (si necesario)
+		        //res.json(json);
+		        //devolvemos el objeto json tal cual
+		        res.json(results);
+
+		  });
+	};
+
 
 //---------- ADMINISTRACION -----------------
 

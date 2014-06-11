@@ -46,9 +46,12 @@ WusickControllers.controller('loginAdminCtrl', ['$scope', '$location', '$http', 
 
 //REGISTROLOGIN
 
-WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'webStorage', function ($scope, $location, $http, webStorage) {
+WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'webStorage','$rootScope', function ($scope, $location, $http, webStorage,$rootScope) {
         $scope.userData = {};
         $scope.sessionUser= webStorage.session.get('usuario');
+        if($scope.sessionUser!=undefined){
+        $rootScope.id=$scope.sessionUser.idUsuario;
+        }
         console.log($scope.sessionUser);
 
         if($scope.sessionUser!='null'){
@@ -335,7 +338,29 @@ WusickControllers.controller('salasCtrl', ['$scope', '$http','$location', 'webSt
 
 }]);
 
-//
+//CONTROLADOR NAVBARMAIN
+
+WusickControllers.controller('NavbarMainCtrl',['$scope','webStorage','$routeParams', function ($scope, $location,webStorage,$routeParams) {
+	
+	/*$scope.usuario=webStorage.session.get('usuario');
+	$scope.id2 = $scope.usuario.idUsuario;*/
+	//var param1 = $routeParams.id;
+  $scope.menu = [
+  {'title': 'Perfil','link': '/perfil/'+$scope.$parent.id},
+  {'title': 'Cuenta','link': '/cuenta'},
+  {'title': 'Salir','link': '/login'}
+
+  ];
+  
+  $scope.isActive = function(route) {
+    return route === $location.path();
+  };
+}]);
+
+
+
+
+
 
 //CONTROLADOR MAIN
 

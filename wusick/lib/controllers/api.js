@@ -160,7 +160,7 @@ exports.getFriendsById = function(req, res){
 	               res.send(results);
 	             }
 	            });
-};	
+};
 	
 
 //Función que crea la sesión	
