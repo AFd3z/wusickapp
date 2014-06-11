@@ -665,7 +665,7 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
                          console.log('Error:' + data);
                  });    
         }else{
-            alert('No se editar√° el usuario: '+obj.target.attributes.name.value);
+            alert('No se editar· el usuario: '+obj.target.attributes.name.value);
         }
     };
     
@@ -673,21 +673,26 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
     
     $scope.UpdateUsuario = function(){
         
-        console.log("controllers.UpdateUsuario: "+$scope.userData.id);
+        //console.log("controllers.UpdateUsuario: "+$scope.email);
         $http.post('/api/existeMail', $scope.userData)
             .success(function(data){
-                if(data==false){
+                if(data==false || data[0].email == $scope.email){
                     $http.post('/user/UpdateUsuario', $scope.userData)
                     .success(function(data){
                     $scope.formData = {};
-                     alert('Sus nuevos datos son los siguientes: \n Usuario: '+$scope.userData.nombre+'\n Contrase√±a: ' +$scope.userData.pass+'\n Email: ' +$scope.userData.email);
+                    //$("#myModal").attr("style", "display:none");
+                    $("#myModal").toggle('slow');
+                    $('.modal-backdrop').attr("style", "display:none");
+                    var x = smoke.alert('Sus nuevos datos son los siguientes: \n Usuario: '+$scope.userData.nombre+'\n ContraseÒa: ' +$scope.userData.password+'\n Email: ' +$scope.userData.email);
+                    //$http.post('/user/modificarUsuario/'+$scope.id).success(function(data){ $scope.userData = data;});
+    				setTimeout(function(){location.reload();},5000);
                     })
                     .error(function(data) {
                         console.log('Error:' + data);
                     });
                     $location.url("/administrator");
                 }else{
-                    alert('Ya existe una cuenta asociada al email '+$scope.userData.email+'.');
+                    alert('Ya existe una cuenta asociada al email '+$scope.userData.email+'. ');
                 }
             })
             .error(function(data) {
@@ -695,7 +700,9 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
             });
     };
     
-    
+    $scope.ordenarPor = function (orden){
+        $scope.ordenSel = orden;
+    }
     
     
     

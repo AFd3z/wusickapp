@@ -1,83 +1,120 @@
 <div ng-include="'partials/navbarAdmin'"></div>
-
 <div class="container">
 	<h2>Bienvenido <strong>{{admin.email}}</strong><span class="text-info">{{message}}</span></h2>
     <div ng-init="obtenerListado()">
     	<div>
     		
     	</div>
-		<table class='table table-bordered table-hover table-condensed'>
-			<thead>
-				<tr>
-					<th class="id">Id&nbsp;<a ng-click="sort_by('id')"><i class="icon-sort"></i></a></th>
-					<th class="nombre">Nombre&nbsp;<a ng-click="sort_by('nombre')"><i class="icon-sort"></i></a></th>
-					<th class="email">email&nbsp;<a ng-click="sort_by('email')"><i class="icon-sort"></i></a></th>
-					<th class="fecha">fecha de alta&nbsp;<a ng-click="sort_by('fecha')"><i class="icon-sort"></i></a></th>
-					<th class="tipo">tipo de Usuario&nbsp;<a ng-click="sort_by('tipo')"><i class="icon-sort"></i></a></th>
-					<th class="estado">Estado&nbsp;<a ng-click="sort_by('estado')"><i class="icon-sort"></i></a></th>
-					<th class="estado">Editar&nbsp;<i class="icon-sort"></i></th>
-					<th class="estado">Eliminar&nbsp;<i class="icon-sort"></i></th>
-					<th class="estado">Posts&nbsp;<i class="icon-sort"></i></th>
-				</tr>
-			</thead>
-			<tfoot>
-
-			</tfoot>
-			<tbody>
-				<tr ng-repeat="item in listGral">
-					<td>{{item.idUsuario}}</td>
-					<td>{{item.nombre}}</td>
-					<td>{{item.email}}</td>
-					<td>{{item.fecha_alta | date:'longDate'}}</td>
-
-					
-					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 1">
-    					 <a class="glyphicon glyphicon-user"></a> BÃ¡sico
-					</td>
-					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 2">
-    					 <a class="glyphicon glyphicon-music"></a> Artista
-					</td>
-					<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 3">
-    					 <a class="glyphicon glyphicon-home"></a> Sala
-					</td>
-					
-					<td>
-						<div class='btn-group btn-toggle'>
-							<div ng-if="item.bloqueado == 0">
-								<button value={{item.idUsuario}} class='btn btn-sm btn-primary active'>ACTIVO</button>
-								<button data={{item.idUsuario}} name={{item.nombre}} ng-click='bloquear($event)' class='btn btn-sm btn-default'>BLOQUEADO</button>
-							</div>
-							<div ng-if="item.bloqueado == 1">
-								<button data={{item.idUsuario}} name={{item.nombre}} ng-click='desbloquear($event)' class='btn btn-sm btn-default'>ACTIVO</button>
-								<button class='btn btn-sm btn-primary active'>BLOQUEADO</button>
-							</div>
-						</div>
-					</td>
-
-					<td class="text-center">
-						<a data-toggle="modal" data-target="#myModal">
-							<!--  img src='../../../images/edit.png', alt='Editar' data={{item.idUsuario}} name={{item.nombre}} ng-click='modificarUsuario($event)' / -->
-							<img src='../../../images/edit.png', alt='Editar' data={{item.idUsuario}} name={{item.nombre}} ng-click='modificarUsuario($event)' width="28" height="28"/>
-						</a>
-					</td>
-					<td class="text-center">
-						<a href ng-click='borrarUsuario($event)' >
-							<img src='../../../images/delete.png', alt='Eliminar' data={{item.idUsuario}} name={{item.nombre}}/>
-						</a>
-					</td>
-					<td>
-					<a><span class="glyphicon glyphicon-envelope"></span></a>
-					</td>
-				</tr>
-				     
-			</tbody>
-		</table>
+		
+		<!-- table pirata -->
+ 	
+		 <table class="table table-striped table-hover">
+          <thead>
+          <tr>
+           <th>
+              <a href="" ng-click="ordenarPor('idUsuario')">
+                Id
+              </a>
+              <span class="caret" style="cursor: pointer" ng-click="ordenarPor('-idUsuario')"></span>
+            </th>
+            <th>
+              <a href="" ng-click="ordenarPor('nombre')">
+                Nombre
+              </a>
+              <span class="caret" style="cursor: pointer" ng-click="ordenarPor('-nombre')"></span>
+            </th>
+            <th>
+              <a href="" ng-click="ordenarPor('email')">
+                Em@il
+              </a>
+              <span class="caret" style="cursor: pointer" ng-click="ordenarPor('-email')"></span>
+            </th>
+            <th>
+              <a href="" ng-click="ordenarPor('fecha_alta')">
+               Fecha de alta
+              </a>
+              <span class="caret" style="cursor: pointer" ng-click="ordenarPor('-fecha_alta')"></span>
+            </th>
+             <th>
+              <a href="" ng-click="ordenarPor('Tipo_usuarios_idTipo_usuarios')">
+               Tipo
+              </a>
+              <span class="caret" style="cursor: pointer" ng-click="ordenarPor('-Tipo_usuarios_idTipo_usuarios')"></span>
+            </th>
+        	</th>
+             <th>
+              <a href="" ng-click="ordenarPor('bloqueado')">
+               Estado
+              </a>
+              <span class="caret" style="cursor: pointer" ng-click="ordenarPor('-bloqueado')"></span>
+            </th>
+            <th>
+              <a href="" ng-click="ordenarPor('nombre')">
+               Editar
+              </a>
+              <span class="caret" style="cursor: pointer" ng-click="ordenarPor('-nombre')"></span>
+            </th>
+             <th>
+              <a href="" ng-click="ordenarPor('Tipo_usuarios_idTipo_usuarios')">
+               Eliminar
+              </a>
+              <span class="caret" style="cursor: pointer" ng-click="ordenarPor('-Tipo_usuarios_idTipo_usuarios')"></span>
+            </th>
+             <th>
+              <a href="" ng-click="ordenarPor('Tipo_usuarios_idTipo_usuarios')">
+               Posts
+              </a>
+              <span class="caret" style="cursor: pointer" ng-click="ordenarPor('-Tipo_usuarios_idTipo_usuarios')"></span>
+            </th>
+           
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="item in listGral | orderBy:ordenSel | filter:buscar">
+          	<td>{{item.idUsuario}}</td>
+            <td>{{item.nombre}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.fecha_alta | date:"shortDate" }}</td>
+            <td ng-if="item.Tipo_usuarios_idTipo_usuarios == 1">
+	 			<a class="glyphicon glyphicon-user"></a> Básico
+			</td>
+			<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 2">
+	 			<a class="glyphicon glyphicon-music"></a> Artista
+			</td>
+			<td ng-if="item.Tipo_usuarios_idTipo_usuarios == 3">
+	 			<a class="glyphicon glyphicon-home"></a> Sala
+			</td>
+			<td>
+				<div ng-if="item.bloqueado == 0">
+					<div class='btn-group btn-toggle'>
+						<button value={{item.idUsuario}} class='btn btn-sm btn-primary active glyphicon glyphicon-ok'></button>
+						<button data={{item.idUsuario}} name={{item.nombre}} ng-click='bloquear($event)' class='btn btn-sm btn-default glyphicon glyphicon-ban-circle' style="color:#ccc;"></button>
+					</div>
+				</div>
+				<div ng-if="item.bloqueado == 1">
+					<div class='btn-group btn-toggle'>
+						<button data={{item.idUsuario}} name={{item.nombre}} ng-click='desbloquear($event)' class='btn btn-sm btn-default glyphicon glyphicon-ok' style="color:#ccc;"></button>
+						<button class='btn btn-sm btn-danger glyphicon glyphicon-ban-circle active'></button>
+					</div>
+				</div>
+			</td>
+			<td style="text-align: center;">
+				<a style="font-size: 150%; float:none; cursor:pointer;" data-toggle="modal" data-target="#myModal" class="glyphicon glyphicon-list-alt" alt='Editar' data={{item.idUsuario}} name={{item.nombre}} ng-click='modificarUsuario($event)'>
+				</a>
+			</td>
+			<td style="text-align: center;">
+				<a style="font-size: 150%; float:none; cursor:pointer; color:#ff6140;" class="glyphicon glyphicon-remove" data={{item.idUsuario}} name={{item.nombre}} ng-click='borrarUsuario($event)'>
+				</a>
+			</td>
+			<td style="text-align: center;">
+				<a style="font-size: 150%; float:none; cursor:pointer;" class="glyphicon glyphicon-envelope"></a>
+			</td>
+          </tbody>
+        </table>
+		<!-- ./table pirata -->
     </div>
-
  </div>
-
- <!-- formulario de ediciÃ³n de datos de usuario -->
-
+ <!-- formulario de edición de datos de usuario -->
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -98,7 +135,7 @@
 				             <span ng-show="registro.nombreU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 				             <span ng-show="registro.nombreU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
 				            <input type="text" name="nombreU" class="form-control" placeholder="{{nombre}}" ng-value="{{userData.nombre}}" ng-model="userData.nombre" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="20" required/>
-				           	<p><small class="text-danger" ng-show="registro.nombreU.$invalid">Entre 6 y 20 caracteres alfanumÃ©ricos.</small></p>
+				           	<p><small class="text-danger" ng-show="registro.nombreU.$invalid">Entre 6 y 20 caracteres alfanuméricos.</small></p>
 			            </div>
 			        <!--./nombre -->		            
 			            <div class="clearfix"></div>
@@ -108,19 +145,19 @@
 				            <span ng-show="registro.emailU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 				            <span ng-show="registro.emailU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
 				            <input type="email" name="emailU" class="form-control" placeholder={{email}} ng-value="{{userData.email}}" ng-model="userData.email" required/>
-				            <small class="text-danger" ng-show="registro.emailU.$invalid">Email invÃ¡lido.</small>
+				            <small class="text-danger" ng-show="registro.emailU.$invalid">Email inválido.</small>
 			            </div>
 			        <!-- ./email -->
 			            <div class="clearfix"></div>
-					<!-- contraseÃ±a -->
+					<!-- contraseña -->
 			            <div ng-class="{'has-error': registro.passU.$invalid, 'has-success': registro.passU.$valid}" class="form-group">
-				            <label id="labpass" for="passU" class="control-label">ContraseÃ±a</label>
+				            <label id="labpass" for="passU" class="control-label">Contraseña</label>
 				            <span ng-show="registro.passU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 				             <span ng-show="registro.passU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
 				            <input type="text" name="passU" id="passU" class="form-control" placeholder={{password}} ng-value="{{password}}" ng-model="userData.password" ng-pattern="/\w/g" ng-Minlength="6" ng-Maxlength="20" required/>
-				            <small class="text-danger" ng-show="registro.passU.$invalid">Entre 6 y 20 caracteres alfanumÃ©ricos.</small>
+				            <small class="text-danger" ng-show="registro.passU.$invalid">Entre 6 y 20 caracteres alfanuméricos.</small>
 			            </div>
-			        <!-- ./contraseÃ±a -->
+			        <!-- ./contraseña -->
 			            <div class="clearfix"></div>
 			            
 		            <!--USUARIO BASICO-->
@@ -141,7 +178,7 @@
 						            	<select id="sexoU"  name="sexoU" ng-model="userData.sexo" class="form-control">
 						            		<option ng-repeat="s in sexos"ng-value="{{userData.sexo}}" ng-selected="'{{s.sexo}}' === '{{userData.sexo}}'" >{{s.nombre}}</option>	            		
 						            	</select>
-						            <small class="text-danger" ng-show="registro.sexoU.$invalid">Â¿Eres hombre o mujer?</small>
+						            <small class="text-danger" ng-show="registro.sexoU.$invalid">¿Eres hombre o mujer?</small>
 					            </div>
 						</div>
 					<!-- ./USUARIO BASICO-->
@@ -149,13 +186,13 @@
 			   		<!--USUARIO ARTISTA-->			
 						<div ng-if="tipo == 2">
 								<div ng-class="{'has-error': registro.generoU.$invalid, 'has-success': registro.generoU.$valid}" class="form-group">
-						            <label id="labgenero" for="generoU" class="control-label">GÃ©nero Musical</label>
+						            <label id="labgenero" for="generoU" class="control-label">Género Musical</label>
 						            <span ng-show="registro.generoU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 					            	<span ng-show="registro.generoU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
 						            	<select id="generoU" ng-model="userData.genero" name="generoU" class="form-control">
 						            		<option ng-repeat="gen in userData.generos" ng-value="{{gen.idGeneros}}" ng-selected="{{gen.idGeneros}} == {{userData.genero}}" >{{gen.nombre}}</option>
 						            	</select>
-						            <small class="text-danger" ng-show="registro.generoU.$invalid">Â¿QuÃ© tipo de mÃºsica toca tu grupo?</small>
+						            <small class="text-danger" ng-show="registro.generoU.$invalid">¿Qué tipo de música toca tu grupo?</small>
 					            </div>
 						</div>
 					<!-- ./USUARIO ARTISTA-->
@@ -170,18 +207,18 @@
 						            <small class="text-danger" ng-show="registro.aforoU.$invalid">Introduce el aforo de la sala que vas a registar.</small>
 					            </div>
 					            <div ng-class="{'has-error': registro.poblacionU.$invalid, 'has-success': registro.poblacionU.$valid}" class="form-group">
-						            <label id="labafo" for="poblacionU" class="control-label">PoblaciÃ³n</label>
+						            <label id="labafo" for="poblacionU" class="control-label">Población</label>
 						            <span ng-show="registro.poblacionU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 					            	<span ng-show="registro.poblacionU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
 						            <input type="text" id="poblacionU" ng-value="userData.poblacion" ng-model="userData.poblacion" placeholder={{poblacion}}  name="poblacionU" class="form-control" ng-pattern="/\w/g" ng-Maxlength="45" ng-required="userData.tipo=='3'" />
-						            <small class="text-danger" ng-show="registro.poblacionU.$invalid">Â¿DÃ³nde estÃ¡ la sala?.</small>
+						            <small class="text-danger" ng-show="registro.poblacionU.$invalid">¿Dónde está la sala?.</small>
 					            </div>
 					            <div ng-class="{'has-error': registro.direccionU.$invalid, 'has-success': registro.direccionU.$valid}" class="form-group">
-						            <label id="labafo" for="direccionU" class="control-label">DirecciÃ³n</label>
+						            <label id="labafo" for="direccionU" class="control-label">Dirección</label>
 						            <span ng-show="registro.direccionU.$valid"  class="glyphicon glyphicon-ok form-control-feedback"></span>
 					                <span ng-show="registro.direccionU.$invalid"  class="glyphicon glyphicon-remove form-control-feedback"></span>
 						            <input type="text" id="direccionU" ng-value="userData.direccion" ng-model="userData.direccion" placeholder={{direccion}} name="direccionU" class="form-control" ng-pattern="/\w/g" ng-Maxlength="45" ng-required="userData.tipo=='3'" />
-						            <small class="text-danger" ng-show="registro.direccionU.$invalid">Â¿En que direcciÃ³n exacta?.</small>
+						            <small class="text-danger" ng-show="registro.direccionU.$invalid">¿En que dirección exacta?.</small>
 					            </div>
 						</div>
 					<!-- ./USUARIO SALA-->

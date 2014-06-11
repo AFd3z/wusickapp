@@ -328,7 +328,7 @@ exports.modificarUsuario = function (req,res) {
 
 
 exports.UpdateUsuario = function(req,res) {
-	
+	/*
 	console.log("-----usuario------");
 	console.log('id: '+req.body.idUsuario);
 	console.log('tipo: '+req.body.Tipo_usuarios_idTipo_usuarios);
@@ -345,16 +345,14 @@ exports.UpdateUsuario = function(req,res) {
 	console.log('poblacion: '+req.body.poblacion);
 	console.log('direccion: '+req.body.direccion);
 	console.log("-----./usuario------ ");
-	
-	
+	*/
 	/*-----usuario------*/
 	var id = req.body.idUsuario;
 	var tipo = req.body.Tipo_usuarios_idTipo_usuarios;
 	var nombre = req.body.nombre;
 	var email = req.body.email;
 	var password = req.body.password;
-
-	//creamos objeto conexiÃ³n
+	//creamos objeto conexión
 	var sqlconnection = connection.createConnection();
 	
 	var query0 = 'UPDATE usuarios SET nombre="'+nombre+'", password="'+password+'", email="'+email+'" WHERE idUsuario='+id+';';
@@ -371,11 +369,27 @@ exports.UpdateUsuario = function(req,res) {
 	    		var fecha_nac = req.body.fecha_nac;
 	    		var sexo = req.body.sexo;
 	    		query1 = 'UPDATE basicos SET fecha_nac="'+fecha_nac+'", sexo="'+sexo+'" WHERE Usuarios_idUsuario='+id+';';
+	    		sqlconnection.query(query1, function(err, result) { 
+	    			if (err){
+	    		    	res.send(err, "query error");
+	    		    }else{
+	    		    	console.log("update basicos OK");
+	    		    	res.send();
+	    		    }
+	    		});
 	    		break;
 	    	case 2:
 	    		/*-----usuario artista------*/
 	    		var genero = req.body.genero;
 	    		query1 = 'UPDATE artistas SET genero="'+genero+'" WHERE Usuarios_idUsuario='+id+';';
+	    		sqlconnection.query(query1, function(err, result) { 
+	    			if (err){
+	    		    	res.send(err, "query error");
+	    		    }else{
+	    		    	console.log("update artistas OK");
+	    		    	res.send();
+	    		    }
+	    		});
 	    		break;
 	    	case 3:
 	    		/* -----usuario sala------*/
@@ -383,6 +397,14 @@ exports.UpdateUsuario = function(req,res) {
 	    		var poblacion = req.body.poblacion;
 	    		var direccion = req.body.direccion;
 	    		query1 = 'UPDATE salas SET aforo='+aforo+', poblacion="'+poblacion+'", direccion="'+direccion+'" WHERE Usuarios_idUsuario='+id+';';
+	    		sqlconnection.query(query1, function(err, result) { 
+	    			if (err){
+	    		    	res.send(err, "query error");
+	    		    }else{
+	    		    	console.log("update salas OK");
+	    		    	res.send();
+	    		    }
+	    		});
 	    		break;
 	    	default:
 	    		break;
@@ -390,17 +412,7 @@ exports.UpdateUsuario = function(req,res) {
 	    }
 	});
 	
-	sqlconnection.query(query1, function(err, results) { 
-		if (err){
-	    	res.send(err, "query error");
-	    }else{
-	    	console.log("update OK");
-	    	res.json(results);
-	    }
-	});
-	
 };
-
 
 exports.datosXtipo = function(req, res){
 		var tipo = req.params.tipo;
