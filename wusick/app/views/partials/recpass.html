@@ -4,15 +4,15 @@
   <div id="recpasspage">
         <div class="col-xs-12">
                 <div class="clearfix"></div>
-                <form id="login" role="form" name ="login" class="min">
+                <form id="recpass" role="form" name ="recpass" class="min">
                   <div class="form-group">
                       <label id="labmail" for="nombre">Email</label>
-                      <input type="email" placeholder="Em@il" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Em@il'" ng-model="userData.email" id="nombre" name="nombre" class="form-control"/>
+                      <input type="email" placeholder="Em@il" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Em@il'" ng-model="userData.email" id="email" name="email" class="form-control" required/>
                   </div>
                   <div class="clearfix"></div>
 
          
-                     <button type="submit" class="btn btn-info" value="Log in" ng-click="obtenerUsuario()" ng-disabled="login.$pristine || login.$invalid">Recuperar Password</button>
+                     <button type="submit" class="btn btn-info" value="recuperar pass" ng-click="recuperarPwd()" ng-disabled="recpass.$pristine || recpass.$invalid">Recuperar Password</button>
                   </div>
                     
                  

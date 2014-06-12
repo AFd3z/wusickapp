@@ -4,6 +4,8 @@
 //FUNCIONALIDADES VARIAS
 
 var connection = require('dbfunct/MySQLconnection');
+var nodemailer = require('nodemailer');
+var storeclass = require('storeclass/storeclass');
 
 //Funcion para comprobar si existe mail registrado
 exports.existeMail = function (req,res) {
@@ -177,4 +179,38 @@ exports.getSesion = function (req,res) {
 	res.send(req.session.mail);
 	
 };
-	
+
+//funcion para recuperar la contraseña
+exports.recuperarPwd= function(req, res){
+	   
+    var nombre= req.body.nombre;
+    var email= req.body.email;
+    var pass= req.body.password;
+
+
+       var smtpTransport = nodemailer.createTransport("SMTP",{
+        service: "Gmail", 
+        auth: {
+          user: "wusickapp@gmail.com",
+          pass: "wusickapp1"
+        }
+          });
+
+        var mailOptions = {
+            from: "wusickapp@gmail.com",
+            to: email, 
+            subject: "Wusick restablecer pwd",
+            html: "Su contraseña es: "+pass
+        }
+
+      smtpTransport.sendMail(mailOptions, function(error, response){
+          if(error){
+              console.log(error);
+          }else{
+              console.log("Message sent: " + response.message);
+              res.send('mailOK');
+          }
+         
+          smtpTransport.close(); 
+      }); 
+};

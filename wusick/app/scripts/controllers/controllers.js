@@ -442,7 +442,37 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
     }, 180000);
 }]);
 
+WusickControllers.controller('pwdOlviCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+    $scope.userData = {};
+    $scope.recuperarPwd = function(){
+        $http.post('api/existeMail', $scope.userData)
+        .success(function(data){
+                if(data!='null'){
+                       $http.post('api/recuperarPwd', data[0])
+                            .success(function(data){
+                            	console.log(data[0])
+                                if(data==='mailOK'){
+                                smoke.alert('Se ha enviado un correo a la cuenta introducida a través de cual restablecer la contraseña.'); 
+                                $location.url('/login');
+                                }
+                                else
+                                    smoke.alert('Parace que ha ocurrido un problema inesperado. Por favor, vuelve a intentarlo. Disculpa las molestias.');
+                        })
+                            .error(function(data) {
+                             console.log('Error: ' + data);
+                        });
+                    
+                }else{
+                    smoke.alert('El email que has introducido no existe.');
+                }
+           
+        })
+        .error(function(data) {
+                    console.log('Error: ' + data);
+        });
+    }
 
+}]);
 
 //CONTROLADOR PERFIL
 

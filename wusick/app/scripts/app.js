@@ -61,6 +61,10 @@ angular.module('wusickAppApp', [
         templateUrl: 'partials/cuenta',
         controller: 'cuentaCtrl'
       })
+      .when('/recpass', {
+        templateUrl: 'partials/recpass',
+        controller: 'pwdOlviCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

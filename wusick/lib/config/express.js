@@ -10,7 +10,9 @@ var express = require('express'),
     session = require('express-session'),
     errorHandler = require('errorhandler'),
     path = require('path'),
-    config = require('./config');
+    config = require('./config'),
+    md5 = require('md5'),
+    nodemailer = require('nodemailer');
 
 /**
  * Express configuration
