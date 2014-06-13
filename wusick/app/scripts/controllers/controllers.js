@@ -484,7 +484,10 @@ WusickControllers.controller('solicitudesCtrl', ['$scope', '$http', '$location',
         $http.post('user/solicitudes/'+$scope.id)
         .success(function(data){
         	console.log(data);
-                $scope.solicitudesD=data;       
+                $scope.solicitudesD=data;
+                if(data==""){
+                	$scope.solicitudesD="";
+                }
 
         })
         .error(function(data) {

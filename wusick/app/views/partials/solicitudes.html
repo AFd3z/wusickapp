@@ -10,7 +10,11 @@
          
           <tbody>
           <tr ng-repeat="solicitud in solicitudesD">
-            <td>{{solicitud.nombre}}</td>
+          <div ng-if='solicitudesD==""'><br/>
+			<p class="h3">Actualmente no tiene ninguna solicitud de amistad</p>
+			</div>
+          
+            <td style="text-align: center;">{{solicitud.nombre}}</td>
            
 			<td style="text-align: center;">
 			<a class="btn btn-info" data={{solicitud.idUsuario}} ng-click='anadirAAmigos($event)' >Aceptar</a>
