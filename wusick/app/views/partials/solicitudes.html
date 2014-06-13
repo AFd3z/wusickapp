@@ -1,0 +1,30 @@
+<div ng-include="'partials/navbarMain'"></div>
+<div class="container">
+
+    <div>
+    	<div>
+    		 <h1 class="titulo text-info">Solicitudes de amistad</h1>
+    	</div>
+ 	
+		 <table class="table table-striped table-hover">
+         
+          <tbody>
+          <tr ng-repeat="solicitud in solicitudesD">
+            <td>{{solicitud.nombre}}</td>
+           
+			<td style="text-align: center;">
+			<a class="btn btn-info" data={{solicitud.idUsuario}} ng-click='anadirAAmigos($event)' >Aceptar</a>
+			</td>
+			<td style="text-align: center;">
+				<a class="btn btn-danger" data={{solicitud.idUsuario}} ng-click='noAnadir($event)'>Cancelar</a>
+			</td>
+          </tbody>
+        </table>
+
+    </div>
+ </div>
+
+    </div>
+  </div>
+</div>
+</html>

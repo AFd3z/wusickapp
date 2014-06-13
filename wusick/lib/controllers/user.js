@@ -153,7 +153,7 @@ exports.seguir = function (req,res) {
 		  });
 	};
 	
-//Funcion añadir amigos
+//Funcion añadir amigos (solicitud)
 exports.anadir = function (req,res) {
 
 	
@@ -161,7 +161,7 @@ exports.anadir = function (req,res) {
 		var id2 = req.params.id2;
 
 		  var sqlconnection = connection.createConnection();
-		  var query = 'INSERT INTO solicitudes VALUES ("'+id+'","'+id2+'") ';
+		  var query = 'INSERT INTO solicitudes VALUES ('+id+','+id2+') ';
 
 		    sqlconnection.query(query, function(err, results) {
 		        if (err)
@@ -174,6 +174,73 @@ exports.anadir = function (req,res) {
 
 		  });
 	};
+
+	
+//Funcion añadir amigos (tabla amigos)
+exports.anadirAAmigos = function (req,res) {
+
+	
+		var id = req.params.id;
+		var id2 = req.params.id2;
+
+		  var sqlconnection = connection.createConnection();
+		  
+		  var query1 = 'DELETE FROM solicitudes WHERE idSolicitante='+id2+' AND idSolicitado='+id;
+
+		    sqlconnection.query(query1, function(err, results) {
+		        if (err)
+		            res.send(err, "query error");
+		        
+
+		  });
+		  
+		  var query = 'INSERT INTO usuarios_has_usuarios VALUES ('+id+','+id2+') ';
+
+		    sqlconnection.query(query, function(err, results) {
+		        if (err)
+		            res.send(err, "query error");
+		        
+	        	console.log("Usuario "+id+" añade como amigo a "+id2);
+		     
+			    	res.send("ok");
+
+		  });
+		    
+		    var query2 = 'INSERT INTO usuarios_has_usuarios VALUES ('+id2+','+id+') ';
+
+		    sqlconnection.query(query2, function(err, results) {
+		        if (err)
+		            res.send(err, "query error");
+		        
+	        	console.log("Usuario "+id2+" añade como amigo a "+id);
+			    	sqlconnection.end();
+
+
+		  });
+		    
+		    
+		    
+	};	
+	
+//Funcion borrar solicitudes de amigos
+exports.noAnadir = function (req,res) {
+
+	
+		var id = req.params.id;
+		var id2 = req.params.id2;
+
+		  var sqlconnection = connection.createConnection();
+		  
+		  var query1 = 'DELETE FROM solicitudes WHERE idSolicitante='+id2+' AND idSolicitado='+id;
+
+		    sqlconnection.query(query1, function(err, results) {
+		        if (err)
+		            res.send(err, "query error");
+		        
+		        res.send("ok");
+		  });
+		     
+	};	
 	
 //Funcion mostrar numero solicitudes de amistad
 exports.numSolicitudes = function (req,res) {

@@ -355,10 +355,6 @@ WusickControllers.controller('NavbarMainCtrl',['$scope','$location', function ($
 }]);
 
 
-
-
-
-
 //CONTROLADOR MAIN
 
 WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStorage', function ($scope, $http, $location, webStorage) {
@@ -442,6 +438,8 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
     }, 180000);
 }]);
 
+//CONTROLADOR PASS OLVIDADO
+
 WusickControllers.controller('pwdOlviCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
     $scope.userData = {};
     $scope.recuperarPwd = function(){
@@ -471,6 +469,66 @@ WusickControllers.controller('pwdOlviCtrl', ['$scope', '$http', '$location', fun
                     console.log('Error: ' + data);
         });
     }
+
+}]);
+
+//CONTROLADOR SOLICITUDES AMISTAD
+
+WusickControllers.controller('solicitudesCtrl', ['$scope', '$http', '$location','webStorage', function ($scope, $http, $location,webStorage) {
+	
+	$scope.usuario = webStorage.session.get('usuario');
+	$scope.id = $scope.usuario.idUsuario;
+    $scope.userData = {};
+    
+    $scope.solicitudes = function(){
+        $http.post('user/solicitudes/'+$scope.id)
+        .success(function(data){
+        	console.log(data);
+                $scope.solicitudesD=data;       
+
+        })
+        .error(function(data) {
+                    console.log('Error: ' + data);
+        });
+    }
+    
+    $scope.anadirAAmigos = function(obj){
+        $http.post('user/anadirAAmigos/'+$scope.id+'/'+obj.target.attributes.data.value)
+        .success(function(data){
+        	if(data=="ok"){
+        		smoke.alert ("Se añadió correctamente el amigo");
+        		$scope.solicitudes();
+        	}else{
+        		smoke.alert ("Hubo un error añadiendo el amigo");
+        	}                
+        })
+        .error(function(data) {
+                    console.log('Error: ' + data);
+        });
+    }
+    
+
+    $scope.noAnadir = function(obj){
+        $http.post('user/noAnadir/'+$scope.id+'/'+obj.target.attributes.data.value)
+        .success(function(data){
+        	if(data=="ok"){
+        		smoke.alert ("No se añadirá el amigo");
+        		$scope.solicitudes();
+        		
+        	}else{
+        		smoke.alert ("Hubo un error");
+        	}
+                    
+        })
+        .error(function(data) {
+                    console.log('Error: ' + data);
+        });
+    }
+    
+    $scope.$on('$viewContentLoaded', function() {
+        $scope.solicitudes();
+    });
+    
 
 }]);
 

@@ -30,6 +30,8 @@ module.exports = function(app) {
  app.route('/user/registro').post(user.registro);
  app.route('/user/seguir/:id/:id2').post(user.seguir);
  app.route('/user/anadir/:id/:id2').post(user.anadir);
+ app.route('/user/anadirAAmigos/:id/:id2').post(user.anadirAAmigos);
+ app.route('/user/noAnadir/:id/:id2').post(user.noAnadir);
  app.route('/user/solicitudes/:id').post(user.solicitudes);
  app.route('/user/numSolicitudes/:id').post(user.numSolicitudes);
  

@@ -65,6 +65,10 @@ angular.module('wusickAppApp', [
         templateUrl: 'partials/recpass',
         controller: 'pwdOlviCtrl'
       })
+      .when('/solicitudes', {
+        templateUrl: 'partials/solicitudes',
+        controller: 'solicitudesCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
