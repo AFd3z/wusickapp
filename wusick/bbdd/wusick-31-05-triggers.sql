@@ -2,9 +2,9 @@ CREATE DATABASE  IF NOT EXISTS `mydb` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `mydb`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: 127.0.0.1    Database: mydb
+-- Host: localhost    Database: mydb
 -- ------------------------------------------------------
--- Server version	5.5.31
+-- Server version	5.6.17-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -163,7 +163,7 @@ CREATE TABLE `basicos` (
 
 LOCK TABLES `basicos` WRITE;
 /*!40000 ALTER TABLE `basicos` DISABLE KEYS */;
-INSERT INTO `basicos` VALUES ('1989-02-15','H',6),('1984-05-07','H',7),('1989-01-02','M',8);
+INSERT INTO `basicos` VALUES ('1989-02-15','H',6),('1984-05-07','H',7),('1989-01-02','M',8),('2014-06-04','H',17);
 /*!40000 ALTER TABLE `basicos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,6 +329,29 @@ INSERT INTO `salas` VALUES (1000,'Madrid','C/ Princesa 1',9),(1800,'Madrid','C/ 
 UNLOCK TABLES;
 
 --
+-- Table structure for table `solicitudes`
+--
+
+DROP TABLE IF EXISTS `solicitudes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `solicitudes` (
+  `idSolicitante` int(11) NOT NULL,
+  `idSolicitado` int(11) NOT NULL,
+  PRIMARY KEY (`idSolicitante`,`idSolicitado`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `solicitudes`
+--
+
+LOCK TABLES `solicitudes` WRITE;
+/*!40000 ALTER TABLE `solicitudes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `solicitudes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `superusuario`
 --
 
@@ -399,7 +422,7 @@ CREATE TABLE `usuarios` (
   UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_Usuarios_Tipo_usuarios1_idx` (`Tipo_usuarios_idTipo_usuarios`),
   CONSTRAINT `fk_Usuarios_Tipo_usuarios1` FOREIGN KEY (`Tipo_usuarios_idTipo_usuarios`) REFERENCES `tipo_usuarios` (`idTipo_usuarios`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -408,7 +431,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31',0,'','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31',0,'','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31',0,'','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31',0,'','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31',0,'','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31',0,'','',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31',0,'','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31',0,'','',3),(16,'pepito','pepito','pepito@pepito','2014-06-02',0,'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1);
+INSERT INTO `usuarios` VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31',0,'','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31',0,'','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31',0,'','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31',0,'','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31',0,'','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31',0,'','',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31',0,'','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31',0,'','',3),(16,'pepito','pepito','pepito@pepito','2014-06-02',0,'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1),(17,'yoyoyoyo','yoyoyoyo','jha1986@gmail.com','2014-06-12',0,'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSF0pus3I09NGJ8VBG0_1Q8No9PYQ2ouoIFhXXN14gSLFIo_C0SPrRdTJYzeA','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -542,7 +565,7 @@ CREATE TABLE `usuarios_has_usuarios` (
 
 LOCK TABLES `usuarios_has_usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios_has_usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios_has_usuarios` VALUES (5,4),(6,4),(7,4),(8,4),(16,4),(4,5),(6,5),(7,5),(8,5),(16,5),(7,6),(8,6),(16,6),(6,7),(8,7),(16,7),(6,8),(7,8),(16,8),(6,9),(7,9),(8,9),(10,9),(11,9),(16,9),(6,10),(7,10),(8,10),(9,10),(11,10),(16,10),(6,11),(7,11),(8,11),(9,11),(10,11),(16,11),(6,16),(7,16),(8,16);
+INSERT INTO `usuarios_has_usuarios` VALUES (5,4),(6,4),(7,4),(8,4),(16,4),(4,5),(6,5),(7,5),(8,5),(16,5),(7,6),(8,6),(16,6),(6,7),(8,7),(16,7),(6,8),(7,8),(16,8),(17,8),(6,9),(7,9),(8,9),(10,9),(11,9),(16,9),(6,10),(7,10),(8,10),(9,10),(11,10),(16,10),(6,11),(7,11),(8,11),(9,11),(10,11),(16,11),(6,16),(7,16),(8,16),(8,17);
 /*!40000 ALTER TABLE `usuarios_has_usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -574,4 +597,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-08 23:10:19
+-- Dump completed on 2014-06-13 14:52:01
