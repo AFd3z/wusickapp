@@ -30,6 +30,8 @@ module.exports = function(app) {
  app.route('/user/registro').post(user.registro);
  app.route('/user/seguir/:id/:id2').post(user.seguir);
  app.route('/user/anadir/:id/:id2').post(user.anadir);
+ app.route('/user/solicitudes/:id').post(user.solicitudes);
+ app.route('/user/numSolicitudes/:id').post(user.numSolicitudes);
  
  //ADMINISTRACION
  app.route('/user/bloquear/:id').post(user.bloquear);

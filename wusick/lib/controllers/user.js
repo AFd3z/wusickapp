@@ -175,8 +175,8 @@ exports.anadir = function (req,res) {
 		  });
 	};
 	
-//Funcion mostrar solicitudes de amistad
-exports.solicitudes = function (req,res) {
+//Funcion mostrar numero solicitudes de amistad
+exports.numSolicitudes = function (req,res) {
 
 	
 		var id = req.params.id;
@@ -193,7 +193,27 @@ exports.solicitudes = function (req,res) {
 			    	res.send(results);
 
 		  });
-	};	
+	};
+	
+//Funcion mostrar solicitudes de amistad
+exports.solicitudes = function (req,res) {
+
+	
+		var id = req.params.id;
+
+		  var sqlconnection = connection.createConnection();
+		  var query = 'SELECT nombre, idUsuario FROM usuarios WHERE idUsuario= ANY(SELECT idSolicitante from solicitudes WHERE idSolicitado='+id+')';
+
+		    sqlconnection.query(query, function(err, results) {
+		        if (err)
+		            res.send(err, "query error");
+
+			    	sqlconnection.end();
+		     
+			    	res.send(results);
+
+		  });
+	};
 
 
 //---------- ADMINISTRACION -----------------
