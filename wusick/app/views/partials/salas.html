@@ -54,7 +54,7 @@
     <div id="amigosListaAmigos">
         <ul class="list-unstyled">
             <li ng-repeat="amigo in amigos" ng-show="amigo.Tipo_usuarios_idTipo_usuarios==3">
-                <a href="" class="cajaAmigo text-center">
+                <a href="/perfil/{{amigo.idUsuario}}" class="cajaAmigo text-center">
                     {{amigo.nombre}}
                 </a>
             </li>

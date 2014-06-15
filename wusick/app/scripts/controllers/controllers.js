@@ -938,3 +938,170 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
     
 }]);
 
+//CONTROLADORES CUENTA
+
+WusickControllers.controller('cuentaCtrl', ['$scope', '$http','$location','webStorage', function ($scope, $http, $location, webStorage) {
+    
+
+    $scope.usuario = webStorage.session.get('usuario');
+     //console.log($scope.usuario);
+         if($scope.usuario==null){
+             smoke.alert('No estas logeado como usuario!');
+             $location.url("/login");
+         };
+         
+         
+     $scope.id = $scope.usuario.idUsuario;
+     console.log($scope.usuario);
+     $scope.datosPost= {};
+     $scope.postear= function(){
+         $scope.datosPost.id = $scope.id;
+        // console.log($scope.datosPost.img);
+         if($scope.datosPost.img===undefined || $scope.datosPost.img===''){
+             $scope.datosPost.img=null;
+         }
+
+         if($scope.datosPost.destinatario===undefined || $scope.datosPost.destinatario===''){
+             $scope.datosPost.destinatario=null;
+         }
+
+             $http.post('/post/postear', $scope.datosPost)
+                 .success(function(data){
+                     $scope.datospost=data[0];
+                     $scope.obtenerPost();
+                     if($scope.amigos.length==0){
+                         smoke.alert('Tienes que tener amigos para postear. Si no...\n ¿Quién lo leería entonces?');
+                     }
+                  
+                 })
+                 .error(function(data) {
+                 console.log('Error:' + data);
+             });
+     }
+
+     $scope.obtenerAmigos= function(){
+         $scope.amigos;
+         $http.post('/api/getFriendsById/'+$scope.id)
+             .success(function(data){
+                 $scope.amigos= data;
+                 $scope.amigosSide= data;
+                 $scope.artistasSide= data;
+                 $scope.salasSide= data;
+
+                  console.log(  $scope.artistasSide);
+             })
+             .error(function(data) {
+                 console.log('Error:' + data);
+             });
+     }
+         
+
+     $scope.obtenerPostPropios= function (){
+         $scope.posts;
+         $http.post('/post/obtenerPostPropios/'+$scope.id)
+              .success(function(data){
+                   console.log(data);
+                   $scope.posts = data;
+                      console.log($scope.posts);
+               })
+              .error(function(data) {
+                         console.log('Error:' + data);
+               });
+         };
+
+         $scope.$on('$viewContentLoaded', function() {
+             $scope.obtenerPostPropios();
+             $scope.obtenerAmigos();
+         });
+
+     setInterval(function(){
+     $scope.$apply(function() {
+         $scope.obtenerPost();
+     });
+ }, 180000);
+     
+     
+/* rerupera datos para el formulario datos*/
+     $scope.userData = {};
+     $scope.modificarUsuario = function(obj){
+         if (true){
+                 $scope.id = obj.target.attributes.data.value;
+                 console.log("controllers.modificaUsuario: "+$scope.id);
+             $http.post('/user/modificarUsuario/'+$scope.id)
+                  .success(function(data){
+                      console.log(data);
+                      $scope.userData = data;
+                      
+                      $scope.nombre = data.nombre;
+                      $scope.email = data.email;
+                      $scope.password = data.password;
+                      $scope.tipo = data.Tipo_usuarios_idTipo_usuarios;
+                     switch ($scope.tipo) {
+                         case 1:/*basicos*/
+                             var fecha = data.fecha_nac;
+                             var fecha_substr = fecha.substring(0, 10);
+                             $scope.userData.fecha_nac = fecha_substr;
+                             $scope.sexo = data.sexo;
+                             $scope.sexos = [{sexo: 'M', nombre: 'Mujer'},
+                                             {sexo: 'H', nombre: 'Hombre'}]
+                         break;
+                         case 2:/*artista*/
+                             $scope.userData.genero = data.Genero;
+                              $http.get('/api/generos')
+                                 .success(function(data){
+                                     console.log(data);
+                                     $scope.userData.generos = data;
+                                 })
+                                .error(function(data) {
+                                         console.log('Error:' + data);
+                                 });
+                         break;
+                         case 3:/*sala*/
+                             $scope.aforo =data.aforo;
+                             $scope.poblacion =data.poblacion;
+                             $scope.direccion =data.direccion;
+                         break;
+                         default:
+                         break;
+                     }
+                  })
+                 .error(function(data) {
+                          console.log('Error:' + data);
+                  });    
+         }else{
+             alert('No se editar� el usuario: '+obj.target.attributes.name.value);
+         }
+     };
+/* ./rerupera datos para el formulario datos*/ 
+     
+/*actualiza el usuario en la bbdd*/
+     $scope.UpdateUsuario = function(){
+         $http.post('/api/existeMail', $scope.userData)
+             .success(function(data){
+                 if(data==false || data[0].email == $scope.email){
+                     $http.post('/user/UpdateUsuario', $scope.userData)
+                     .success(function(data){
+                     $scope.formData = {};
+                     
+                     smoke.alert('Sus nuevos datos son los siguientes: \n Usuario: '+$scope.userData.nombre+'\n Contrase�a: ' +$scope.userData.password+'\n Email: ' +$scope.userData.email+'\n ¡PODRA VER LOS CAMBIOS AL LOGUEARSE OTRA VEZ!', function(e){});
+                    
+                     //setTimeout(function(){location.reload();},4500);
+                    
+                     })
+                     .error(function(data) {
+                         console.log('Error:' + data);
+                     });
+                     $location.url("/cuenta");
+                 }else{
+                     smoke.alert('Ya existe una cuenta asociada al email '+$scope.userData.email+'. ');
+                 }
+             })
+             .error(function(data) {
+                 console.log('Error:' + data);
+             });
+     };
+/*./actualiza el usuario en la bbdd*/
+     
+     
+}]);
+
