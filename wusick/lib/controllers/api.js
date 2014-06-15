@@ -5,7 +5,6 @@
 
 var connection = require('dbfunct/MySQLconnection');
 var nodemailer = require('nodemailer');
-var storeclass = require('storeclass/storeclass');
 
 //Funcion para comprobar si existe mail registrado
 exports.existeMail = function (req,res) {
