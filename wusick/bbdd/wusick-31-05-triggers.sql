@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `mydb` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `mydb`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
 --
--- Host: localhost    Database: mydb
+-- Host: 127.0.0.1    Database: mydb
 -- ------------------------------------------------------
--- Server version	5.6.17-log
+-- Server version	5.5.31
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -163,7 +163,7 @@ CREATE TABLE `basicos` (
 
 LOCK TABLES `basicos` WRITE;
 /*!40000 ALTER TABLE `basicos` DISABLE KEYS */;
-INSERT INTO `basicos` VALUES ('1989-02-15','H',6),('1984-05-07','H',7),('1989-01-02','M',8),('2014-06-04','H',17);
+INSERT INTO `basicos` VALUES ('1989-02-15','H',6),('1984-05-07','H',7),('1989-01-02','M',8),('2014-06-04','H',17),('2014-06-17','H',18);
 /*!40000 ALTER TABLE `basicos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -232,7 +232,7 @@ CREATE TABLE `posts` (
   PRIMARY KEY (`idPosts`),
   KEY `fk_Posts_Usuarios1_idx` (`Usuarios_idUsuario`),
   CONSTRAINT `fk_Posts_Usuarios1` FOREIGN KEY (`Usuarios_idUsuario`) REFERENCES `usuarios` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -241,7 +241,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,'hola prueba','2014-06-03 00:00:00',NULL,NULL,6),(2,'hola prueba user 7','2014-06-03 19:17:40',NULL,NULL,7),(3,'hola prueba user 8','2014-06-03 19:20:30',NULL,NULL,8),(4,'hola prueba user 16','2014-06-03 19:34:35',NULL,NULL,16),(5,'hola prueba artista 4','2014-06-03 19:34:36',NULL,NULL,4),(6,'hola prueba artista 5','2014-06-03 19:34:37',NULL,NULL,5),(7,'hola prueba sala 9','2014-06-03 19:34:38',NULL,NULL,9),(8,'hola prueba sala 10','2014-06-03 19:34:39',NULL,NULL,10),(9,'hola prueba sala 11','2014-06-03 19:34:45',NULL,NULL,11),(21,'pruebnulls','2014-06-08 17:33:35',NULL,NULL,8),(24,'HOLAAAAAAAA','2014-06-08 19:42:34','http://www.ihpamplona.es/imagenes/prueba_nivel.jpg',NULL,8),(25,'pruebaaaaaaaa','2014-06-08 21:10:04',NULL,'juanBasico',8),(26,'Fieston Zoologico este SABADO 7!!','2014-06-08 22:47:28','https://scontent-a-cdg.xx.fbcdn.net/hphotos-xpf1/t1.0-9/10308482_261596074028345_2161295853644790179_n.jpg',NULL,9),(27,'NUevo Sorteo en la sala Caracol!!! Ven a tu concierto favorito GRATIS!!!','2014-06-08 22:49:47','http://www.salacaracol.com/web/images/imagenes/noticias/sorteo%20entradas.jpg',NULL,11);
+INSERT INTO `posts` VALUES (1,'hola prueba','2014-06-03 00:00:00',NULL,NULL,6),(2,'hola prueba user 7','2014-06-03 19:17:40',NULL,NULL,7),(3,'hola prueba user 8','2014-06-03 19:20:30',NULL,NULL,8),(4,'hola prueba user 16','2014-06-03 19:34:35',NULL,NULL,16),(5,'hola prueba artista 4','2014-06-03 19:34:36',NULL,NULL,4),(6,'hola prueba artista 5','2014-06-03 19:34:37',NULL,NULL,5),(7,'hola prueba sala 9','2014-06-03 19:34:38',NULL,NULL,9),(8,'hola prueba sala 10','2014-06-03 19:34:39',NULL,NULL,10),(9,'hola prueba sala 11','2014-06-03 19:34:45',NULL,NULL,11),(21,'pruebnulls','2014-06-08 17:33:35',NULL,NULL,8),(24,'HOLAAAAAAAA','2014-06-08 19:42:34','http://www.ihpamplona.es/imagenes/prueba_nivel.jpg',NULL,8),(25,'pruebaaaaaaaa','2014-06-08 21:10:04',NULL,'juanBasico',8),(26,'Fieston Zoologico este SABADO 7!!','2014-06-08 22:47:28','https://scontent-a-cdg.xx.fbcdn.net/hphotos-xpf1/t1.0-9/10308482_261596074028345_2161295853644790179_n.jpg',NULL,9),(27,'NUevo Sorteo en la sala Caracol!!! Ven a tu concierto favorito GRATIS!!!','2014-06-08 22:49:47','http://www.salacaracol.com/web/images/imagenes/noticias/sorteo%20entradas.jpg',NULL,11),(28,'HOLAAAA','2014-06-13 19:33:35',NULL,NULL,8);
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -338,7 +338,10 @@ DROP TABLE IF EXISTS `solicitudes`;
 CREATE TABLE `solicitudes` (
   `idSolicitante` int(11) NOT NULL,
   `idSolicitado` int(11) NOT NULL,
-  PRIMARY KEY (`idSolicitante`,`idSolicitado`)
+  PRIMARY KEY (`idSolicitante`,`idSolicitado`),
+  KEY `idSolicitado_idx` (`idSolicitado`),
+  CONSTRAINT `idsSolicitante` FOREIGN KEY (`idSolicitante`) REFERENCES `usuarios` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `idSolicitado` FOREIGN KEY (`idSolicitado`) REFERENCES `usuarios` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -422,7 +425,7 @@ CREATE TABLE `usuarios` (
   UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_Usuarios_Tipo_usuarios1_idx` (`Tipo_usuarios_idTipo_usuarios`),
   CONSTRAINT `fk_Usuarios_Tipo_usuarios1` FOREIGN KEY (`Tipo_usuarios_idTipo_usuarios`) REFERENCES `tipo_usuarios` (`idTipo_usuarios`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -431,7 +434,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31',0,'','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31',0,'','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31',0,'','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31',0,'','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31',0,'','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31',0,'','',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31',0,'','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31',0,'','',3),(16,'pepito','pepito','pepito@pepito','2014-06-02',0,'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1),(17,'yoyoyoyo','yoyoyoyo','jha1986@gmail.com','2014-06-12',0,'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSF0pus3I09NGJ8VBG0_1Q8No9PYQ2ouoIFhXXN14gSLFIo_C0SPrRdTJYzeA','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1);
+INSERT INTO `usuarios` VALUES (4,'Ludwig','ludwig','ludwig@ludwig','2014-05-31',0,'','',2),(5,'Metallico','metallico','metallico@metallico','2014-05-31',0,'','',2),(6,'pedroBasico','pedroBasico','pedro@pedro','2014-05-31',0,'','',1),(7,'juanBasico','juanBasico','juan@juan','2014-05-31',0,'','',1),(8,'anaBasico','anaBasico','ana@ana','2014-05-31',0,'','',1),(9,'Marco Aldany','marcoaldany','marcoaldany@marcoaldany','2014-05-31',0,'','http://www.viciousmagazine.com/viciousmusicawards/imagenes/nominados/marco_aldany_grande.jpg',3),(10,'La Riviera','lariviera','lariviera@lariviera','2014-05-31',0,'','',3),(11,'Sala Caracol','salacaracol','salacaracol@salacaracol','2014-05-31',0,'','',3),(16,'pepito','pepito','pepito@pepito','2014-06-02',0,'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1),(17,'yoyoyoyo','yoyoyoyo','jha1986@gmail.com','2014-06-12',0,'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSF0pus3I09NGJ8VBG0_1Q8No9PYQ2ouoIFhXXN14gSLFIo_C0SPrRdTJYzeA','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1),(18,'Pedrito','pedrito','pedrito@pedrito','2014-06-13',0,'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSF0pus3I09NGJ8VBG0_1Q8No9PYQ2ouoIFhXXN14gSLFIo_C0SPrRdTJYzeA','http://utilizadosporcristo.com.ar/img/headerPrincipal.jpg',1);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -597,4 +600,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-13 14:52:01
+-- Dump completed on 2014-06-15 22:46:50
