@@ -116,3 +116,23 @@ exports.obtenerPostPropios = function (req,res) {
 	             }
 	            });
 };
+
+//Función de recuperación de posts escritos por un id
+exports.obtenerPostDeUnId = function (req,res) {
+	
+	var id =req.params.id;
+
+	var sqlconnection = connection.createConnection();
+	var query = 'select p.idPosts, p.fecha, p.post_img, p.contenido, p.destinatario, u.nombre, u.idUsuario from posts p, usuarios u where p.Usuarios_idUsuario = '+id+' and u.idUsuario = p.Usuarios_idUsuario';
+	           
+	    sqlconnection.query(query, function(err, results) {
+	            if (err){
+	               res.send(err, "query error");
+	                  
+	               }else{
+	               res.send(results);
+	             }
+	            });
+};
+
+

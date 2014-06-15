@@ -450,7 +450,7 @@ WusickControllers.controller('pwdOlviCtrl', ['$scope', '$http', '$location', fun
                             .success(function(data){
                             	console.log(data[0])
                                 if(data==='mailOK'){
-                                smoke.alert('Se ha enviado un correo a la cuenta introducida a travÈs de cual restablecer la contraseÒa.'); 
+                                smoke.alert('Se ha enviado un correo a la cuenta introducida a travÔøΩs de cual restablecer la contraseÔøΩa.'); 
                                 $location.url('/login');
                                 }
                                 else
@@ -499,10 +499,10 @@ WusickControllers.controller('solicitudesCtrl', ['$scope', '$http', '$location',
         $http.post('user/anadirAAmigos/'+$scope.id+'/'+obj.target.attributes.data.value)
         .success(function(data){
         	if(data=="ok"){
-        		smoke.alert ("Se aÒadiÛ correctamente el amigo");
+        		smoke.alert ("Se aÔøΩadiÔøΩ correctamente el amigo");
         		$scope.solicitudes();
         	}else{
-        		smoke.alert ("Hubo un error aÒadiendo el amigo");
+        		smoke.alert ("Hubo un error aÔøΩadiendo el amigo");
         	}                
         })
         .error(function(data) {
@@ -515,7 +515,7 @@ WusickControllers.controller('solicitudesCtrl', ['$scope', '$http', '$location',
         $http.post('user/noAnadir/'+$scope.id+'/'+obj.target.attributes.data.value)
         .success(function(data){
         	if(data=="ok"){
-        		smoke.alert ("No se aÒadir· el amigo");
+        		smoke.alert ("No se aÔøΩadirÔøΩ el amigo");
         		$scope.solicitudes();
         		
         	}else{
@@ -660,53 +660,86 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
     };
   
     $scope.bloquear = function(obj){
-    	var c = confirm('Bloquear usuario '+obj.target.attributes.name.value+' ?');
-    	if (c==true){
-    	 $http.post('/user/bloquear/'+obj.target.attributes.data.value)
-         .success(function(data){
-                console.log(data);
-                location.reload();
-         })
-        .error(function(data) {
-                 console.log('Error:' + data);
-         });
-    	}else{
-    		alert('No se bloqueara el usuario '+obj.target.attributes.name.value);
-    	}
+    	smoke.confirm('Bloquear usuario '+obj.target.attributes.name.value+' ?', function(e){
+    		if (e){
+    	    	 $http.post('/user/bloquear/'+obj.target.attributes.data.value)
+    	         .success(function(data){
+    	                console.log(data);
+    	                location.reload();
+    	         })
+    	        .error(function(data) {
+    	                 console.log('Error:' + data);
+    	         });
+    	    	 
+    	    	 smoke.signal("El Usuario: "+obj.target.attributes.name.value+' ha sido blokeado', function(e){
+    	    	 }, {
+    	    	 	duration: 1000,
+    	    	 	classname: "custom-class"
+    	    	 });
+    		}else{
+    			//alert('No se bloqueara el usuario '+obj.target.attributes.name.value);
+    		}
+    	},{
+    		ok: "SI",
+    		cancel: "NO",
+    		classname: "custom-class",
+    		reverseButtons: true
+    	});
     };
     
     $scope.desbloquear = function(obj){
-    	var c = confirm('Desbloquear usuario '+obj.target.attributes.name.value+' ?');
-    	if (c==true){
-    	 $http.post('/user/desbloquear/'+obj.target.attributes.data.value)
-         .success(function(data){
-                console.log(data);
-                location.reload();
-         })
-        .error(function(data) {
-                 console.log('Error:' + data);
-         });
-    	}else{
-    		alert('No se desbloqueara el usuario '+obj.target.attributes.name.value);
-    		
-    	}
-  
+    	smoke.confirm('Desbloquear usuario '+obj.target.attributes.name.value+' ?', function(e){
+    		if (e){
+    	    	 $http.post('/user/desbloquear/'+obj.target.attributes.data.value)
+    	         .success(function(data){
+    	                console.log(data);
+    	                location.reload();
+    	         })
+    	        .error(function(data) {
+    	                 console.log('Error:' + data);
+    	         });
+    	    	 smoke.signal("El Usuario: "+obj.target.attributes.name.value+' ha sido desblokeado', function(e){
+    	    	 }, {
+    	    	 	duration: 1000,
+    	    	 	classname: "custom-class"
+    	    	 });
+    		}else{
+    			//alert('No se desbloqueara el usuario '+obj.target.attributes.name.value);
+    		}
+    	},{
+    		ok: "SI",
+    		cancel: "NO",
+    		classname: "custom-class",
+    		reverseButtons: true
+    	});
     };
     
     $scope.borrarUsuario = function(obj){
-    	var c = confirm('Est√° seguro de querer BORRAR el usuario '+obj.target.attributes.name.value+' ?');
-    	if (c==true){
-    	 $http.post('/user/borrarUsuario/'+obj.target.attributes.data.value)
-         .success(function(data){
-                console.log(data);
-                location.reload();
-         })
-        .error(function(data) {
-                 console.log('Error:' + data);
-         });
-    	}else{
-    		alert('No se borrar√° el usuario '+obj.target.attributes.name.value);
-    	}
+    	
+    	smoke.confirm('Est√° seguro de querer BORRAR el usuario '+obj.target.attributes.name.value+' ?',function(e){
+    		if (e){
+    	    	 $http.post('/user/borrarUsuario/'+obj.target.attributes.data.value)
+    	         .success(function(data){
+    	                console.log(data);
+    	                location.reload();
+    	         })
+    	        .error(function(data) {
+    	                 console.log('Error:' + data);
+    	         });
+    	    	 smoke.signal("El Usuario: "+obj.target.attributes.name.value+' ha sido eliminado!', function(e){
+    	    	 }, {
+    	    	 	duration: 1000,
+    	    	 	classname: "custom-class"
+    	    	 });
+    		}else{
+    			//alert('No se borrar√° el usuario '+obj.target.attributes.name.value);
+    		}
+    	},{
+    		ok: "SI",
+    		cancel: "NO",
+    		classname: "custom-class",
+    		reverseButtons: true
+    	});
     };
     
     $scope.userData = {};
@@ -756,27 +789,30 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
                          console.log('Error:' + data);
                  });    
         }else{
-            alert('No se editar· el usuario: '+obj.target.attributes.name.value);
+            alert('No se editarÔøΩ el usuario: '+obj.target.attributes.name.value);
         }
     };
     
     
-    
     $scope.UpdateUsuario = function(){
-        
-        //console.log("controllers.UpdateUsuario: "+$scope.email);
         $http.post('/api/existeMail', $scope.userData)
             .success(function(data){
                 if(data==false || data[0].email == $scope.email){
                     $http.post('/user/UpdateUsuario', $scope.userData)
                     .success(function(data){
                     $scope.formData = {};
-                    //$("#myModal").attr("style", "display:none");
+                    
                     $("#myModal").toggle('slow');
                     $('.modal-backdrop').attr("style", "display:none");
-                    var x = smoke.alert('Sus nuevos datos son los siguientes: \n Usuario: '+$scope.userData.nombre+'\n ContraseÒa: ' +$scope.userData.password+'\n Email: ' +$scope.userData.email);
-                    //$http.post('/user/modificarUsuario/'+$scope.id).success(function(data){ $scope.userData = data;});
-    				setTimeout(function(){location.reload();},5000);
+    				
+    				smoke.signal('Sus nuevos datos son los siguientes: \n Usuario: '+$scope.userData.nombre+'\n ContraseÔøΩa: ' +$scope.userData.password+'\n Email: ' +$scope.userData.email, function(e){
+	       	    	 },{
+	       	    	 	duration: 4500,
+	       	    	 	classname: "custom-class"
+	       	    	 });
+    				
+    				setTimeout(function(){location.reload();},4500);
+    				
                     })
                     .error(function(data) {
                         console.log('Error:' + data);
@@ -790,6 +826,44 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
                 console.log('Error:' + data);
             });
     };
+    
+    
+	$scope.listarPosts= function(obj){
+		$scope.postsDelUsuario={};
+		$scope.postsDelUsuario.id = obj.target.attributes.data.value;
+	        
+	        $http.post('/post/obtenerPostDeUnId/'+$scope.postsDelUsuario.id)
+	             .success(function(data){
+	                  console.log(data);
+	                  $scope.postsDelUsuario = data;
+	                  console.log($scope.postsDelUsuario);
+	              })
+	             .error(function(data) {
+	                        console.log('Error:' + data);
+	              });
+    };
+    
+    
+    $scope.eliminarPost = function(obj){
+    	var c = confirm('¬ø Est√° seguro de querer ELIMINAR este post ?');
+    	if (c==true){
+    	 $http.post('/post/borrarPost/'+obj.target.attributes.data.value)
+         .success(function(data){
+                console.log("----> " + data);
+                //$("#modalPost").toggle();
+                alert('!Post eliminado!');
+         })
+        .error(function(data) {
+                 console.log('Error::' + data);
+                 //$("#"+obj.target.attributes.data.value).css('text-decoration', 'line-through');
+                 //$("#"+obj.target.attributes.data.value).css('display', 'none');
+                 $("#"+obj.target.attributes.data.value).html('post: '+obj.target.attributes.data.value+' Eliminado!').css('color', 'red');
+         });
+    	}else{
+    		//alert('No se borrar√° el Post '+obj.target.attributes.data.value);
+    	}
+    };
+    
     
     $scope.ordenarPor = function (orden){
         $scope.ordenSel = orden;
