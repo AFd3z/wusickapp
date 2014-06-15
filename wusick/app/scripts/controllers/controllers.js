@@ -656,7 +656,7 @@ WusickControllers.controller('perfilCtrl', ['$scope', '$http','$location','webSt
             $http.post('/post/obtenerPostPropios/'+$scope.id)
                  .success(function(data){
                       $scope.posts = data;
-                  })
+                })
                  .error(function(data) {
                             console.log('Error:' + data);
                   });
