@@ -52,7 +52,7 @@ WusickControllers.controller('loginCtrl', ['$scope', '$location', '$http', 'webS
         if($scope.sessionUser!=undefined){
         $rootScope.id=$scope.sessionUser.idUsuario;
         }
-        console.log($scope.sessionUser);
+
 
         if($scope.sessionUser!='null'){
             webStorage.session.clear();
@@ -201,7 +201,16 @@ WusickControllers.controller('amigosCtrl', ['$scope', '$http','$location', 'webS
                 $scope.obtenerAmigos();
                  $scope.obtenerListado();
             });
+$scope.menu = [
+  {'title': 'Perfil','link': '/perfil/'+$scope.usuario.idUsuario},
+  {'title': 'Cuenta','link': '/cuenta'},
+  {'title': 'Salir','link': '/login'}
 
+  ];
+  
+  $scope.isActive = function(route) {
+    return route === $location.path();
+  };
 
 }]);
 
@@ -269,7 +278,16 @@ WusickControllers.controller('artistasCtrl', ['$scope', '$http','$location', 'we
                  $scope.obtenerListado();
             });
 
+$scope.menu = [
+  {'title': 'Perfil','link': '/perfil/'+$scope.usuario.idUsuario},
+  {'title': 'Cuenta','link': '/cuenta'},
+  {'title': 'Salir','link': '/login'}
 
+  ];
+  
+  $scope.isActive = function(route) {
+    return route === $location.path();
+  };
 }]);
 //
 
@@ -335,15 +353,8 @@ WusickControllers.controller('salasCtrl', ['$scope', '$http','$location', 'webSt
                  $scope.obtenerListado();
             });
 
-
-}]);
-
-//CONTROLADOR NAVBARMAIN
-
-WusickControllers.controller('NavbarMainCtrl',['$scope','$location', function ($scope, $location) {
-	
-  $scope.menu = [
-  {'title': 'Perfil','link': '/perfil/'+$scope.$parent.id},
+        $scope.menu = [
+  {'title': 'Perfil','link': '/perfil/'+$scope.usuario.idUsuario},
   {'title': 'Cuenta','link': '/cuenta'},
   {'title': 'Salir','link': '/login'}
 
@@ -352,7 +363,15 @@ WusickControllers.controller('NavbarMainCtrl',['$scope','$location', function ($
   $scope.isActive = function(route) {
     return route === $location.path();
   };
+
 }]);
+
+//CONTROLADOR NAVBARMAIN
+
+/*WusickControllers.controller('NavbarMainCtrl',['$scope','$location','$rootScope', function ($scope, $location, $rootScope) {
+	
+  
+}]);*/
 
 
 //CONTROLADOR MAIN
@@ -436,6 +455,17 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
             $scope.obtenerPost();
         });
     }, 180000);
+
+        $scope.menu = [
+  {'title': 'Perfil','link': '/perfil/'+$scope.usuario.idUsuario},
+  {'title': 'Cuenta','link': '/cuenta'},
+  {'title': 'Salir','link': '/login'}
+
+  ];
+  
+  $scope.isActive = function(route) {
+    return route === $location.path();
+  };
 }]);
 
 //CONTROLADOR PASS OLVIDADO
@@ -531,26 +561,53 @@ WusickControllers.controller('solicitudesCtrl', ['$scope', '$http', '$location',
     $scope.$on('$viewContentLoaded', function() {
         $scope.solicitudes();
     });
+
+    $scope.menu = [
+  {'title': 'Perfil','link': '/perfil/'+$scope.usuario.idUsuario},
+  {'title': 'Cuenta','link': '/cuenta'},
+  {'title': 'Salir','link': '/login'}
+
+  ];
+  
+  $scope.isActive = function(route) {
+    return route === $location.path();
+  };
     
 
 }]);
 
 //CONTROLADOR PERFIL
 
-WusickControllers.controller('perfilCtrl', ['$scope', '$http','$location','webStorage', function ($scope, $http, $location, webStorage) {
+WusickControllers.controller('perfilCtrl', ['$scope', '$http','$location','webStorage', '$routeParams', function ($scope, $http, $location, webStorage, $routeParams) {
         
-
+       $scope.usuarioPerfil={};
+       $scope.datosPost= {};
        $scope.usuario = webStorage.session.get('usuario');
         //console.log($scope.usuario);
             if($scope.usuario==null){
                 smoke.alert('No estas logeado como usuario!');
                 $location.url("/login");
             };
-            
-            
-        $scope.id = $scope.usuario.idUsuario;
-        console.log($scope.usuario);
-        $scope.datosPost= {};
+
+        $scope.id = $routeParams.id;
+        $scope.idSession= $scope.usuario.idUsuario;
+        $scope.usuarioPerfil.id= $scope.id;
+
+        $scope.obtenerUsuarioPerfil= function(){
+
+            $http.post('/api/getUserById', $scope.usuarioPerfil)
+                .success(function(data){
+                    
+                    $scope.usuarioPerfil= data[0];
+                    console.log($scope.usuarioPerfil.nombre);
+
+                })
+               .error(function(data) {
+                    console.log('Error:' + data);
+                });
+        }
+
+
         $scope.postear= function(){
             $scope.datosPost.id = $scope.id;
            // console.log($scope.datosPost.img);
@@ -565,7 +622,7 @@ WusickControllers.controller('perfilCtrl', ['$scope', '$http','$location','webSt
                 $http.post('/post/postear', $scope.datosPost)
                     .success(function(data){
                         $scope.datospost=data[0];
-                        $scope.obtenerPost();
+                        $scope.obtenerPostPropios();
                         if($scope.amigos.length==0){
                             smoke.alert('Tienes que tener amigos para postear. Si no...\n ¿Quién lo leería entonces?');
                         }
@@ -578,14 +635,12 @@ WusickControllers.controller('perfilCtrl', ['$scope', '$http','$location','webSt
 
         $scope.obtenerAmigos= function(){
             $scope.amigos;
-            $http.post('/api/getFriendsById/'+$scope.id)
+            $http.post('/api/getFriendsById/'+$scope.idSession)
                 .success(function(data){
                     $scope.amigos= data;
                     $scope.amigosSide= data;
                     $scope.artistasSide= data;
                     $scope.salasSide= data;
-
-                     console.log(  $scope.artistasSide);
                 })
                 .error(function(data) {
                     console.log('Error:' + data);
@@ -597,9 +652,7 @@ WusickControllers.controller('perfilCtrl', ['$scope', '$http','$location','webSt
             $scope.posts;
             $http.post('/post/obtenerPostPropios/'+$scope.id)
                  .success(function(data){
-                      console.log(data);
                       $scope.posts = data;
-                         console.log($scope.posts);
                   })
                  .error(function(data) {
                             console.log('Error:' + data);
@@ -609,13 +662,25 @@ WusickControllers.controller('perfilCtrl', ['$scope', '$http','$location','webSt
             $scope.$on('$viewContentLoaded', function() {
                 $scope.obtenerPostPropios();
                 $scope.obtenerAmigos();
+                $scope.obtenerUsuarioPerfil();
             });
 
         setInterval(function(){
         $scope.$apply(function() {
-            $scope.obtenerPost();
+            $scope.obtenerPostPropios();
         });
     }, 180000);
+$scope.menu = [
+  {'title': 'Perfil','link': '/perfil/' +$scope.usuario.idUsuario},
+  {'title': 'Cuenta','link': '/cuenta'},
+  {'title': 'Salir','link': '/login'}
+
+  ];
+  
+  $scope.isActive = function(route) {
+    return route === $location.path();
+  };
+
 }]);
 
 

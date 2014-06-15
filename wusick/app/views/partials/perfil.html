@@ -6,13 +6,13 @@
                      <img id="header-image" src="http://images.fineartamerica.com/images-medium-large/loose-goose-iv-hot-air-balloon-rally-img-6492-torrey-smith.jpg" height="200" class="img-responsive" />
                      <div id="sum-perfil">
                         <img src="http://www.codeproject.com/KB/GDI-plus/ImageProcessing2/img.jpg" height="60" width="60" />
-                        <h4>{{usuario.nombre}}</h4>
+                        <h4>{{usuarioPerfil.nombre}}</h4>
                      </div>
 
             </div>
-
+            
 			<div class="col-xs-12 mainmid" id="mainmid-perfil">
-                <div class="tabbable widget" id="labcomment">
+                <div class="tabbable widget" id="labcomment" ng-show="usuarioPerfil.idUsuario==usuario.idUsuario">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="" data-toggle="tab">· Post ·</a></li>
                 </ul>
@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-                <form role="form" id="cf1">
+                <form role="form" id="cf1" ng-show="usuarioPerfil.idUsuario==usuario.idUsuario">
                     <textarea class="form-control" id="comment" resise="none" ng-required="true" ng-model="datosPost.contenido"></textarea>
                    <select ng-model="datosPost.destinatario" class="form-control">
                         <option selected="selected" value="">¿Algún destinatario en particular?</option>
@@ -41,7 +41,7 @@
                             <div class="post">
                                 <div class="posthead">
                                     <img ng-src="{{usuario.profile_img}}" class="img-responsive" heigth="50" width="50"/>
-                                    <a href=""><strong class="text-info">{{usuario.nombre}}</strong></a>
+                                    <a href=""><strong class="text-info">{{usuarioPerfil.nombre}}</strong></a>
                                      <a href="" ng-show="post.destinatario!=null">
                                         <strong class="text-info">  -->  {{post.destinatario}}</strong>
                                     </a>

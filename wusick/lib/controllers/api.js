@@ -127,20 +127,17 @@ exports.getAdminByEmail = function(req, res){
 
 //Función para obtener el nombre de usuario a través del id
 exports.getUserById = function(req, res){
-	var id=req.session.idUsuario;
+	var id= req.body.id;
 	console.log(id);
 	var sqlconnection = connection.createConnection();
-	var query = 'SELECT nombre FROM usuarios WHERE idUsuario="'+id+'";';
+	var query = 'SELECT * FROM usuarios WHERE idUsuario="'+id+'";';
 	           
 	    sqlconnection.query(query, function(err, results) {
 	            if (err){
 	               res.send(err, "query error");
 	                  
 	               }else{
-	            	   console.log(results);
-	               req.session.user=results;
-	               console.log(req.session.user);
-	               res.send(req.session.user);
+	               res.send(results);
 	             }
 	            });
 };

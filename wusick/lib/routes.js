@@ -20,7 +20,7 @@ module.exports = function(app) {
  app.route('/api/crearSesion').post(api.crearSesion);
  app.route('/api/getIdByEmail').post(api.getIdByEmail);
  app.route('/api/getAdminByEmail').post(api.getAdminByEmail);
- app.route('/api/getUserById').get(api.getUserById);
+ app.route('/api/getUserById').post(api.getUserById);
  app.route('/api/getFriendsById/:id').post(api.getFriendsById);
  app.route('/api/recuperarPwd').post(api.recuperarPwd);
  

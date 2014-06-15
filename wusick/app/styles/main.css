@@ -394,7 +394,7 @@ h4#welcome{
     display: block;
     padding:0;
     font-size: 12px;
-    line-height: .5em;
+    line-height: 1.5em;
 }
 
 .sideMenu > li > ul > li > a:hover {
