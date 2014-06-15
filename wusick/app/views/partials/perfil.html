@@ -45,7 +45,7 @@
                                     <a href="" ng-show="post.destinatario!=null">
                                         <strong class="text-info">  -->  {{post.destinatario}}</strong>
                                     </a>
-                                    <span ng-click="eliminarPost(post.idPosts)" class="text-danger text-right eliminar">X</span>
+                                    <span ng-click="eliminarPost(post.idPosts)" class="text-danger text-right eliminar" ng-show="usuarioPerfil.idUsuario==usuario.idUsuario">X</span>
                                     <small class="text-right">{{post.fecha | date:'medium'}}</small>
                                 </div>
                                 <p>{{post.contenido}}</p>
