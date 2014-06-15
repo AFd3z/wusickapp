@@ -626,6 +626,14 @@ position: relative;
     margin-top: -60px;
 }
 
+#solicitudes{
+    margin-top: 70px;
+    text-align: center;
+}
+
+#solicitudes span {
+    margin-left: 15px;
+}
 
 
 @media screen and (max-width: 992px){
