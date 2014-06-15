@@ -195,22 +195,28 @@ WusickControllers.controller('amigosCtrl', ['$scope', '$http','$location', 'webS
         $scope.ordenSel = orden;
     }
 
-
         $scope.$on('$viewContentLoaded', function() {
                 
                 $scope.obtenerAmigos();
-                 $scope.obtenerListado();
+                $scope.obtenerListado();
             });
-$scope.menu = [
-  {'title': 'Perfil','link': '/perfil/'+$scope.usuario.idUsuario},
-  {'title': 'Cuenta','link': '/cuenta'},
-  {'title': 'Salir','link': '/login'}
 
-  ];
-  
-  $scope.isActive = function(route) {
+
+
+    $scope.menu = [
+      {'title': 'Perfil','link': '/perfil/'+$scope.usuario.idUsuario},
+      {'title': 'Cuenta','link': '/cuenta'},
+      {'title': 'Salir','link': '/login'}
+
+      ];
+      
+   $scope.isActive = function(route) {
     return route === $location.path();
-  };
+   };
+
+
+
+
 
 }]);
 
@@ -423,8 +429,6 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
                     $scope.amigosSide= data;
                     $scope.artistasSide= data;
                     $scope.salasSide= data;
-
-                     console.log(  $scope.artistasSide);
                 })
                 .error(function(data) {
                     console.log('Error:' + data);
@@ -436,7 +440,6 @@ WusickControllers.controller('mainCtrl', ['$scope', '$http','$location','webStor
 	    	$scope.posts;
 	        $http.post('/post/obtenerPost/'+$scope.id)
 	             .success(function(data){
-	                  //console.log(data);
 	                  $scope.posts = data;
                          console.log($scope.posts);
 	              })
@@ -658,6 +661,26 @@ WusickControllers.controller('perfilCtrl', ['$scope', '$http','$location','webSt
                             console.log('Error:' + data);
                   });
             };
+
+          $scope.eliminarPost = function(obj){
+        var c = confirm('¿ Está seguro de querer ELIMINAR este post ?');
+        if (c==true){
+         $http.post('/post/borrarPost/'+obj.target.attributes.data.value)
+         .success(function(data){
+                console.log("----> " + data);
+                //$("#modalPost").toggle();
+                alert('!Post eliminado!');
+         })
+        .error(function(data) {
+                 console.log('Error::' + data);
+                 //$("#"+obj.target.attributes.data.value).css('text-decoration', 'line-through');
+                 //$("#"+obj.target.attributes.data.value).css('display', 'none');
+                 $("#"+obj.target.attributes.data.value).html('post: '+obj.target.attributes.data.value+' Eliminado!').css('color', 'red');
+         });
+        }else{
+            //alert('No se borrará el Post '+obj.target.attributes.data.value);
+        }
+    };
 
             $scope.$on('$viewContentLoaded', function() {
                 $scope.obtenerPostPropios();

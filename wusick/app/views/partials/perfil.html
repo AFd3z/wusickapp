@@ -41,11 +41,13 @@
                             <div class="post">
                                 <div class="posthead">
                                     <img ng-src="{{usuario.profile_img}}" class="img-responsive" heigth="50" width="50"/>
-                                    <a href=""><strong class="text-info">{{usuarioPerfil.nombre}}</strong></a>
+                                    <a ng-href=""><strong class="text-info">{{usuarioPerfil.nombre}}</strong></a>
                                      <a href="" ng-show="post.destinatario!=null">
                                         <strong class="text-info">  -->  {{post.destinatario}}</strong>
                                     </a>
+                                    <span ng-click="eliminarPost(post.idPosts)" class="text-danger text-right eliminar">X</span>
                                     <small class="text-right">{{post.fecha | date:'medium'}}</small>
+
                                 </div>
                                 <p>{{post.contenido}}</p>
                                 <p ng-show="post.img!='null'">

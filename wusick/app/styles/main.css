@@ -202,10 +202,22 @@ h4#welcome{
 }
 .posthead small{
     float:right;
+    padding-right:15px; 
+}
+
+.posthead{
+    height: 35px;
+    line-height: 35px;
 }
 
 .post p{
     padding: 15px;
+}
+
+.posthead span.eliminar{
+    float: right;
+    line-height: 5px;
+    cursor: pointer;
 }
 /* =================================
                 comment
