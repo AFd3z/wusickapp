@@ -662,25 +662,25 @@ WusickControllers.controller('perfilCtrl', ['$scope', '$http','$location','webSt
                   });
             };
 
-          $scope.eliminarPost = function(obj){
-        var c = confirm('¿ Está seguro de querer ELIMINAR este post ?');
-        if (c==true){
-         $http.post('/post/borrarPost/'+obj.target.attributes.data.value)
-         .success(function(data){
-                console.log("----> " + data);
-                //$("#modalPost").toggle();
-                alert('!Post eliminado!');
-         })
-        .error(function(data) {
-                 console.log('Error::' + data);
-                 //$("#"+obj.target.attributes.data.value).css('text-decoration', 'line-through');
-                 //$("#"+obj.target.attributes.data.value).css('display', 'none');
-                 $("#"+obj.target.attributes.data.value).html('post: '+obj.target.attributes.data.value+' Eliminado!').css('color', 'red');
-         });
-        }else{
-            //alert('No se borrará el Post '+obj.target.attributes.data.value);
-        }
-    };
+            $scope.eliminarPost = function(obj){
+                console.log("se eliminará el post: "+obj);
+                var c = confirm('¿ Está seguro de querer ELIMINAR este post ?');
+                if (c==true){
+                 $http.post('/post/borrarPost/'+obj)
+                 .success(function(data){
+                        console.log("----> " + data);
+                        //$("#modalPost").toggle();
+                        alert('!Post eliminado ok!');
+                        $( "#"+obj ).html( "post eliminado" ).css('color', 'red');
+                 })
+                .error(function(data) {
+                         console.log('Error::' + data);
+                         $( "#"+obj ).html( "post eliminado" ).css('color', 'red');
+                 });
+                }else{
+                    //alert('No se borrará el Post '+obj.target.attributes.data.value);
+                }
+            };
 
             $scope.$on('$viewContentLoaded', function() {
                 $scope.obtenerPostPropios();
@@ -1125,6 +1125,16 @@ WusickControllers.controller('cuentaCtrl', ['$scope', '$http','$location','webSt
      };
 /*./actualiza el usuario en la bbdd*/
      
+     $scope.menu = [
+                    {'title': 'Perfil','link': '/perfil/' +$scope.usuario.idUsuario},
+                    {'title': 'Cuenta','link': '/cuenta'},
+                    {'title': 'Salir','link': '/login'}
+
+                    ];
+                    
+    $scope.isActive = function(route) {
+      return route === $location.path();
+    };  
      
 }]);
 
