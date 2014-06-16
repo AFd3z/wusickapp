@@ -35,14 +35,15 @@
                                     <img ng-src="{{usuario.profile_img}}" class="img-responsive" heigth="30" width="30"/>
                                     <a ng-href="/perfil/{{post.idautor}}"><strong class="text-info">{{post.nombre}}</strong></a>
                                      <a ng-show="post.destinatario!=null">
-                                        <strong class="text-info">  -->  {{post.destinatario}}</strong>
+                                        <img src="">
+                                        <strong class="text-info">{{post.destinatario}}</strong>
                                     </a>
                                     <small class="text-right">{{post.fecha | date:'medium'}}</small>
                                 </div>
                                 <p>{{post.contenido}}</p>
                                 <p ng-show="post.img!='null'">
                                  <a ng-href="{{post.img}}" alt="imagen">   
-                                     <img class="img-responsive" data-ng-src="{{post.img}}" Post">
+                                     <img class="img-responsive" ng-src="{{post.img}}">
                                 </a>
                                 </p>
                             </div>
