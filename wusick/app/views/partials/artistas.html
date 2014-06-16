@@ -53,6 +53,9 @@
     
     <div id="amigosListaAmigos">
         <ul class="list-unstyled">
+          <div ng-if="amigos==''"> 
+                <p class="h3 text-info" style="font-weight:100;"><spam style="text-transform: capitalize;">{{usuario.nombre}}</spam>,actualmente no sigues a ningún artista.</p>
+              </div>
             <li ng-repeat="amigo in amigos" ng-show="amigo.Tipo_usuarios_idTipo_usuarios==2">
                 <a ng-href="/perfil/{{amigo.idUsuario}}" class="cajaAmigo text-center">
                     {{amigo.nombre}}

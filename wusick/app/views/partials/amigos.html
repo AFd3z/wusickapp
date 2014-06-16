@@ -54,7 +54,9 @@
       </div>
     </div>
      <h1 class="titulo" class="text-info">Tus Amigos</h1>
-    
+     <div ng-if="amigos==''"> 
+                <p class="h3 text-info" style="font-weight:100;"><spam style="text-transform: capitalize;">{{usuario.nombre}}</spam>,actualmente no tienes amigos en tu perfil.</p>
+              </div>
     <div id="amigosListaAmigos">
         <ul class="list-unstyled">
             <li ng-repeat="amigo in amigos" ng-show="amigo.Tipo_usuarios_idTipo_usuarios==1">

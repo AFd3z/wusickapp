@@ -621,14 +621,16 @@ WusickControllers.controller('perfilCtrl', ['$scope', '$http','$location','webSt
             if($scope.datosPost.destinatario===undefined || $scope.datosPost.destinatario===''){
                 $scope.datosPost.destinatario=null;
             }
+            if($scope.amigos.length==0){
+                            smoke.alert('Tienes que tener amigos para postear. Si no...\n ¿Quién lo leería entonces?');
+                            return false; 
+                        }
 
                 $http.post('/post/postear', $scope.datosPost)
                     .success(function(data){
                         $scope.datospost=data[0];
                         $scope.obtenerPostPropios();
-                        if($scope.amigos.length==0){
-                            smoke.alert('Tienes que tener amigos para postear. Si no...\n ¿Quién lo leería entonces?');
-                        }
+                        
                      
                     })
                     .error(function(data) {

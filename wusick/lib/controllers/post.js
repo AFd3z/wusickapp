@@ -105,7 +105,7 @@ exports.obtenerPostPropios = function (req,res) {
 	var id =req.params.id;
 
 	var sqlconnection = connection.createConnection();
-	var query = 'select p.idPosts, p.contenido, p.fecha, p.post_img, p.destinatario, p.Usuarios_idUsuario, u.idUsuario, u.nombre from posts p, usuarios u where p.Usuarios_idUsuario = '+id+' and idUsuario = '+id+' or p.destinatario = u.nombre';
+	var query = 'select p.idPosts, p.contenido, p.fecha, p.post_img, p.destinatario, p.Usuarios_idUsuario, u.idUsuario, u.nombre from posts p, usuarios u where p.Usuarios_idUsuario = '+id+' and idUsuario = '+id+' or p.destinatario = u.nombre order by p.fecha desc';
 	           
 	    sqlconnection.query(query, function(err, results) {
 	            if (err){
