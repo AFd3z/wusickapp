@@ -14,6 +14,7 @@
                 <ul id="listaAmigos">
                     <a href="/amigos" class="buscara">Buscar Amigos</a>
                     <li ng-repeat="amigoSide in amigosSide" ng-show="amigoSide.Tipo_usuarios_idTipo_usuarios==1">
+                        <img src="../images/amigo.png" width="20" style="display:inline-block;"/> 
                         <a ng-href="/perfil/{{amigoSide.idUsuario}}">{{amigoSide.nombre}}</a>
                     </li>
                 </ul>
@@ -23,6 +24,7 @@
                 <ul id="listaArtistas">
                     <a href="/artistas" class="buscara">Buscar Artistas</a>
                     <li ng-repeat="artista in artistasSide" ng-show="artista.Tipo_usuarios_idTipo_usuarios==2" >
+                        <img src="../images/artist.png" width="20" style="display:inline-block;"/> 
                         <a ng-href="/perfil/{{artista.idUsuario}}">{{artista.nombre}}</a>
                     </li>
                 </ul>
@@ -32,6 +34,7 @@
             <ul id="listaArtistas">
                 <a href="/salas" class="buscara">Buscar Salas</a>
                     <li ng-repeat="sala in salasSide" ng-show="sala.Tipo_usuarios_idTipo_usuarios==3" >
+                        <img src="../images/salas.png" width="20" style="display:inline-block;"/> 
                         <a ng-href="/perfil/{{sala.idUsuario}}">{{sala.nombre}}</a>
                     </li>
                 </ul>

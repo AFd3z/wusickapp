@@ -55,7 +55,11 @@
     </div>
      <h1 class="titulo" class="text-info">Tus Amigos</h1>
      <div ng-if="amigos==''"> 
-                <p class="h3 text-info" style="font-weight:100;"><spam style="text-transform: capitalize;">{{usuario.nombre}}</spam>,actualmente no tienes amigos en tu perfil.</p>
+                <p class="h3 text-info" style="font-weight:100;">
+                  <img class="img-responsive" ng-src="../images/comment.png" width="60" style="display:inline-block"/>
+                  <spam style="text-transform: capitalize;">{{usuario.nombre}}</spam>,actualmente no tienes amigos en tu perfil.
+  
+                </p>
               </div>
     <div id="amigosListaAmigos">
         <ul class="list-unstyled">
