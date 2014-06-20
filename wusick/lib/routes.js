@@ -38,7 +38,7 @@ module.exports = function(app) {
  //ADMINISTRACION
  app.route('/user/bloquear/:id').post(user.bloquear);
  app.route('/user/desbloquear/:id').post(user.desbloquear);
- app.route('/user/borrarUsuario/:id').post(user.borrarUsuario);
+ app.route('/user/borrarUsuario/:id').delete(user.borrarUsuario);
  app.route('/user/modificarUsuario/:id').post(user.modificarUsuario);
  app.route('/user/listadoUsuarios').get(user.listadoUsuarios);
  app.route('/user/datosXtipo').get(user.datosXtipo);
@@ -50,7 +50,7 @@ module.exports = function(app) {
  app.route('/post/obtenerPostDeUnId/:id').post(post.obtenerPostDeUnId);
  app.route('/post/obtenerTodosPost').post(post.obtenerTodosPost);
  app.route('/post/postear').post(post.postear);
- app.route('/post/borrarPost/:id').post(post.borrarPost);
+ app.route('/post/borrarPost/:id').delete(post.borrarPost);
 
   
 

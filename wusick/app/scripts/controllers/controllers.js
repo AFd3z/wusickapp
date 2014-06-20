@@ -297,7 +297,7 @@ $scope.menu = [
 }]);
 //
 
-//CONTROLADORSALAS
+//CONTROLADOR SALAS
 
 WusickControllers.controller('salasCtrl', ['$scope', '$http','$location', 'webStorage', function ($scope, $http, $location, webStorage) {
 
@@ -808,7 +808,7 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
     	
     	smoke.confirm('Está seguro de querer BORRAR el usuario '+obj.target.attributes.name.value+' ?',function(e){
     		if (e){
-    	    	 $http.post('/user/borrarUsuario/'+obj.target.attributes.data.value)
+    	    	 $http.delete('/user/borrarUsuario/'+obj.target.attributes.data.value)
     	         .success(function(data){
     	                console.log(data);
     	                location.reload();
@@ -937,14 +937,14 @@ WusickControllers.controller('adminCtrl', ['$scope', '$location', '$http','webSt
     $scope.eliminarPost = function(obj){
     	var c = confirm('¿ Está seguro de querer ELIMINAR este post ?');
     	if (c==true){
-    	 $http.post('/post/borrarPost/'+obj.target.attributes.data.value)
+    	 $http.delete('/post/borrarPost/'+obj.target.attributes.data.value)
          .success(function(data){
                 console.log("----> " + data);
                 //$("#modalPost").toggle();
                 alert('!Post eliminado!');
          })
         .error(function(data) {
-                 console.log('Error::' + data);
+                 console.log('Error:' + data);
                  //$("#"+obj.target.attributes.data.value).css('text-decoration', 'line-through');
                  //$("#"+obj.target.attributes.data.value).css('display', 'none');
                  $("#"+obj.target.attributes.data.value).html('post: '+obj.target.attributes.data.value+' Eliminado!').css('color', 'red');
