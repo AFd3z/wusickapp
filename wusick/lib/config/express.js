@@ -7,7 +7,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     cookieParser = require('cookie-parser'),
-    session = require('express-session'),
+    //session = require('express-session'),
     errorHandler = require('errorhandler'),
     path = require('path'),
     config = require('./config'),
@@ -37,7 +37,7 @@ module.exports = function(app) {
     app.use(express.static(path.join(config.root, 'app')));
     app.set('views', config.root + '/app/views');
     app.use(cookieParser());
-    app.use(session({secret:'mi secreto'}));
+    //app.use(session({secret:'mi secreto'})); usando sesiones desde angular
   }
 
   if ('production' === env) {
@@ -46,7 +46,7 @@ module.exports = function(app) {
     app.use(express.static(path.join(config.root, 'public')));
     app.set('views', config.root + '/views');
     app.use(cookieParser());
-    app.use(session({secret:'mi secreto'}));
+    //app.use(session({secret:'mi secreto'})); usando sesiones desde angular
   }
 
   app.engine('html', require('ejs').renderFile);
@@ -55,7 +55,7 @@ module.exports = function(app) {
   app.use(bodyParser());
   app.use(methodOverride());
   app.use(cookieParser());
-  app.use(session({secret:'mi secreto'}));
+  //app.use(session({secret:'mi secreto'}));
 
   // Error handler - has to be last
   if ('development' === app.get('env')) {
