@@ -46,7 +46,7 @@ module.exports = function(app) {
     app.use(express.static(path.join(config.root, 'public')));
     app.set('views', config.root + '/views');
     app.use(cookieParser());
-    app.use(session({secret:'mi secreto'})); 
+    app.use(session({secret:'mi secreto'}));
   }
 
   app.engine('html', require('ejs').renderFile);
