@@ -13,9 +13,9 @@
           <div ng-if='solicitudesD==""'><br/>
 			<p class="h3 text-info" style="font-weight:100">Actualmente no tiene ninguna solicitud de amistad</p>
 			</div>
-          
-            <td style="text-align: center;">{{solicitud.nombre}}</td>
-           
+       
+      <td style="text-align: center;"><img ng-src="{{solicitud.profile_img}}" class="img-responsive" heigth="40" width="40"/></td>    
+      <td style="text-align: center;"><a ng-href="/perfil/{{solicitud.idUsuario}}">{{solicitud.nombre}}</a></td>
 			<td style="text-align: center;">
 			<a class="btn btn-info" data={{solicitud.idUsuario}} ng-click='anadirAAmigos($event)' >Aceptar</a>
 			</td>

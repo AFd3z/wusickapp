@@ -269,7 +269,7 @@ exports.solicitudes = function (req,res) {
 		var id = req.params.id;
 
 		  var sqlconnection = connection.createConnection();
-		  var query = 'SELECT nombre, idUsuario FROM usuarios WHERE idUsuario= ANY(SELECT idSolicitante from solicitudes WHERE idSolicitado='+id+')';
+		  var query = 'SELECT nombre, idUsuario, profile_img FROM usuarios WHERE idUsuario= ANY(SELECT idSolicitante from solicitudes WHERE idSolicitado='+id+')';
 
 		    sqlconnection.query(query, function(err, results) {
 		        if (err)
