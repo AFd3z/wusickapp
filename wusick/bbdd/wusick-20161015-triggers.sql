@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `mydb` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `mydb`;
+CREATE DATABASE  IF NOT EXISTS `wusick` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `wusick`;
 -- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
 --
 -- Host: 127.0.0.1    Database: mydb
