@@ -7,4 +7,7 @@ https://www.npmjs.com/package/MD5
 nodemailer -> npm install nodemailer
 https://github.com/nodemailer/nodemailer
 
+mysql -> npm instal mysql
+https://github.com/mysqljs/mysql
+
 Thanks all!! ;)
