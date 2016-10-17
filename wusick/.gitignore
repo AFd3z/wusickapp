@@ -6,3 +6,7 @@ app/bower_components
 heroku
 /views
 dist
+.settings
+.bowerrc
+.editorconfig
+npm-debug.log

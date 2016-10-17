@@ -27,6 +27,7 @@ module.exports = function(app) {
     app.use(function noCache(req, res, next) {
       if (req.url.indexOf('/scripts/') === 0) {
         res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+        res.header('Content-Type', 'application/json; charset=utf-8');
         res.header('Pragma', 'no-cache');
         res.header('Expires', 0);
       }

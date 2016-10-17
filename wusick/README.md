@@ -1,20 +1,10 @@
+Modules you need to install before running wusick:
 
 
-# wusick
+MD5 -> npm install MD5
+https://www.npmjs.com/package/MD5
 
+nodemailer -> npm install nodemailer
+https://github.com/nodemailer/nodemailer
 
-Ss
-## Usage
-
-
-##asdas
-## Developing
-
-PruebaSD
-
-### Tools
-
-Created with [Nodeclipse](https://github.com/Nodeclipse/nodeclipse-1)
- ([Eclipse Marketplace](http://marketplace.eclipse.org/content/nodeclipse), [site](http://www.nodeclipse.org))   
-
-Nodeclipse is free open-source project that grows with your contributions.
+Thanks all!! ;)
