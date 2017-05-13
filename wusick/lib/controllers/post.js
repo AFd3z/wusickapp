@@ -23,7 +23,7 @@ exports.postear = function (req,res) {
 			post_img= "'"+post_img+"'";
 		}
 
-	var sqlconnection = connection.createConnection();
+	var sqlconnection = this.createConnection();
 	var query = 'INSERT INTO posts (contenido, fecha,post_img, destinatario, Usuarios_idUsuario) VALUES ("'+contenido+'",now(),'+post_img+','+destinatario+','+usuario+') ';
 	           console.log(query);
 	    sqlconnection.query(query, function(err, results) {
@@ -134,5 +134,7 @@ exports.obtenerPostDeUnId = function (req,res) {
 	             }
 	            });
 };
+
+
 
 
