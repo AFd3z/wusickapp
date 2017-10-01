@@ -46,7 +46,7 @@ exports.postear = function (req,res) {
 	            });	
 };
 
-//Funcion de borrado de posts, la llamada sera /post/borrarPost/:id
+//Función de borrado de posts, la llamada sera /post/borrarPost/:id
 exports.borrarPost = function (req,res) {
 	
 	var id =req.params.id;
@@ -65,7 +65,7 @@ exports.borrarPost = function (req,res) {
 	            });	
 };
 
-//Funcion de recuperacion de post del main
+//Función de recuperacion de post del main
 exports.obtenerPost = function (req,res) {
 	
 	var id =req.params.id;
@@ -83,7 +83,7 @@ exports.obtenerPost = function (req,res) {
 	            });
 };
 
-//Funcion de recuperacion de post del admin
+//Función de recuperacion de post del admin
 exports.obtenerTodosPost = function (req,res) {
 
 	var sqlconnection = connection.createConnection();
@@ -99,7 +99,7 @@ exports.obtenerTodosPost = function (req,res) {
 	            });	
 };
 
-//Funcion de recuperacion de post del main
+//Función de recuperacion de post del main
 exports.obtenerPostPropios = function (req,res) {
 	
 	var id =req.params.id;

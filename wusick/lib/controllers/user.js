@@ -5,7 +5,7 @@
 
 var connection = require('dbfunct/MySQLconnection');
 
-//Funcion Login
+//Funci贸n Login
 exports.login = function (req,res,callback) {
 
 var user = req.body.email;
@@ -57,7 +57,7 @@ var json ="";
     });
 };
 
-//Funcion Registro
+//Funci贸n Registro
 exports.registro = function (req,res) {
 	
 		var user = req.body.nombre;
@@ -131,7 +131,7 @@ exports.registro = function (req,res) {
 		  });
 	};
 
-//Funcion seguir
+//Funci贸n seguir
 exports.seguir = function (req,res) {
 
 	
@@ -153,7 +153,7 @@ exports.seguir = function (req,res) {
 		  });
 	};
 	
-//Funcion a馻dir amigos (solicitud)
+//Funci贸n a帽adir amigos (solicitud)
 exports.anadir = function (req,res) {
 
 	
@@ -167,7 +167,7 @@ exports.anadir = function (req,res) {
 		        if (err)
 		            res.send(err, "query error");
 		        
-	        	console.log("Usuario "+id+" env韆 petici髇 de amistad a usuario "+id2);
+	        	console.log("Usuario "+id+" env锟絘 petici锟絥 de amistad a usuario "+id2);
 			    	sqlconnection.end();
 		     
 			    	res.send("ok");
@@ -176,7 +176,7 @@ exports.anadir = function (req,res) {
 	};
 
 	
-//Funcion a馻dir amigos (tabla amigos)
+//Funci贸n a帽adir amigos (tabla amigos)
 exports.anadirAAmigos = function (req,res) {
 
 	
@@ -200,7 +200,7 @@ exports.anadirAAmigos = function (req,res) {
 		        if (err)
 		            res.send(err, "query error");
 		        
-	        	console.log("Usuario "+id+" a馻de como amigo a "+id2);
+	        	console.log("Usuario "+id+" a锟絘de como amigo a "+id2);
 		     
 			    	res.send("ok");
 
@@ -212,7 +212,7 @@ exports.anadirAAmigos = function (req,res) {
 		        if (err)
 		            res.send(err, "query error");
 		        
-	        	console.log("Usuario "+id2+" a馻de como amigo a "+id);
+	        	console.log("Usuario "+id2+" a锟絘de como amigo a "+id);
 			    	sqlconnection.end();
 
 
@@ -222,7 +222,7 @@ exports.anadirAAmigos = function (req,res) {
 		    
 	};	
 	
-//Funcion borrar solicitudes de amigos
+//Funci贸n borrar solicitudes de amigos
 exports.noAnadir = function (req,res) {
 
 	
@@ -242,7 +242,7 @@ exports.noAnadir = function (req,res) {
 		     
 	};	
 	
-//Funcion mostrar numero solicitudes de amistad
+//Funci贸n mostrar numero solicitudes de amistad
 exports.numSolicitudes = function (req,res) {
 
 	
@@ -262,7 +262,7 @@ exports.numSolicitudes = function (req,res) {
 		  });
 	};
 	
-//Funcion mostrar solicitudes de amistad
+//Funci贸nn mostrar solicitudes de amistad
 exports.solicitudes = function (req,res) {
 
 	
@@ -360,7 +360,7 @@ exports.borrarUsuario = function (req,res) {
 	            });	
 };
 
-//Funcion que destruye sesi贸n
+//Funci贸n que destruye sesi贸n
 /*	    
 exports.logout = function (req,res) {
 	webStorage.session.clear();
@@ -369,7 +369,7 @@ exports.logout = function (req,res) {
 };*/
 
 
-//Funcion Edicion de un usuario
+//Funci贸n Edicion de un usuario
 exports.modificarUsuario = function (req,res) {
 	 //------------------------------------------------------------------------------------------------------------
 	var id = req.params.id;
@@ -439,7 +439,7 @@ exports.UpdateUsuario = function(req,res) {
 	var nombre = req.body.nombre;
 	var email = req.body.email;
 	var password = req.body.password;
-	//creamos objeto conexi髇
+	//creamos objeto conexi贸n
 	var sqlconnection = connection.createConnection();
 	
 	var query0 = 'UPDATE usuarios SET nombre="'+nombre+'", password="'+password+'", email="'+email+'" WHERE idUsuario='+id+';';
@@ -452,7 +452,7 @@ exports.UpdateUsuario = function(req,res) {
 	    }else{
 	    	switch (tipo) {
 	    	case 1:
-	    		/*-----usuario basico------*/
+	    		/*-----usuario b谩sico------*/
 	    		var fecha_nac = req.body.fecha_nac;
 	    		var sexo = req.body.sexo;
 	    		query1 = 'UPDATE basicos SET fecha_nac="'+fecha_nac+'", sexo="'+sexo+'" WHERE Usuarios_idUsuario='+id+';';

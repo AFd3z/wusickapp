@@ -6,7 +6,7 @@
 var connection = require('dbfunct/MySQLconnection');
 var nodemailer = require('nodemailer');
 
-//Funcion para comprobar si existe mail registrado
+//Funci贸n para comprobar si existe mail registrado
 exports.existeMail = function (req,res) {
 
 	var mail = req.body.email;
@@ -87,7 +87,7 @@ exports.generos= function (req,res){
 
 
 
-//Funci髇 para obtener el id de usuarios a trav閟 del email (primera variable de sesi髇)
+//Funci贸n para obtener el id de usuarios a trav茅s del email (primera variable de sesi贸n)
 exports.getIdByEmail = function(req, res){
 	var email = req.body.email;
 	var sqlconnection = connection.createConnection();
@@ -125,7 +125,7 @@ exports.getAdminByEmail = function(req, res){
 
 
 
-//Funci髇 para obtener el nombre de usuario a trav閟 del id
+//Funci贸n para obtener el nombre de usuario a trav茅s del id
 exports.getUserById = function(req, res){
 	var id= req.body.id;
 	console.log(id);
@@ -142,7 +142,7 @@ exports.getUserById = function(req, res){
 	            });
 };
 
-//Funci髇 para obtener los amigos
+//Funci贸n para obtener los amigos
 exports.getFriendsById = function(req, res){
 	
 	var id = req.params.id;
@@ -161,7 +161,7 @@ exports.getFriendsById = function(req, res){
 };
 	
 
-//Funci髇 que crea la sesi髇	
+//Funci贸n que crea la sesi贸n	
 exports.crearSesion = function (req,res) {
 	
 	req.session.mail=req.body.email;
@@ -169,14 +169,14 @@ exports.crearSesion = function (req,res) {
 	
 };
 
-//Funci髇 que devuelve la sesi髇
+//Funci贸n que devuelve la sesi贸n
 exports.getSesion = function (req,res) {
   
 	res.send(req.session.mail);
 	
 };
 
-//funcion para recuperar la contrase馻
+//Funci贸n para recuperar la contrase帽a
 exports.recuperarPwd= function(req, res){
 	   
     var nombre= req.body.nombre;
@@ -196,7 +196,7 @@ exports.recuperarPwd= function(req, res){
             from: "wusickapp@gmail.com",
             to: email, 
             subject: "Wusick restablecer pwd",
-            html: "Su contrase馻 es: "+pass
+            html: "Su contrase锟絘 es: "+pass
         }
 
       smtpTransport.sendMail(mailOptions, function(error, response){
